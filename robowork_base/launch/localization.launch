@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot_namespace" default="bvr"/> #""
+  <arg name="arm_namespace" default="main_arm"/> #""
+
+  <!-- <group ns="$(arg robot_namespace)"> -->
+
+    <arg name="camera_manager" default="l515/realsense2_camera_manager"/> #name used by realsense2_camera nodelet manager
+    <node pkg="nodelet" type="nodelet" name="l515_rectify_color" args="load image_proc/rectify $(arg camera_manager)">
+      <remap from="image_mono" to="l515/color/image_raw" />
+      <remap from="camera_info" to="l515/color/camera_info" />
+      <remap from="image_rect" to="l515/color/image_rect_color" />
+    </node>
+    <!-- <node name="image_proc_fisheye1" pkg="image_proc" type="image_proc" ns="t265/fisheye1"/>
+    <node name="image_proc_fisheye1" pkg="image_proc" type="image_proc" ns="t265/fisheye2"/> -->
+
+    <node name="t265_connector" pkg="tf" type="static_transform_publisher" args="0.0 0.0 0.0 0.0 0.0 0.0 /$(arg robot_namespace)/$(arg arm_namespace)/t265_link /$(arg robot_namespace)/t265_link 100"/>
+    <node name="l515_connector" pkg="tf" type="static_transform_publisher" args="0.0 0.0 0.0 0.0 0.0 0.0 /$(arg robot_namespace)/$(arg arm_namespace)/l515_link /$(arg robot_namespace)/l515_link 100"/>
+
+    <!-- T265 -->
+    <include file="$(find robowork_base)/launch/realsense_t265.launch">
+      <arg name="camera"  value="t265"/>
+      <arg name="tf_prefix"  value="$(arg robot_namespace)/t265"/> #$(arg robot_namespace)/t265
+    </include>
+
+    <!-- L515 -->
+    <include file="$(find robowork_base)/launch/realsense_l515.launch">
+      <arg name="camera"  value="l515"/>
+      <arg name="tf_prefix"  value="$(arg robot_namespace)/l515"/> #$(arg robot_namespace)/l515
+    </include>
+
+    <!-- RTABMAP -->
+    <include file="$(find robowork_base)/launch/realsense_rtabmap.launch">
+      <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+      <arg name="arm_namespace" value="$(arg arm_namespace)"/>
+    </include>
+
+    <!-- <node pkg="rovio" type="rovio_node" name="rovio_bsp" output="screen">
+      <param name="filter_config" value="$(find rovio)/../../rovio_T265_@9.84.info"/>
+      <param name="camera0_config" value="$(find rovio)/../../rovio_T265fisheyerectified1_cam.yaml"/>
+      <param name="camera1_config" value="$(find rovio)/../../rovio_T265fisheyerectified2_cam.yaml"/>
+        <param name="imu_frame" value="imu"/>
+        <param name="camera_frame" value="camera"/>
+        <param name="world_frame" value="t265_odom_frame"/> #map
+      <remap from="/imu0" to="t265/imu"/>
+      <remap from="/cam0/image_raw" to="t265/fisheye1/image_rect"/>
+      <remap from="/cam1/image_raw" to="t265/fisheye2/image_rect"/>
+        <param name="imu_offset" value="0.0"/>
+        <param name="cam0_offset" value="0.0"/>
+        <param name="resize_input_image" value="true"/> #false
+        <param name="resize_factor" value="1.0"/> #1.0
+    </node> -->
+
+    <?ignore
+    <node name="aux_map_to_world" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 map world 100"/>
+
+    <node pkg="rovio" type="rovio_node" name="rovio_bsp" output="screen">
+      <param name="filter_config" value="$(find rovio)/../../rovio_D435i_@9.84.info"/>
+      <param name="camera0_config" value="$(find rovio)/../../rovio_D435iinfra1_cam.yaml"/>
+      <param name="camera1_config" value="$(find rovio)/../../rovio_D435iinfra2_cam.yaml"/>
+        <param name="imu_frame" value="imu"/>
+        <param name="camera_frame" value="camera"/>
+      <remap from="/imu0" to="/d435i/imu"/>
+      <remap from="/cam0/image_raw" to="/d435i/infra1/image_rect_raw"/>
+      <remap from="/cam1/image_raw" to="/d435i/infra2/image_rect_raw"/>
+        <param name="imu_offset" value="0.0"/>
+        <param name="cam0_offset" value="0.0"/>
+        <param name="resize_input_image" value="false"/>
+        <param name="resize_factor" value="1.0"/>
+    </node>
+
+    <!-- <node name="okvis_node" pkg="okvis_ros" type="okvis_node" output="screen">
+      <param name="config_filename" value="$(find okvis_ros)/../../okvis_config_D435i_@9.84.yaml" />
+      <param name="mesh_file" value="xxx.dae" />
+      <remap from="/camera0" to="/d435i/infra1/image_rect_raw" />
+      <remap from="/calibration0" to="/xxx/calibration" />
+      <remap from="/camera1" to="/d435i/infra2/image_rect_raw" />
+      <remap from="/calibration1" to="/xxx/calibration" />
+      <remap from="/imu" to="/d435i/imu" />
+    </node> -->
+
+    <include file="$(find realsense2_camera)/launch/rs_bvr.launch">
+        <arg name="enable_emitter" value="false"/>
+          <arg name="infra_fps" value="15"/>
+        <arg name="publish_camera_info" value="false"/>
+        <arg name="enable_gyro" value="true"/>
+        <arg name="enable_accel" value="true"/>
+        <arg name="enable_sync" value="false"/>
+        <arg name="enable_pointcloud" value="false"/>
+        <arg name="align_depth" value="false"/>
+      <arg name="initial_reset" value="false"/>
+      <arg name="linear_accel_cov" value="1.0"/>
+      <arg name="unite_imu_method" value="linear_interpolation"/>
+    </include>
+    ?>
+
+  <!-- </group> -->
+
+</launch>

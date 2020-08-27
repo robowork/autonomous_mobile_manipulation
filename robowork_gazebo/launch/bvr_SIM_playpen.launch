@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="VIO_enabled" default="true"/>
+
+  <arg name="robot_initial_x" default="0.0"/>
+  <arg name="robot_initial_y" default="0.0"/>
+  <arg name="robot_initial_z" default="0.2185"/>
+  <arg name="robot_initial_yaw" default="0.0"/>
+
+  <arg name="pi" value="3.14159265358979"/>
+  <arg name="shoulder_pan_joint_init" value="$(eval 0.0)"/>
+  <arg name="shoulder_lift_joint_init" value="$(eval -1.5*pi/6)"/>
+  <arg name="elbow_joint_init" value="$(eval -4.0*pi/6)"/> #BUG: -4.5*pi/6 makes gazebo sim wind to 8*pi/6 which is outside the -pi,+pi joint range
+  <arg name="wrist_1_joint_init" value="$(eval -0.15*pi/2)"/>
+  <arg name="wrist_2_joint_init" value="$(eval 1.0*pi/2)"/>
+  <arg name="wrist_3_joint_init" value="$(eval 0.0)"/>
+
+  <arg name="robot_initial_joint_states"
+    default="-J bvr_SIM/main_arm_SIM/shoulder_pan_joint $(arg shoulder_pan_joint_init)
+             -J bvr_SIM/main_arm_SIM/shoulder_lift_joint $(arg shoulder_lift_joint_init)
+             -J bvr_SIM/main_arm_SIM/elbow_joint $(arg elbow_joint_init)
+             -J bvr_SIM/main_arm_SIM/wrist_1_joint $(arg wrist_1_joint_init)
+             -J bvr_SIM/main_arm_SIM/wrist_2_joint $(arg wrist_2_joint_init)
+             -J bvr_SIM/main_arm_SIM/wrist_3_joint $(arg wrist_3_joint_init)"/>
+
+  <arg name="world_name" default="$(find robowork_gazebo)/worlds/bvr_playpen.world"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(arg world_name)"/>
+    <arg name="paused" value="true"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <include file="$(find robowork_gazebo)/launch/spawn_bvr_SIM_robot.launch">
+    <arg name="VIO_enabled" value="$(arg VIO_enabled)"/>
+    <arg name="robot_initial_x" value="$(arg robot_initial_x)"/>
+    <arg name="robot_initial_y" value="$(arg robot_initial_y)"/>
+    <arg name="robot_initial_z" value="$(arg robot_initial_z)"/>
+    <arg name="robot_initial_yaw" value="$(arg robot_initial_yaw)"/>
+    <arg name="robot_initial_joint_states" value="$(arg robot_initial_joint_states)"/>
+  </include>
+
+</launch>

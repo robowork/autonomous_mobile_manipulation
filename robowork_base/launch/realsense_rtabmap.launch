@@ -1,0 +1,115 @@
+<!-- Launch me -->
+<launch>
+
+  <arg name="robot_namespace" default=""/>
+  <arg name="arm_namespace" default=""/>
+
+  <group ns="rtabmap">
+
+    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
+          <param name="frame_id" type="string" value="/$(arg robot_namespace)/t265_link"/> #l515_link
+          <param name="approx_sync" type="bool" value="false"/> #true
+          <param name="queue_size" type="int" value="10"/>
+
+          <param name="publish_tf" type="bool" value="true"/>
+          <param name="wait_for_transform" type="bool" value="true"/>
+          <param name="wait_for_transform_duration" type="double" value="0.1"/> #0.1
+
+          <param name="subscribe_rgb" type="bool" value="true"/>
+          <param name="subscribe_depth" type="bool" value="true"/>
+          <param name="subscribe_rgbd" type="bool" value="false"/>
+          <param name="subscribe_scan_cloud" type="bool" value="false"/>
+
+          <param name="odom_frame_id" type="string" value="/$(arg robot_namespace)/odom"/> #/$(arg robot_namespace)/odom
+          <remap from="odom" to="/$(arg robot_namespace)/t265/odom/sample"/>
+
+          <remap from="rgb/image" to="/$(arg robot_namespace)/l515/color/image_raw"/> #/l515/color/image_raw
+          <remap from="depth/image" to="/$(arg robot_namespace)/l515/aligned_depth_to_color/image_raw"/> #/l515/aligned_depth_to_color/image_raw
+          <remap from="rgb/camera_info" to="/$(arg robot_namespace)/l515/color/camera_info"/> #/l515/color/camera_info
+
+          <remap from="rgbd_image" to="/$(arg robot_namespace)/l515/rgbd_image"/> #/l515/rgbd_image
+
+          <remap from="scan_cloud" to="/$(arg robot_namespace)/l515/voxel_cloud"/> #/l515/voxel_cloud #/l515/depth/color/points #/l515/voxel_cloud
+
+          <!-- RTAB-Map's parameters -->
+          <param name="RGBD/AngularUpdate"        type="string" value="0.01"/>
+          <param name="RGBD/LinearUpdate"         type="string" value="0.01"/>
+          <param name="RGBD/OptimizeFromGraphEnd" type="string" value="false"/> #false
+          <param name="Vis/MinInliers"            type="string" value="12"/> #12
+
+          <param name="Optimizer/Strategy"        type="string" value="2"/> #1
+          <param name="GTSAM/Optimizer"           type="string" value="0"/> #1
+          <param name="RGBD/CreateOccupancyGrid"  type="string" value="false"/> #true
+          <param name="Reg/Strategy"              type="string" value="0"/> #0
+          <param name="Grid/DepthDecimation"      type="string" value="4"/> #4
+          <param name="Grid/RangeMax"             type="string" value="10.0"/> #5.0
+
+          <param name="Grid/MaxObstacleHeight"    type="string" value="2.0"/>
+    </node>
+
+    # Visualization
+    <!-- <node pkg="rtabmap_ros" type="rtabmapviz" name="rtabmapviz" args="-d $(find rtabmap_ros)/launch/config/rgbd_gui.ini" output="screen">
+      <param name="frame_id" type="string" value="/$(arg robot_namespace)/t265_link"/> #l515_link
+      <param name="approx_sync" type="bool" value="false"/> #true
+      <param name="queue_size" type="int" value="10"/>
+
+      <param name="publish_tf" type="bool" value="true"/>
+      <param name="wait_for_transform" type="bool" value="true"/>
+      <param name="wait_for_transform_duration" type="double" value="0.1"/> #0.1
+
+      <param name="subscribe_rgb" type="bool" value="true"/>
+      <param name="subscribe_depth" type="bool" value="true"/>
+      <param name="subscribe_rgbd" type="bool" value="false"/>
+      <param name="subscribe_scan_cloud" type="bool" value="false"/>
+
+      <param name="odom_frame_id" type="string" value="/$(arg robot_namespace)/odom"/> #/$(arg robot_namespace)/odom
+      <remap from="odom" to="/$(arg robot_namespace)/t265/odom/sample"/>
+
+      <remap from="rgb/image" to="/$(arg robot_namespace)/l515/color/image_raw"/> #/l515/color/image_raw
+      <remap from="depth/image" to="/$(arg robot_namespace)/l515/aligned_depth_to_color/image_raw"/> #/l515/aligned_depth_to_color/image_raw
+      <remap from="rgb/camera_info" to="/$(arg robot_namespace)/l515/color/camera_info"/> #/l515/color/camera_info
+
+      <remap from="rgbd_image" to="/$(arg robot_namespace)/l515/rgbd_image"/> #/l515/rgbd_image
+
+      <remap from="scan_cloud" to="/$(arg robot_namespace)/l515/voxel_cloud"/> #/l515/voxel_cloud #/l515/depth/color/points #/l515/voxel_cloud
+    </node> -->
+
+    # RGB Odometry
+    <!-- <node pkg="rtabmap_ros" type="rgbd_odometry" name="rgbd_odometry" output="screen">
+      <param name="frame_id" type="string" value="/$(arg robot_namespace)/$(arg robot_namespace)_base_link"/> #l515_link
+      <param name="approx_sync"    type="bool" value="false"/>
+
+      <param name="subscribe_rgbd" type="bool" value="false"/>
+
+      <remap from="rgb/image" to="/$(arg robot_namespace)/l515/color/image_raw"/> #/l515/color/image_raw
+      <remap from="depth/image" to="/$(arg robot_namespace)/l515/aligned_depth_to_color/image_raw"/> #/l515/aligned_depth_to_color/image_raw
+      <remap from="rgb/camera_info" to="/$(arg robot_namespace)/l515/color/camera_info"/> #/l515/color/camera_info
+
+      <remap from="rgbd_image" to="/$(arg robot_namespace)/l515/rgbd_image"/> #/l515/rgbd_image
+    </node> -->
+
+    # ICP Odometry
+    <!-- <node pkg="rtabmap_ros" type="icp_odometry" name="icp_odometry" output="screen">
+      <param name="frame_id"                    type="string" value="/$(arg robot_namespace)/l515_link"/> #l515_link
+
+      <remap from="scan_cloud"             to="/$(arg robot_namespace)/l515/voxel_cloud"/> #/l515/voxel_cloud #/l515/depth/color/points #/l515/voxel_cloud
+      <remap from="imu"                    to="/imu"/>
+
+      <param name="scan_downsampling_step" type="int" value="1"/> #1
+      <param name="scan_normal_k"          type="int" value="10"/> #10
+      <param name="scan_normal_radius"     type="double" value="0.0"/> #1.0
+
+        <param name="Icp/PointToPlane"     type="string" value="false"/>
+        <param name="Icp/VoxelSize"        type="string" value="0"/> #0
+        <param name="Icp/PM"               type="string" value="false"/>
+        <param name="Icp/PMOutlierRatio"   type="string" value="0.65"/>
+        <param name="Icp/DownsamplingStep" type="string" value="1"/> #1
+        <param name="Icp/VoxelSize"        type="string" value="0.0"/> #0.0
+        <param name="Odom/GuessMotion"     type="string" value="true"/>
+        <param name="Odom/ResetCountdown"  type="string" value="1"/>
+
+    </node> -->
+
+  </group>
+
+</launch>

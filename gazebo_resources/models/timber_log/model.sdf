@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <model name="timber_log">
+    <pose>0 0 0 0 0 0</pose>
+    <static>false</static>
+    <inertial>
+        <mass value="100.0"/>
+        <origin xyz="0 0 0" />
+        <inertia ixx="1.0" ixy="-1.0" ixz="-1.0" iyy="10.0" iyz="-1.0" izz="100.0" />
+    </inertial>
+    <link name="link">
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://timber_log/meshes/timber_log.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://timber_log/meshes/timber_log.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+  </model>
+</sdf>

@@ -1,0 +1,69 @@
+[submodule "deps/fmauch_universal_robot"]
+	path = deps/fmauch_universal_robot
+	url = https://github.com/fmauch/universal_robot.git
+[submodule "deps/apriltag_ros"]
+	path = deps/apriltag_ros
+	url = https://github.com/AprilRobotics/apriltag_ros
+[submodule "deps/apriltag"]
+	path = deps/apriltag
+	url = https://github.com/AprilRobotics/apriltag
+[submodule "deps/collada_urdf"]
+	path = deps/collada_urdf
+	url = https://github.com/ros/collada_urdf
+[submodule "deps/hector_localization"]
+	path = deps/hector_localization
+	url = https://github.com/tu-darmstadt-ros-pkg/hector_localization
+[submodule "deps/move_base_flex"]
+	path = deps/move_base_flex
+	url = https://github.com/magazino/move_base_flex
+[submodule "deps/moveit"]
+	path = deps/moveit
+	url = https://github.com/ros-planning/moveit
+[submodule "deps/moveit_grasps"]
+	path = deps/moveit_grasps
+	url = https://github.com/ros-planning/moveit_grasps
+[submodule "deps/moveit_msgs"]
+	path = deps/moveit_msgs
+	url = https://github.com/ros-planning/moveit_msgs
+[submodule "deps/moveit_resources"]
+	path = deps/moveit_resources
+	url = https://github.com/ros-planning/moveit_resources
+[submodule "deps/moveit_visual_tools"]
+	path = deps/moveit_visual_tools
+	url = https://github.com/ros-planning/moveit_visual_tools
+[submodule "deps/rviz_visual_tools"]
+	path = deps/rviz_visual_tools
+	url = https://github.com/PickNikRobotics/rviz_visual_tools
+[submodule "deps/trac_ik"]
+	path = deps/trac_ik
+	url = https://bitbucket.org/traclabs/trac_ik
+[submodule "deps/octomap_ros"]
+	path = deps/octomap_ros
+	url = https://github.com/OctoMap/octomap_ros
+[submodule "deps/ompl"]
+	path = deps/ompl
+	url = https://github.com/ompl/ompl
+[submodule "deps/rtabmap_ros"]
+	path = deps/rtabmap_ros
+	url = https://github.com/introlab/rtabmap_ros
+[submodule "deps/vision_opencv"]
+	path = deps/vision_opencv
+	url = https://github.com/ros-perception/vision_opencv
+[submodule "deps/costmap_converter"]
+	path = deps/costmap_converter
+	url = https://github.com/rst-tu-dortmund/costmap_converter
+[submodule "deps/teb_local_planner"]
+	path = deps/teb_local_planner
+	url = https://github.com/rst-tu-dortmund/teb_local_planner
+[submodule "deps/rospy_message_converter"]
+	path = deps/rospy_message_converter
+	url = https://github.com/uos/rospy_message_converter
+[submodule "deps/roboticsgroup_gazebo_plugins"]
+	path = deps/roboticsgroup_gazebo_plugins
+	url = https://github.com/roboticsgroup/roboticsgroup_gazebo_plugins
+[submodule "deps/general-message-pkgs"]
+	path = deps/general-message-pkgs
+	url = https://github.com/JenniferBuehler/general-message-pkgs
+[submodule "deps/gazebo-pkgs"]
+	path = deps/gazebo-pkgs
+	url = https://github.com/JenniferBuehler/gazebo-pkgs

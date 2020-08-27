@@ -1,0 +1,21 @@
+controller_list:
+  - name: main_arm_SIM/velocity_controller
+    action_ns: follow_joint_trajectory
+    default: true
+    type: FollowJointTrajectory
+    joints: [bvr_SIM/main_arm_SIM/shoulder_pan_joint, bvr_SIM/main_arm_SIM/shoulder_lift_joint, bvr_SIM/main_arm_SIM/elbow_joint, bvr_SIM/main_arm_SIM/wrist_1_joint, bvr_SIM/main_arm_SIM/wrist_2_joint, bvr_SIM/main_arm_SIM/wrist_3_joint, bvr_SIM/main_arm_SIM/ee_joint]
+  - name: main_arm_SIM/robotiq_controller
+    action_ns: follow_joint_trajectory
+    default: false
+    type: FollowJointTrajectory
+    joints: [bvr_SIM/main_arm_SIM/gripper/finger_joint]
+#  - name: main_arm_SIM/robotiq_controller
+#    action_ns: gripper_command
+#    default: true
+#    type: GripperCommand
+#    joints: [bvr_SIM/main_arm_SIM/gripper/finger_joint]
+  - name: main_arm_SIM/robotiq_controller
+    action_ns: follow_joint_trajectory
+    default: true
+    type: FollowJointTrajectory
+    joints: [bvr_SIM/main_arm_SIM/gripper/finger_joint]

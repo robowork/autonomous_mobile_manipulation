@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot_namespace" default=""/>
+  <arg name="arm_namespace" default=""/>
+  <arg name="controllers" default="$(arg robot_namespace)_joint_state_controller $(arg robot_namespace)_velocity_controller"/>
+
+  <!-- ROS Control params for Base -->
+  <rosparam command="load" file="$(find robowork_control)/config/$(arg robot_namespace)_control.yaml" />
+
+  <node name="$(arg robot_namespace)_base_controller_spawner" pkg="controller_manager" type="spawner" output="screen" args="$(arg controllers)" />
+
+  <node name="twist_marker_server_robot" pkg="interactive_marker_twist_server" type="marker_server" output="screen">
+    <param name="link_name" value="$(arg robot_namespace)/bvr_base_link"/>
+    <param name="robot_name" value="$(arg robot_namespace)/$(arg robot_namespace)_ur5_e_joint_limited_robot"/>
+    <param name="marker_size_scale" value="1.0"/>
+  </node>
+
+  <node name="twist_mux_robot" pkg="twist_mux" type="twist_mux" >
+    <rosparam command="load" file="$(find robowork_control)/config/$(arg robot_namespace)_twist_mux.yaml" />
+    <remap from="cmd_vel_out" to="$(arg robot_namespace)_velocity_controller/cmd_vel"/>
+  </node>
+</launch>

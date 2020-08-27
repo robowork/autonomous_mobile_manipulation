@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<package>
+  <name>robowork_base</name>
+  <version>0.0.0</version>
+  <description>robowork base</description>
+  <author email="papachric@gmail.com"> Christos Papachristos</author>
+  <maintainer email="papachric@gmail.com">Christos Papachristos</maintainer>
+
+  <license>None</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>controller_manager</build_depend>
+  <build_depend>diagnostic_updater</build_depend>
+  <build_depend>diagnostic_msgs</build_depend>
+  <build_depend>hardware_interface</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>roslaunch</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+
+  <run_depend>controller_manager</run_depend>
+  <run_depend>diagnostic_updater</run_depend>
+  <run_depend>diagnostic_msgs</run_depend>
+  <run_depend>diagnostic_aggregator</run_depend>
+  <run_depend>diff_drive_controller</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>hardware_interface</run_depend>
+  <run_depend>robowork_control</run_depend>
+  <run_depend>robowork_description</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+
+    <!-- Planning -->
+    <run_depend>map_server</run_depend>
+    <run_depend>move_base</run_depend>
+    <run_depend>navfn</run_depend>
+    <run_depend>base_local_planner</run_depend>
+    <run_depend>topic_tools</run_depend>
+    <run_depend>dwa_local_planner</run_depend>
+    <run_depend>teb_local_planner</run_depend>
+
+  <export></export>
+</package>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package>
+  <name>robowork_description</name>
+  <version>0.0.0</version>
+  <description>robowork URDF description</description>
+  <author email="papachric@gmail.com"> Christos Papachristos</author>
+  <maintainer email="papachric@gmail.com">Christos Papachristos</maintainer>
+
+  <license>None</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>robot_state_publisher</run_depend>
+  <run_depend>urdf</run_depend>
+  <run_depend>xacro</run_depend>
+
+  <run_depend>ur_description</run_depend>
+
+</package>

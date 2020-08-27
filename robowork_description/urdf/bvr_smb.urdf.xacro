@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<robot name="bvr_smb" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find robowork_description)/urdf/robowork_utils.xacro" />
+
+    <xacro:property name="PI" value="3.1415926535897931"/>
+    <xacro:property name="robot_name" value="bvr_smb"/>
+
+    <xacro:property name="chassisHeight" value="0.19685"/>
+    <xacro:property name="chassisLength" value="0.6096"/>
+    <xacro:property name="chassisWidth" value="0.4064"/>
+    <xacro:property name="chassisMass" value="40"/>
+
+    <xacro:property name="wheelWidth" value="0.0895"/> #0.17
+    <xacro:property name="wheelRadius" value="0.1425"/> #0.19
+    <xacro:property name="frontWheelX" value="0.2159"/>
+    <xacro:property name="backWheelX" value="-0.2159"/>
+    <xacro:property name="wheelClearance" value="0.06525"/> #0.03
+    <xacro:property name="wheelVerticalClearance" value="0.075" />
+    <xacro:property name="wheelMass" value="2.637"/> #5
+
+    <!-- Wheel macro -->
+    <xacro:macro name="bvr_wheel" params="prefix wheelPrefix X Y simSuffix">
+
+        <link name="${wheelPrefix}_wheel">
+            <inertial>
+                <mass value="${wheelMass}"/>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <xacro:cylinder_inertia m="${wheelMass}" r="${wheelRadius}" h="${wheelWidth}"/>
+            </inertial>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+ 	                <mesh filename="package://robowork_description/meshes/visual/wheel.dae" />
+                    <!-- <cylinder length="${wheelWidth}" radius="${wheelRadius}"/> -->
+                </geometry>
+                <material name="dark_grey"/>
+            </visual>
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0" />
+                <geometry>
+ 	                <!-- <mesh filename="package://robowork_description/meshes/collision/wheel.STL" /> -->
+                    <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+                </geometry>
+            </collision>
+        </link>
+        <joint name="${wheelPrefix}_wheel" type="continuous">
+            <parent link="${prefix}bvr_base_link"/>
+            <child link="${wheelPrefix}_wheel"/>
+            <origin xyz="${X} ${Y} ${wheelRadius -chassisHeight/2 -wheelVerticalClearance}" rpy="${0.5*PI} 0 0" />
+            <axis xyz="0 0 -1" rpy="0 0 0" />
+            <dynamics damping="1.0" friction="0.0"/>
+            <limit effort="100" velocity="1"/>
+            <joint_properties damping="0.2" friction="0.2"/>
+        </joint>
+
+        <gazebo reference="${wheelPrefix}_wheel">
+            <mu1 value="10.0"/> #1.0
+            <mu2 value="0.1"/> #1.0
+            <fdir1 value="1 0 0"/>
+            <kp>10000000.0</kp>
+            <kd>1.0</kd>
+            <fdir1 value="1 0 0"/>
+            <minDepth>0.005</minDepth>
+            <maxVel>100.0</maxVel>
+            <material>Gazebo/DarkGrey</material>
+        </gazebo>
+
+        <transmission name="${wheelPrefix}_wheel_trans" type="SimpleTransmission">
+		    	<type>transmission_interface/SimpleTransmission</type>
+		    	<actuator name="${wheelPrefix}_wheel_motor">
+		    		<mechanicalReduction>1</mechanicalReduction>
+		    	</actuator>
+		    	<joint name="${wheelPrefix}_wheel">
+		    		<hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+		    	</joint>
+		    </transmission>
+    </xacro:macro>
+
+    <!-- Chassis macro -->
+    <xacro:macro name="chassis" params="prefix">
+
+        <link name="${prefix}bvr_base_link">
+            <collision>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/>
+                </geometry>
+            </collision>
+            <visual>
+                <origin xyz="0 0 0" rpy="0 0 0"/>
+                <geometry>
+                    <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/>
+                </geometry>
+                <material name="grey"/>
+            </visual>
+        </link>
+        <gazebo reference="${prefix}bvr_base_link">
+          <material>Gazebo/Grey</material>
+        </gazebo>
+
+        <!-- Fixed joint to add dummy inertia link -->
+        <joint name="${prefix}bvr_base_to_base_inertia" type="fixed">
+          <parent link="${prefix}bvr_base_link"/>
+          <child link="${prefix}bvr_base_inertia"/>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+        </joint>
+
+        <!-- Dummy inertia link, because KDL cannot have inertia on the base link -->
+        <link name="${prefix}bvr_base_inertia">
+          <inertial>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <mass value="${chassisMass}"/>
+            <xacro:box_inertia m="${chassisMass}"
+                               x="${chassisLength}"
+                               y="${chassisWidth}"
+                               z="${chassisHeight}"/>
+          </inertial>
+        </link>
+
+        <!-- Base footprint is on the ground under the robot -->
+        <link name="${prefix}bvr_base_footprint"/>
+        <joint name="${prefix}bvr_base_footprint_joint" type="fixed">
+          <parent link="${prefix}bvr_base_link" />
+          <child link="${prefix}bvr_base_footprint" />
+          <origin xyz="0 0 ${-chassisHeight/2 -wheelVerticalClearance}" rpy="0 0 0" />
+        </joint>
+
+        <!-- IMU Link -->
+        <link name="${prefix}bvr_imu_link"/>
+        <joint name="${prefix}bvr_imu_joint" type="fixed">
+          <origin xyz="0.19 0 0.149" rpy="0 -1.5708 3.1416" />
+          <parent link="${prefix}bvr_base_link" />
+          <child link="${prefix}bvr_imu_link" />
+        </joint>
+        <gazebo reference="${prefix}bvr_imu_link">
+          <material>Gazebo/Red</material>
+        </gazebo>
+
+    </xacro:macro>
+
+    <xacro:macro name="bvr_smb" params="hosting_robot_prefix sim_suffix">
+        <xacro:chassis prefix="${hosting_robot_prefix}"/>
+
+        <xacro:bvr_wheel prefix="${hosting_robot_prefix}" wheelPrefix="${hosting_robot_prefix}front_left" X="${frontWheelX}"
+            Y="${chassisWidth/2+wheelClearance+wheelWidth/2}"
+            simSuffix="${sim_suffix}"/>
+
+        <xacro:bvr_wheel prefix="${hosting_robot_prefix}" wheelPrefix="${hosting_robot_prefix}front_right" X="${frontWheelX}"
+            Y="${-chassisWidth/2-wheelClearance-wheelWidth/2}"
+            simSuffix="${sim_suffix}"/>
+
+        <xacro:bvr_wheel prefix="${hosting_robot_prefix}" wheelPrefix="${hosting_robot_prefix}rear_left" X="${backWheelX}"
+            Y="${chassisWidth/2+wheelClearance+wheelWidth/2}"
+            simSuffix="${sim_suffix}"/>
+
+        <xacro:bvr_wheel prefix="${hosting_robot_prefix}" wheelPrefix="${hosting_robot_prefix}rear_right" X="${backWheelX}"
+            Y="${-chassisWidth/2-wheelClearance-wheelWidth/2}"
+            simSuffix="${sim_suffix}"/>
+
+    </xacro:macro>
+
+</robot>

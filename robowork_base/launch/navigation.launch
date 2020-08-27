@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot_namespace" default=""/>
+  <arg name="arm_namespace" default=""/>
+  <arg name="sim_suffix" default=""/>
+
+  <arg name="static_map" default="true"/>
+
+  <arg name="base_global_planner" default="navfn/NavfnROS"/>
+  <!-- <arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/> -->
+  <!-- <arg name="base_local_planner" default="base_local_planner/TrajectoryPlannerROS"/> -->
+  <arg name="base_local_planner" default="teb_local_planner/TebLocalPlannerROS"/>
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+      <param name="base_global_planner" value="$(arg base_global_planner)"/>
+      <param name="base_local_planner" value="$(arg base_local_planner)"/>
+    <rosparam file="$(find robowork_base)/config/$(arg robot_namespace)_planner.yaml" command="load"/>
+
+    <remap from="odom" to="$(arg robot_namespace)_velocity_controller$(arg sim_suffix)/odom"/>
+    <!-- waypoints from rviz -->
+    <remap from="move_base_simple/goal" to="/rviz_2d_nav_goal"/>
+
+    <!-- observation sources located in costmap_common.yaml -->
+    <rosparam ns="global_costmap" command="load" file="$(find robowork_base)/config/costmap_common$(arg sim_suffix).yaml"/>
+    <rosparam ns="local_costmap" command="load" file="$(find robowork_base)/config/costmap_common$(arg sim_suffix).yaml" />
+    <!-- local costmap -->
+    <rosparam ns="local_costmap" command="load" file="$(find robowork_base)/config/costmap_local$(arg sim_suffix).yaml"/>
+    <param name="local_costmap/width" value="2.0"/> #5.0
+    <param name="local_costmap/height" value="2.0"/> #5.0
+    <!-- global costmap -->
+    <rosparam if="$(arg static_map)" ns="global_costmap" command="load" file="$(find robowork_base)/config/costmap_global_static$(arg sim_suffix).yaml" />
+    <rosparam unless="$(arg static_map)" ns="global_costmap" command="load" file="$(find robowork_base)/config/costmap_global_laser$(arg sim_suffix).yaml" />
+    <param unless="$(arg static_map)" name="global_costmap/width" value="100.0"/>
+    <param unless="$(arg static_map)" name="global_costmap/height" value="100.0"/>
+  </node>
+
+</launch>

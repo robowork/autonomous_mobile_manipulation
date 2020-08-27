@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot name="bvr_SIM_ur5_e_joint_limited" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:arg name="kinematics_config" default="$(find ur_e_description)/config/ur5e_default.yaml"/>
+
+  <xacro:arg name="robot_namespace" default=""/>
+
+  <xacro:arg name="hosting_robot_prefix" default=""/>
+
+  <xacro:arg name="ur5_e_robot_prefix" default=""/>
+
+  <xacro:arg name="sim_suffix" default=""/>
+
+  <xacro:arg name="VIO_enabled" default="false" />
+
+  <xacro:include filename="$(find robowork_description)/urdf/bvr_ur5_e_joint_limited.urdf.xacro" />
+  <xacro:bvr_ur5_e_joint_limited_robot
+         kinematics_config="$(arg kinematics_config)"
+         robot_namespace="$(arg robot_namespace)"
+         hosting_robot_prefix="$(arg hosting_robot_prefix)"
+         ur5_e_robot_prefix="$(arg ur5_e_robot_prefix)"
+         sim_suffix="$(arg sim_suffix)"
+         VIO_enabled="$(arg VIO_enabled)"/>
+
+</robot>

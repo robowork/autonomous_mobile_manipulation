@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot_namespace" default=""/>
+  <arg name="arm_namespace" default=""/> 
+  <arg name="sim_suffix" default=""/>
+  <arg name="VIO_enabled" default="true"/>
+
+  <include file="$(find robowork_moveit_config)/launch/planning_context.launch">
+    <arg name="robot_namespace" value="$(arg robot_namespace)" />
+    <arg name="arm_namespace" value="$(arg arm_namespace)" />
+    <arg name="sim_suffix" value="$(arg sim_suffix)" />
+    <arg name="VIO_enabled" value="$(arg VIO_enabled)" />
+  </include>
+
+  <!-- move_group settings -->
+  <arg name="allow_trajectory_execution" default="true"/>
+  <arg name="max_safe_path_cost" default="1"/>
+  <arg name="jiggle_fraction" default="0.05"/>
+  <arg name="max_sampling_attempts" default="100"/>
+  <arg name="publish_monitored_planning_scene" default="true"/>
+
+  <!-- Planning Functionality -->
+  <include ns="move_group" file="$(find robowork_moveit_config)/launch/planning_pipeline.launch.xml">
+    <arg name="sim_suffix" value="$(arg sim_suffix)" />
+    <arg name="VIO_enabled" value="$(arg VIO_enabled)" />
+    <arg name="pipeline" value="ompl" />
+  </include>
+
+  <node name="robowork_planning" pkg="robowork_planning" type="robowork_planning_node" respawn="false" output="screen">
+    <param name="robot_namespace" value="$(arg robot_namespace)" />
+    <param name="arm_namespace" value="$(arg arm_namespace)" />
+    <param name="sim_suffix" value="$(arg sim_suffix)" />
+
+    <param name="allow_trajectory_execution" value="$(arg allow_trajectory_execution)"/>
+    <param name="max_safe_path_cost" value="$(arg max_safe_path_cost)"/>
+    <param name="jiggle_fraction" value="$(arg jiggle_fraction)" />
+    <param name="max_sampling_attempts" value="$(arg max_sampling_attempts)" />
+
+  </node>
+
+</launch>

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<robot name="bvr_decorations" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="chassisHeight" value="0.19685"/>
+  <xacro:property name="chassisLength" value="0.6096"/>
+  <xacro:property name="chassisWidth" value="0.4064"/>
+
+  <xacro:property name="topPlateHeight" value="0.00635"/>
+
+  <!-- <xacro:property name="topPlateHeight" value="0.025"/>
+  <xacro:property name="topPlateLength" value="0.605"/>
+  <xacro:property name="topPlateWidth" value="0.410"/>
+  <xacro:property name="oemCBHeight" value="0.170"/>
+  <xacro:property name="oemCBLength" value="0.150"/>
+  <xacro:property name="oemCBWidth" value="0.450"/> -->
+
+  <xacro:macro name="bvr_decorate" params="hosting_robot_prefix">
+
+    <!-- Spawn the top plate -->
+    <link name="${hosting_robot_prefix}bvr_top_plate_link">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robowork_description/meshes/collision/RWL_Top_Plate.STL" />
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://robowork_description/meshes/visual/rwl_top_plate.dae" />
+        </geometry>
+        <material name="LighterGrey">
+          <color rgba="0.75 0.75 0.75 1.0"/>
+        </material>
+      </visual>
+    </link>
+    <joint name="${hosting_robot_prefix}top_plate_joint" type="fixed">
+      <parent link="${hosting_robot_prefix}bvr_base_link" />
+      <child link="${hosting_robot_prefix}bvr_top_plate_link"/>
+      <origin xyz="0 0 ${chassisHeight/2 + topPlateHeight}" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Top plate -->
+    <!-- <link name="${hosting_robot_prefix}bvr_top_plate_link">
+      <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+              <box size="${topPlateLength} ${topPlateWidth} ${topPlateHeight}"/>
+          </geometry>
+      </collision>
+      <visual>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+              <box size="${topPlateLength} ${topPlateWidth} ${topPlateHeight}"/>
+          </geometry>
+          <material name="sky_blue"/>
+      </visual>
+    </link>
+    <joint name="${hosting_robot_prefix}top_plate_joint" type="fixed">
+      <parent link="${hosting_robot_prefix}bvr_base_link" />
+      <child link="${hosting_robot_prefix}bvr_top_plate_link"/>
+      <origin xyz="0 0 ${chassisHeight/2 + topPlateHeight/2 + 0.001}" rpy="0 0 0"/>
+    </joint> -->
+
+    <!-- OEM CB -->
+    <!-- <link name="${hosting_robot_prefix}bvr_oem_cb_link">
+      <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+              <box size="${oemCBLength} ${oemCBWidth} ${oemCBHeight}"/>
+          </geometry>
+      </collision>
+      <visual>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+              <box size="${oemCBLength} ${oemCBWidth} ${oemCBHeight}"/>
+          </geometry>
+          <material name="grey"/>
+      </visual>
+    </link>
+    <joint name="${hosting_robot_prefix}bvr_oem_cb_joint" type="fixed">
+      <parent link="${hosting_robot_prefix}bvr_top_plate_link" />
+      <child link="${hosting_robot_prefix}bvr_oem_cb_link"/>
+      <origin xyz="${-chassisLength/2 + oemCBLength/2} 0 ${topPlateHeight/2 + oemCBHeight/2 + 0.001}" rpy="0 0 0"/>
+    </joint> -->
+
+  </xacro:macro>
+
+</robot>

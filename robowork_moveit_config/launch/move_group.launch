@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot_namespace" default=""/>
+  <arg name="arm_namespace" default=""/>
+  <arg name="sim_suffix" default=""/>
+  <arg name="VIO_enabled" default="false"/>
+
+  <arg name="controller_config_file" default="$(find robowork_moveit_config)/config/moveit_$(arg robot_namespace)_$(arg arm_namespace)_controllers.yaml"/>
+
+  <include file="$(find robowork_moveit_config)/launch/planning_context.launch">
+    <arg name="robot_namespace" value="$(arg robot_namespace)" />
+    <arg name="arm_namespace" value="$(arg arm_namespace)" />
+    <arg name="sim_suffix" value="$(arg sim_suffix)" />
+    <arg name="VIO_enabled" value="$(arg VIO_enabled)" />
+  </include>
+
+  <!-- GDB Debug Option -->
+  <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+
+  <!-- Verbose Mode Option -->
+  <arg name="info" default="$(arg debug)" />
+  <arg unless="$(arg info)" name="command_args" value="" />
+  <arg     if="$(arg info)" name="command_args" value="--debug" />
+
+  <!-- move_group settings -->
+  <arg name="allow_trajectory_execution" default="true"/>
+  <arg name="max_safe_path_cost" default="1"/>
+  <arg name="jiggle_fraction" default="0.05"/>
+  <arg name="max_sampling_attempts" default="100"/>
+  <arg name="publish_monitored_planning_scene" default="true"/>
+
+  <!-- Planning Functionality -->
+  <include ns="move_group" file="$(find robowork_moveit_config)/launch/planning_pipeline.launch.xml">
+    <arg name="sim_suffix" value="$(arg sim_suffix)" />
+    <arg name="VIO_enabled" value="$(arg VIO_enabled)" />
+    <arg name="pipeline" value="ompl" /> 
+  </include>
+
+  <!-- Trajectory Execution Functionality -->
+  <include ns="move_group" file="$(find robowork_moveit_config)/launch/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
+    <arg name="controller_config_file" value="$(arg controller_config_file)" />
+    <arg name="moveit_manage_controllers" value="true" />
+  </include>
+
+  <!-- Octomap Functionality -->
+  <rosparam ns="move_group" command="load" file="$(find robowork_moveit_config)/config/octomap$(arg sim_suffix).yaml" if="$(arg allow_trajectory_execution)"/>
+
+  <!-- Start the actual move_group node/action server -->
+  <node name="move_group" launch-prefix="$(arg launch_prefix)" pkg="moveit_ros_move_group" type="move_group" respawn="false" output="screen" args="$(arg command_args)">
+    <!-- Set the display variable, in case OpenGL code is used internally -->
+    <!-- <env name="DISPLAY" value="$(optenv DISPLAY :0)" /> --> #$(optenv DISPLAY :0)
+
+    <param name="allow_trajectory_execution" value="$(arg allow_trajectory_execution)"/>
+    <param name="max_safe_path_cost" value="$(arg max_safe_path_cost)"/>
+    <param name="jiggle_fraction" value="$(arg jiggle_fraction)" />
+    <param name="max_sampling_attempts" value="$(arg max_sampling_attempts)" />
+
+    <param name="capabilities" value="move_group/MoveGroupExecuteService
+				      move_group/MoveGroupKinematicsService
+				      move_group/MoveGroupMoveAction
+				      move_group/MoveGroupPickPlaceAction
+				      move_group/MoveGroupPlanService
+				      move_group/MoveGroupQueryPlannersService
+				      move_group/MoveGroupStateValidationService
+				      move_group/MoveGroupGetPlanningSceneService
+				      move_group/ClearOctomapService
+
+                      move_group/MoveGroupCartesianPathService
+
+                      " />
+                      <!-- move_group/MoveGroupCartesianPathService -->
+                      <!-- descartes_capability/MoveGroupDescartesPathService -->
+    <param name="disable_capabilities" value=""/>
+
+    <!-- Publish the planning scene of the physical robot so that rviz plugin can know actual robot -->
+    <param name="planning_scene_monitor/publish_planning_scene" value="$(arg publish_monitored_planning_scene)" />
+    <param name="planning_scene_monitor/publish_geometry_updates" value="$(arg publish_monitored_planning_scene)" />
+    <param name="planning_scene_monitor/publish_state_updates" value="$(arg publish_monitored_planning_scene)" />
+    <param name="planning_scene_monitor/publish_transforms_updates" value="$(arg publish_monitored_planning_scene)" />
+  </node>
+
+</launch>

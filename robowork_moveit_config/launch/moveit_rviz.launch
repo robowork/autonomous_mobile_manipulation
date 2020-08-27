@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+
+  <arg name="command_args" value="" />
+
+  <node name="$(anon rviz)" pkg="rviz" type="rviz" respawn="false" output="screen"
+        args="-d $(find robowork_moveit_config)/launch/moveit.rviz"
+        launch-prefix="$(arg launch_prefix)" >
+    <rosparam command="load" file="$(find robowork_moveit_config)/config/kinematics_SIM.yaml"/>
+    <remap from="move_base_simple/goal" to="rviz_2d_nav_goal"/>
+    <remap from="clicked_point" to="rviz_clicked_point"/>
+  </node>
+
+</launch>

@@ -1,0 +1,24 @@
+footprint: [[-0.325, -0.375], [-0.325, 0.375], [0.325, 0.375], [0.325, -0.375]]
+footprint_padding: 0.025  #0.01
+
+robot_base_frame: bvr_SIM/bvr_base_link
+update_frequency: 4.0
+publish_frequency: 3.0
+transform_tolerance: 0.5
+
+resolution: 0.05
+
+obstacle_range: 5.5
+raytrace_range: 6.0
+
+#layer definitions
+static_map_layer:
+    map_topic: rtabmap/grid_map
+    subscribe_to_updates: true
+
+obstacles_layer:
+    observation_sources: laser
+    laser: {data_type: LaserScan, clearing: true, marking: true, topic: scan, inf_is_valid: true}
+
+inflation_layer:
+    inflation_radius: 1.0

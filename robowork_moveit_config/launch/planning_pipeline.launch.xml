@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="sim_suffix" default=""/>
+  <arg name="VIO_enabled" default="false"/>
+
+  <!-- This file makes it easy to include different planning pipelines;
+       It is assumed that all planning pipelines are named XXX_planning_pipeline.launch  -->
+
+  <arg name="pipeline" default="ompl" />
+
+  <include file="$(find robowork_moveit_config)/launch/$(arg pipeline)_planning_pipeline.launch.xml">
+    <arg name="sim_suffix" value="$(arg sim_suffix)" />
+    <arg name="VIO_enabled" value="$(arg VIO_enabled)" />
+  </include>
+
+</launch>

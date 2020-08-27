@@ -1,0 +1,38 @@
+#ur5_e_arm:
+#  kinematics_solver: ur_kinematics/UR5KinematicsPlugin
+#  kinematics_solver_search_resolution: 0.005
+#  kinematics_solver_timeout: 0.005
+#  #kinematics_solver_attempts: 3  ### DEPRECATED: Kinematics solver doesn't support #attempts anymore, but only a timeout.
+
+#whole_body:
+#  kinematics_solver: whole_body_kinematics_plugin/WholeBodyKinematicsPlugin
+#  kinematics_solver_ik_links:
+#    - bvr/main_arm/ee_link
+
+# For custom ikfast_moveit_plugin
+link_prefix: bvr_SIM/main_arm_SIM/
+# For ur_moveit_plugin
+arm_prefix: bvr_SIM/main_arm_SIM/
+
+main_arm_SIM:
+  kinematics_solver_search_resolution: 0.001 #0.001 #0.005
+#  kinematics_solver: bvr_ur5_e_joint_limited_main_arm/IKFastKinematicsPlugin
+#  kinematics_solver: ur_kinematics/UR5KinematicsPlugin
+  kinematics_solver: kdl_kinematics_plugin/KDLKinematicsPlugin
+#  kinematics_solver: lma_kinematics_plugin/LMAKinematicsPlugin
+#  kinematics_solver: trac_ik_kinematics_plugin/TRAC_IKKinematicsPlugin
+# Speed: returns very quickly the first solution found
+# Distance: runs for the full timeout_in_secs, then returns the solution that minimizes SSE from the seed
+# Manipulation1: runs for full timeout, returns solution that maximizes sqrt(det(J*J^T))
+# Manipulation2: runs for full timeout, returns solution that minimizes cond(J) = |J|*|J^-1|
+  solve_type: Distance
+  position_only_ik: False
+  kinematics_solver_timeout: 0.005 #0.05 #0.005
+main_arm_SIM/wrist:
+  kinematics_solver: kdl_kinematics_plugin/KDLKinematicsPlugin
+  kinematics_solver_search_resolution: 0.005
+  kinematics_solver_timeout: 0.005
+main_arm_SIM/gripper:
+  kinematics_solver: kdl_kinematics_plugin/KDLKinematicsPlugin
+  kinematics_solver_search_resolution: 0.005
+  kinematics_solver_timeout: 0.005

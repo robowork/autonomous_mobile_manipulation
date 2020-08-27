@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="limited" default="true"/>
+  <arg name="kinematics_config" default="$(find robowork_ur_launch)/etc/bvr_main_arm_ex-ur5e-0_calibration.yaml"/>
+
+  <arg name="robot_namespace" default="bvr"/> #""
+  <arg name="arm_namespace" default="main_arm"/> #""
+  <arg name="tf_prefix" default=""/>
+  <arg name="hosting_robot_prefix" default="bvr/"/> #""
+  <arg name="ur5_e_robot_prefix" default="main_arm/"/> #""
+  <arg name="sim_suffix" default=""/> #
+  <arg name="VIO_enabled" default="true"/>
+
+  <arg name="base_controllers" default="$(arg robot_namespace)_joint_state_controller $(arg robot_namespace)_velocity_controller"/>
+  <arg name="main_arm_controllers" default=""/> #handled externally
+  <arg name="gripper_controllers" default=""/> #handled externally
+
+    <?ignore
+    roslaunch ur_robot_driver ur5e_bringup.launch
+              robot_ip:=192.168.56.101
+              kinematics_config:=$(rospack find robowork_ur_launch)/etc/$(arg robot_namespace)_main_arm_ex-ur5e-0_calibration.yaml
+              limited:=true controllers:="main_arm_joint_state_controller main_arm_scaled_pos_traj_controller main_arm_speed_scaling_state_controller main_arm_force_torque_sensor_controller"
+              stopped_controllers:="main_arm_pos_traj_controller main_arm_joint_group_vel_controller"
+              controller_config_file:=$(rospack find robowork_ur_launch)/config/$(arg robot_namespace)_main_arm_ur5e_controllers.yaml
+    ?>
+    <!-- <arg name="robot_ip" default="192.168.56.101"/>
+
+    <arg name="kinematics_config" default="$(find robowork_ur_launch)/etc/$(arg robot_namespace)_ex-ur5e-0_calibration.yaml"/>
+
+    <arg name="limited" default="true"/>
+
+    <include file="$(find ur_robot_driver)/launch/ur5e_bringup.launch">
+       <arg name="robot_ip" value="$(arg robot_ip)"/>
+       <arg name="kinematics_config" value="$(arg kinematics_config)"/>
+       <arg name="limited" value="$(arg limited)"/>
+    </include> -->
+
+
+  <group ns="$(arg robot_namespace)">
+
+    <!-- The name of the parameter under which the URDF is loaded -->
+    <arg name="robot_description" default="robot_description"/>
+
+    <!-- Load universal robot description format (URDF) -->
+    <param if="$(arg limited)" name="$(arg robot_description)"
+           command="$(find xacro)/xacro --inorder '$(find robowork_description)/urdf/$(arg robot_namespace)_ur5_e_joint_limited_description.xacro'
+                    kinematics_config:=$(arg kinematics_config)
+                    robot_namespace:=$(arg robot_namespace)
+                    hosting_robot_prefix:=$(arg hosting_robot_prefix)
+                    ur5_e_robot_prefix:=$(arg ur5_e_robot_prefix)
+                    sim_suffix:=$(arg sim_suffix)
+                    VIO_enabled:=$(arg VIO_enabled)" />
+
+    <!-- (Kill and re -if necessary-)Start robot_state_publisher with the new parameter server configuration -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+      <param name="tf_prefix" value="$(arg tf_prefix)"/>
+    </node>
+
+    <!-- RoboWork harware driver -->
+    <node pkg="robowork_base" type="robowork_base_node" name="robowork_base_node" output="screen">
+        <param name="hosting_robot_prefix" value="$(arg hosting_robot_prefix)"/>
+        <param name="control_frequency" value="10"/>
+        <param name="port" value="/dev/ttySMB"/>
+        <param name="max_accel" value="3.0"/>
+        <param name="max_speed" value="1.0"/>
+        <param name="wheel_diameter" value="0.285"/> #0.3302
+        <param name="polling_timeout_us" value="1000"/>
+    </node>
+
+    <!-- Control -->
+    <include file="$(find robowork_control)/launch/control.launch">
+        <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+        <arg name="arm_namespace" value="$(arg arm_namespace)"/>
+        <arg name="controllers" value="$(arg base_controllers) $(arg main_arm_controllers) $(arg gripper_controllers)"/>
+    </include>
+
+    <!--Teleop -->
+    <include file="$(find robowork_control)/launch/teleop.launch" />
+
+    <!-- Localization -->
+    <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
+      <rosparam command="load" file="$(find robowork_control)/config/localization.yaml" />
+    </node> -->
+    <include file="$(find robowork_base)/launch/localization.launch">
+      <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+      <arg name="arm_namespace" value="$(arg arm_namespace)"/>
+    </include>
+    <node name="$(arg robot_namespace)_tf_connect" pkg="robowork_perception" type="tf_connect.py" output="log"/>
+
+    <!-- Perception -->
+    <include file="$(find robowork_perception)/launch/apriltag_detection.launch">
+      <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+      <arg name="arm_namespace" value="$(arg arm_namespace)"/>
+      <arg name="sim_suffix" value="$(arg sim_suffix)"/>
+      <arg name="camera_frame" value="$(arg robot_namespace)/l515_color_optical_frame"/>
+      <arg name="image_topic" value="l515/color/image_rect_color" />
+      <arg name="info_topic" value="l515/color/camera_info" />
+    </include>
+
+    <!-- Navigation -->
+    <include file="$(find robowork_base)/launch/navigation.launch">
+      <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+      <arg name="arm_namespace" value="$(arg arm_namespace)"/>
+      <arg name="sim_suffix" value="$(arg sim_suffix)"/>
+      <arg name="static_map" value="true"/>
+    </include>
+
+    <!-- Customization -->
+    <!-- <node name="map_to_map_link" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 /map /map_link 100"/> -->
+    <!-- <node name="FAKE_map_to_odom" pkg="tf" type="static_transform_publisher" args="0 0 0.13228 0 0 0 /map /$(arg robot_namespace)/odom 100"/> -->
+    <node name="odom_to_odom" pkg="tf" type="static_transform_publisher" args="0.455 -0.132 0.855 -0.008 -0.012 -0.001 1.000 /$(arg robot_namespace)/odom /$(arg robot_namespace)/t265_odom_frame 100"/>
+    # TODO: node that initializes by querrying each run: rosrun tf tf_echo /$(arg robot_namespace)/$(arg robot_namespace)_base_footprint /$(arg robot_namespace)/t265_odom_frame  -->  Translation: [0.455, -0.132, 0.855] Rotation: in Quaternion [-0.008, -0.012, -0.001, 1.000]
+    <!-- <node name="$(arg robot_namespace)_base_link_to_odom" pkg="tf" type="static_transform_publisher" args="0 0 0.13228 0 0 0 /$(arg robot_namespace)/odom /$(arg robot_namespace)/$(arg robot_namespace)_base_link 100"/> --> #(0.03282 - 0.1651)
+
+  </group>
+
+</launch>

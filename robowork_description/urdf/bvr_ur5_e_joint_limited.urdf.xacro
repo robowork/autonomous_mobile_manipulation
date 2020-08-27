@@ -1,0 +1,553 @@
+<?xml version="1.0"?>
+<robot name="bvr_ur5_e_joint_limited_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Included URDF/XACRO Files -->
+  <xacro:include filename="$(find robowork_description)/urdf/bvr_smb.urdf.xacro" />
+  <xacro:include filename="$(find robowork_description)/urdf/decorations_smb.urdf.xacro" />
+
+  <xacro:include filename="$(find pointgrey_camera_description)/urdf/pointgrey_flea3.urdf.xacro" />
+  <!-- <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/> -->
+
+  <xacro:include filename="$(find robowork_description)/urdf/bvr_utils_ur.transmission.xacro" />
+  <xacro:include filename="$(find ur_e_description)/urdf/ur5e.urdf.xacro" />
+
+  <xacro:include filename="$(find robotiq_2f_140_gripper_visualization)/urdf/robotiq_arg2f_140_model_macro.xacro" />
+
+  <xacro:macro name="bvr_ur5_e_joint_limited_robot" params="kinematics_config robot_namespace hosting_robot_prefix ur5_e_robot_prefix sim_suffix VIO_enabled">
+
+    <!-- Map link -->
+    <!-- <link name="map_link" />
+    <joint name="${hosting_robot_prefix}map_joint" type="planar">
+      <parent link="map_link" />
+      <child link="${hosting_robot_prefix}bvr_base_link"/>
+    </joint> -->
+
+    <!-- Gazebo plugin for ROS Control -->
+    <gazebo>
+      <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+        <robotNamespace>$(arg robot_namespace)</robotNamespace>
+      </plugin>
+    </gazebo>
+
+    <!-- BVR base robot -->
+    <xacro:bvr_smb hosting_robot_prefix="$(arg hosting_robot_prefix)" sim_suffix="$(arg sim_suffix)"/>
+    <!-- Gazebo plugins BVR sensors -->
+    <gazebo>
+      <plugin name="${hosting_robot_prefix}bvr_imu_controller" filename="libhector_gazebo_ros_imu.so">
+        <robotNamespace>$(arg robot_namespace)</robotNamespace>
+        <updateRate>50.0</updateRate>
+        <bodyName>${hosting_robot_prefix}bvr_base_link</bodyName>
+        <topicName>bvr_imu/data</topicName>
+        <accelDrift>0.005 0.005 0.005</accelDrift>
+        <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+        <rateDrift>0.005 0.005 0.005 </rateDrift>
+        <rateGaussianNoise>0.005 0.005 0.005 </rateGaussianNoise>
+        <headingDrift>0.005</headingDrift>
+        <headingGaussianNoise>0.005</headingGaussianNoise>
+      </plugin>
+    </gazebo>
+    <gazebo>
+      <plugin name="${hosting_robot_prefix}bvr_gps_controller" filename="libhector_gazebo_ros_gps.so">
+        <robotNamespace>$(arg robot_namespace)</robotNamespace>
+        <updateRate>40</updateRate>
+        <bodyName>${hosting_robot_prefix}bvr_base_link</bodyName>
+        <frameId>bvr_base_link</frameId>
+        <topicName>navsat/fix</topicName>
+        <velocityTopicName>navsat/vel</velocityTopicName>
+        <referenceLatitude>49.9</referenceLatitude>
+        <referenceLongitude>8.9</referenceLongitude>
+        <referenceHeading>0</referenceHeading>
+        <referenceAltitude>0</referenceAltitude>
+        <drift>0.0001 0.0001 0.0001</drift>
+      </plugin>
+    </gazebo>
+    <gazebo>
+      <plugin name="${hosting_robot_prefix}bvr_base_link_p3d_controller" filename="libgazebo_ros_p3d.so">
+        <alwaysOn>true</alwaysOn>
+        <robotNamespace>$(arg robot_namespace)</robotNamespace>
+        <bodyName>${hosting_robot_prefix}bvr_base_link</bodyName>
+        <topicName>odom</topicName>
+        <updateRate>20.0</updateRate>
+        <gaussianNoise>0.0</gaussianNoise>
+        <frameName>map</frameName>
+        <xyzOffsets>0 0 0</xyzOffsets>
+        <rpyOffsets>0 0 0</rpyOffsets>
+      </plugin>
+    </gazebo>
+
+    <!-- BVR decorations -->
+    <xacro:bvr_decorate hosting_robot_prefix="$(arg hosting_robot_prefix)"/>
+
+    <!-- UR5 arm macros -->
+    <xacro:property name="ur5e_arm_prefix" value="${hosting_robot_prefix}${ur5_e_robot_prefix}"/>
+    <xacro:unless value="${(sim_suffix == '')}">
+      <xacro:property name="ur5e_arm_transmission_hw_interface" value="hardware_interface/VelocityJointInterface"/>
+    </xacro:unless>
+    <xacro:if value="${(sim_suffix == '')}">
+      <xacro:property name="ur5e_arm_transmission_hw_interface" value="hardware_interface/PositionJointInterface"/>
+    </xacro:if>
+    <!-- Spawn arm -->
+    <xacro:bvr_utils_ur_arm_transmission prefix="${ur5e_arm_prefix}"
+      hw_interface="${ur5e_arm_transmission_hw_interface}" />
+    <xacro:ur5e_robot prefix="${ur5e_arm_prefix}" joint_limited="true"
+      shoulder_pan_lower_limit="${-pi}" shoulder_pan_upper_limit="${pi}"
+      shoulder_lift_lower_limit="${-pi}" shoulder_lift_upper_limit="${pi}"
+      elbow_joint_lower_limit="${-pi}" elbow_joint_upper_limit="${pi}"
+      wrist_1_lower_limit="${-1.0*pi/2}" wrist_1_upper_limit="${pi}"
+      wrist_2_lower_limit="${0.0*-pi}" wrist_2_upper_limit="${pi}"
+      wrist_3_lower_limit="${-1.0*pi/2}" wrist_3_upper_limit="${3.0*pi/2}"
+      transmission_hw_interface="${ur5e_arm_transmission_hw_interface}"
+      kinematics_file="${load_yaml('$(arg kinematics_config)')}"
+    />
+    <!-- Join arm -->
+    <joint name="${ur5e_arm_prefix}base" type="fixed">
+      <parent link="${hosting_robot_prefix}bvr_top_plate_link" />
+      <child link="${ur5e_arm_prefix}base_link" />
+      <!-- <origin xyz="0.3058 0 0.0065" rpy="0.0 0.0 ${pi/2}" /> -->
+      <origin xyz="0.212790 0 0" rpy="0.0 0.0 ${pi}" />
+    </joint>
+    <!-- Gazebo plugins arm configurations -->
+    <!--Remove when https://github.com/ros-industrial/universal_robot/pull/168 is resolved -->
+    <!-- <gazebo reference="${ur5e_arm_prefix}shoulder_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+    <gazebo reference="${ur5e_arm_prefix}upper_arm_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+    <gazebo reference="${ur5e_arm_prefix}forearm_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+    <gazebo reference="${ur5e_arm_prefix}wrist_1_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+    <gazebo reference="${ur5e_arm_prefix}wrist_3_link">
+     <selfCollide>true</selfCollide>
+    </gazebo>
+    <gazebo reference="${ur5e_arm_prefix}wrist_2_link">
+      <selfCollide>true</selfCollide>
+    </gazebo>
+    <gazebo reference="u${ur5e_arm_prefix}ee_link">
+      <selfCollide>true</selfCollide>
+    </gazebo> -->
+
+    <!-- Spawn gripper coupling -->
+    <link name="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_coupling_link">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robowork_description/meshes/collision/IO_20Coupling_20UR_20CB_20190807.STL" />
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robowork_description/meshes/visual/io_20coupling_20ur_20cb_20190807.dae" />
+        </geometry>
+        <material name="DarkerGrey">
+          <color rgba="0.25 0.25 0.25 1.0"/>
+        </material>
+      </visual>
+    </link>
+    <joint name="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_coupling_joint" type="fixed">
+      <parent link="${ur5e_arm_prefix}wrist_3_link" />
+      <child link="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_coupling_link"/>
+      <origin xyz="0 0 0.004" rpy="0 0 0"/>
+    </joint>
+
+    <!-- Spawn sensormount -->
+    <link name="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_sensormount_link">
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robowork_description/meshes/collision/UR5e_Sensor_Mount.STL" />
+        </geometry>
+      </collision>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://robowork_description/meshes/visual/ur5e_sensor_mount.dae" />
+        </geometry>
+        <material name="DarkerGrey">
+          <color rgba="0.25 0.25 0.25 1.0"/>
+        </material>
+      </visual>
+    </link>
+    <joint name="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_sensormount_joint" type="fixed">
+      <parent link="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_coupling_link" />
+      <child link="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_sensormount_link"/>
+      <origin xyz="0 -0.02645 -0.019075" rpy="${-pi/2} ${pi} 0"/>
+    </joint>
+
+    <!-- Spawn gripper -->
+    <xacro:property name="gripper_prefix" value="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper/"/>
+    <xacro:robotiq_arg2f_140 prefix="${gripper_prefix}"/>
+    <joint name="${gripper_prefix}gripper" type="fixed">
+      <parent link="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_coupling_link" />
+      <child link="${gripper_prefix}robotiq_arg2f_base_link" />
+      <origin xyz="0 0 0.0068" rpy="0.0 0.0 ${-pi/2}" />
+    </joint>
+    <!-- Gazebo plugin for grasping -->
+    <gazebo>
+      <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
+         <arm>
+           <arm_name>${gripper_prefix}</arm_name>
+           <palm_link>${hosting_robot_prefix}${ur5_e_robot_prefix}wrist_3_link</palm_link>
+           <gripper_link>${gripper_prefix}left_inner_finger</gripper_link>
+           <gripper_link>${gripper_prefix}right_inner_finger</gripper_link>
+             <!-- <gripper_parallel_link>${gripper_prefix}left_outer_knuckle</gripper_parallel_link> -->
+             <!--<gripper_parallel_link>${gripper_prefix}left_inner_knuckle</gripper_parallel_link>
+             <gripper_parallel_link>${gripper_prefix}left_inner_finger</gripper_parallel_link>
+             <gripper_parallel_link>${gripper_prefix}right_outer_knuckle</gripper_parallel_link>
+             <gripper_parallel_link>${gripper_prefix}right_inner_knuckle</gripper_parallel_link>
+             <gripper_parallel_link>${gripper_prefix}right_inner_finger</gripper_parallel_link>-->
+               <gripper_parallel_joint>${gripper_prefix}finger_joint</gripper_parallel_joint>
+               <!-- <gripper_parallel_joint>${gripper_prefix}left_inner_knuckle_joint</gripper_parallel_joint>
+               <gripper_parallel_joint>${gripper_prefix}left_inner_finger_joint</gripper_parallel_joint>
+               <gripper_parallel_joint>${gripper_prefix}right_outer_knuckle_joint</gripper_parallel_joint>
+               <gripper_parallel_joint>${gripper_prefix}right_inner_knuckle_joint</gripper_parallel_joint>
+               <gripper_parallel_joint>${gripper_prefix}right_inner_finger_joint</gripper_parallel_joint> -->
+         </arm>
+         <forces_angle_tolerance>100</forces_angle_tolerance>
+         <update_rate>4</update_rate> #4
+         <grip_count_threshold>1</grip_count_threshold> #4
+         <max_grip_count>8</max_grip_count> #8
+         <release_tolerance>0.005</release_tolerance>
+         <disable_collisions_on_attach>false</disable_collisions_on_attach> # false
+         <contact_topic>__default_topic__</contact_topic>
+      </plugin>
+    </gazebo>
+
+    <!-- Gripper manipulation center referenced to ee_link for simplicity -->
+    <link name="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_manipulation_link" />
+    <joint name="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_manipulation_joint" type="fixed">
+      <parent link="${hosting_robot_prefix}${ur5_e_robot_prefix}ee_link" />
+      <child link="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_manipulation_link"/>
+      <origin xyz="0.2125 0.0 0.0" rpy="0 0 0"/>
+    </joint>
+
+    <!-- VIO components -->
+    <xacro:if value="$(arg VIO_enabled)">
+
+      <!-- T265 -->
+      <xacro:property name="t265_prefix" value="${hosting_robot_prefix}${ur5_e_robot_prefix}"/>
+      <link name="${t265_prefix}t265_link_trans"/>
+      <link name="${t265_prefix}t265_link_rot"/>
+      <link name="${t265_prefix}t265_link"/>
+      <joint name="${t265_prefix}t265_link_mount_trans" type="fixed">
+        <parent link="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_sensormount_link" />
+        <child link="${t265_prefix}t265_link_trans" />
+        <origin xyz="0.001 0.031525664 -0.024055393" rpy="0 0 0" />
+      </joint>
+      <joint name="${t265_prefix}t265_link_mount_rot" type="fixed">
+        <parent link="${t265_prefix}t265_link_trans" />
+        <child link="${t265_prefix}t265_link_rot" />
+        <origin xyz="0 0 0" rpy="${pi - 55.0*pi/180} 0 ${pi}" />
+      </joint>
+      <joint name="${t265_prefix}t265_link_aligned" type="fixed">
+        <parent link="${t265_prefix}t265_link_rot" />
+        <child link="${t265_prefix}t265_link" />
+        <origin xyz="0 0 0" rpy="${pi/2} ${-pi/2} 0" />
+      </joint>
+      <gazebo>
+        <plugin name="${t265_prefix}t265_link_p3d_controller" filename="libgazebo_ros_p3d.so">
+          <alwaysOn>true</alwaysOn>
+          <robotNamespace>$(arg robot_namespace)</robotNamespace>
+          <bodyName>${t265_prefix}t265_link</bodyName>
+          <topicName>t265_odom</topicName>
+          <updateRate>200.0</updateRate>
+          <gaussianNoise>0.0</gaussianNoise>
+          <frameName>map</frameName>
+          <xyzOffsets>0 0 0</xyzOffsets>
+          <rpyOffsets>0 0 0</rpyOffsets>
+        </plugin>
+      </gazebo>
+
+      <!-- L515 -->
+      <xacro:property name="l515_prefix" value="${hosting_robot_prefix}${ur5_e_robot_prefix}"/>
+      <link name="${l515_prefix}l515_link_trans"/>
+      <link name="${l515_prefix}l515_link_rot"/>
+      <link name="${l515_prefix}l515_link"/>
+      <joint name="${l515_prefix}l515_link_mount_trans" type="fixed">
+        <parent link="${hosting_robot_prefix}${ur5_e_robot_prefix}gripper_sensormount_link" />
+        <child link="${l515_prefix}l515_link_trans" />
+        <origin xyz="0.0 0.008905456 -0.060595583" rpy="0 0 0" />
+      </joint>
+      <joint name="${l515_prefix}l515_link_mount_rot" type="fixed">
+        <parent link="${l515_prefix}l515_link_trans" />
+        <child link="${t265_prefix}l515_link_rot" />
+        <origin xyz="0 0 0" rpy="${pi - 90.0*pi/180} 0 ${pi}" />
+      </joint>
+      <joint name="${l515_prefix}l515_link_aligned" type="fixed">
+        <parent link="${l515_prefix}l515_link_rot" />
+        <child link="${l515_prefix}l515_link" />
+        <origin xyz="0 0 0" rpy="${pi/2} ${-pi/2} 0" />
+      </joint>
+      <gazebo>
+        <plugin name="${l515_prefix}l515_link_p3d_controller" filename="libgazebo_ros_p3d.so">
+          <alwaysOn>true</alwaysOn>
+          <robotNamespace>$(arg robot_namespace)</robotNamespace>
+          <bodyName>${l515_prefix}l515_link</bodyName>
+          <topicName>l515_odom</topicName>
+          <updateRate>200.0</updateRate>
+          <gaussianNoise>0.0</gaussianNoise>
+          <frameName>map</frameName>
+          <xyzOffsets>0 0 0</xyzOffsets>
+          <rpyOffsets>0 0 0</rpyOffsets>
+        </plugin>
+      </gazebo>
+      <link name="${l515_prefix}l515_color_frame_link_GAZEBO" />
+      <link name="${l515_prefix}l515_color_frame_link_GAZEBO_CAMALIGN" />
+      <joint name="${l515_prefix}l515_color_frame_link_GAZEBO_joint" type="fixed">
+        <parent link="${l515_prefix}l515_link" />
+        <child link="${l515_prefix}l515_color_frame_link_GAZEBO" />
+        <origin xyz="0.004090541508048773 0.00020356304594315588 0.014079777523875237" rpy="${1.132*pi/180} ${-1.472*pi/180} ${-0.539*pi/180}" />
+      </joint>
+      <joint name="${l515_prefix}l515_color_frame_link_GAZEBO_PROPERALIGN_joint" type="fixed">
+        <parent link="${l515_prefix}l515_color_frame_link_GAZEBO" />
+        <child link="${l515_prefix}l515_color_frame_link_GAZEBO_CAMALIGN" />
+        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
+      </joint>
+      <gazebo reference="${l515_prefix}l515_color_frame_link_GAZEBO">
+        <sensor type="depth" name="l515">
+          <updateRate>10.0</updateRate> #30.0
+          <always_on>true</always_on>
+          <visualize>true</visualize>
+          <camera>
+            <updateRate>0.0</updateRate> #Keep this zero, update_rate in the parent sensor tag controls the frame rate.
+            <horizontal_fov>${70.0*pi/180}</horizontal_fov>
+            <image>
+              <width>1024</width>
+              <height>768</height>
+              <format>R8G8B8</format>
+            </image>
+            <depth_camera>
+            </depth_camera>
+            <clip>
+              <near>0.1</near>
+              <far>100</far>
+            </clip>
+          </camera>
+          <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+            <robotNamespace>$(arg robot_namespace)</robotNamespace>
+            <alwaysOn>true</alwaysOn>
+              <updateRate>0.0</updateRate> #Keep this zero, update_rate in the parent sensor tag controls the frame rate.
+              <cameraName>l515</cameraName>
+              <frameName>/${l515_prefix}l515_color_frame_link_GAZEBO_CAMALIGN</frameName>
+            <imageTopicName>color/image_raw</imageTopicName>
+            <depthImageTopicName>aligned_depth_to_color/image_raw</depthImageTopicName>
+            <depthImageCameraInfoTopicName>aligned_depth_to_color/camera_info</depthImageCameraInfoTopicName>
+            <pointCloudTopicName>depth/color/points</pointCloudTopicName>
+            <cameraInfoTopicName>color/camera_info</cameraInfoTopicName>
+            <pointCloudCutoff>0.25</pointCloudCutoff>
+            <pointCloudCutoffMax>9.0</pointCloudCutoffMax> #9.0
+              <hackBaseline>0.07</hackBaseline> #0.07
+              <distortionK1>0.0</distortionK1>
+              <distortionK2>0.0</distortionK2>
+              <distortionK3>0.0</distortionK3>
+              <distortionT1>0.0</distortionT1>
+              <distortionT2>0.0</distortionT2>
+            <CxPrime>0.0</CxPrime>
+            <Cx>0.0</Cx>
+            <Cy>0.0</Cy>
+            <focalLength>0.0</focalLength>
+          </plugin>
+        </sensor>
+      </gazebo>
+
+      <!-- LiDAR -->
+      <!-- # Customization VLP-16 gazebo sim
+      <xacro:arg name="gpu" default="false"/> #true
+      <xacro:property name="gpu" value="$(arg gpu)" />
+      # Customization VLP-16 gazebo sim
+      <VLP-16 parent="${hosting_robot_prefix}bvr_sensor_arch_mount_link" name="${hosting_robot_prefix}velodyne" topic="${hosting_robot_prefix}velodyne_points"
+        hz="10" samples="440" gpu="${gpu}">
+        <origin xyz="0 0 0.16" rpy="0 0 -${pi}" />
+      </VLP-16> -->
+
+      <!-- <gazebo reference="l515_optical_frame">
+        <sensor type="camera" name="l515">
+          <update_rate>30</update_rate>
+          <camera name="l515">
+            <pose>0 0 0 0 ${-pi/2} ${pi/2}</pose>
+            <horizontal_fov>${70.0*pi/180}</horizontal_fov>
+            <image>
+              <width>1280</width>
+              <height>720</height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near>0.05</near>
+              <far>300</far>
+            </clip>
+            <noise>
+              <type>gaussian</type>
+              <mean>0.0</mean>
+              <stddev>0.007</stddev>
+            </noise>
+          </camera>
+          <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>30</updateRate>
+            <cameraName>${name}</cameraName>
+            <imageTopicName>image_raw</imageTopicName>
+            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+            <frameName>${frame}_optical</frameName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+          </plugin>
+        </sensor>
+        <material>Gazebo/Grey</material>
+      </gazebo> -->
+
+      <!-- Camera -->
+      <!-- <joint name="${ur5e_arm_prefix}camera_mount_joint" type="fixed">
+        <origin xyz="0.0425 0 0" rpy="0 0 0" />
+        <parent link="${ur5e_arm_prefix}ee_link" /> #tool0
+        <child link="${ur5e_arm_prefix}camera_link" />
+          <limit upper="0" lower="0" effort="0" velocity="0" />
+      </joint>
+      <pointgrey_flea3 frame="${ur5e_arm_prefix}camera_link" name="${ur5e_arm_prefix}camera"
+       camera_x="0.0754" camera_y="0.029" camera_z="0.035" camera_mass="0.085"
+       hfov="1.570796327" near="0.5" far="300" format="L8" fps="20" width="640" height="512"/>
+      <gazebo reference="${ur5e_arm_prefix}camera_link">
+        <material>Gazebo/DarkGrey</material>
+      </gazebo> -->
+
+      <!-- IMU -->
+      <!-- <link name="${ur5e_arm_prefix}imu_aligned_link"/>
+      <joint name="${ur5e_arm_prefix}imu_aligned_joint" type="fixed">
+        <origin xyz="${0.0425+0.0754/2-0.025} 0 ${0.035/2+0.0050/2+0.001}" rpy="0 0 0" />
+        <parent link="${ur5e_arm_prefix}ee_link" /> #tool0
+        <child link="${ur5e_arm_prefix}imu_aligned_link" />
+      </joint>
+      <link name="${ur5e_arm_prefix}imu_link">
+        <inertial>
+          <mass value="0.015"/> #0.015
+          <origin rpy="0 0 0" xyz="0 0 0"/>
+          <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/> #ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"
+        </inertial>
+        <visual>
+          <origin rpy="0 0 0" xyz="0 0 0"/>
+          <geometry>
+            <box size="0.025 0.025 0.0050"/>
+          </geometry>
+        </visual>
+        <collision>
+          <origin rpy="0 0 0" xyz="0 0 0"/>
+          <geometry>
+            <box size="0.025 0.025 0.0050"/>
+          </geometry>
+        </collision>
+      </link>
+      <joint name="${ur5e_arm_prefix}imu_joint" type="revolute">
+        <origin xyz="${0.0425+0.0754/2-0.025} 0 ${0.035/2+0.0050/2+0.001}" rpy="0 0 0" />
+        <parent link="${ur5e_arm_prefix}ee_link" /> #tool0
+        <child link="${ur5e_arm_prefix}imu_link" />
+          <limit upper="0" lower="0" effort="0" velocity="0" />
+      </joint>
+      <gazebo reference="${ur5e_arm_prefix}imu_link">
+        <material>Gazebo/Red</material>
+      </gazebo>
+      <gazebo>
+        <plugin name="hector_gazebo_ros_imu_plugin" filename="libhector_gazebo_ros_imu.so">
+          <robotNamespace>$(arg robot_namespace)</robotNamespace>
+          <updateRate>200.0</updateRate>
+          <topicName>${ur5e_arm_prefix}imu</topicName>
+          <bodyName>${ur5e_arm_prefix}imu_link</bodyName>
+          <accelDrift>0 0 0</accelDrift> #0.005 0.005 0.005
+          <accelGaussianNoise>0 0 0</accelGaussianNoise> #0.005 0.005 0.005
+          <rateDrift>0 0 0</rateDrift> #0.005 0.005 0.005
+          <rateGaussianNoise>0 0 0</rateGaussianNoise> #0.005 0.005 0.005
+          <headingDrift>0</headingDrift> #0.005
+          <headingGaussianNoise>0</headingGaussianNoise> #0.005
+          <xyzOffset>0 0 0</xyzOffset>
+          <rpyOffset>0 0 0</rpyOffset>
+        </plugin>
+      </gazebo> -->
+
+      <!-- Depth -->
+      <!-- <link name="${ur5e_arm_prefix}depth_link">
+        <inertial>
+          <mass value="0.050"/>
+          <origin rpy="0 0 0" xyz="0 0 0"/>
+          <inertia ixx="0.00005" ixy="0.0" ixz="0.0" iyy="0.00005" iyz="0.0" izz="0.00005"/>
+        </inertial>
+        <visual>
+          <origin rpy="0 0 0" xyz="0 0 0"/>
+          <geometry>
+            <box size="0.025 0.090 0.025"/>
+          </geometry>
+        </visual>
+        <collision>
+          <origin rpy="0 0 0" xyz="0 0 0"/>
+          <geometry>
+            <box size="0.025 0.090 0.025"/>
+          </geometry>
+        </collision>
+      </link>
+      <joint name="${ur5e_arm_prefix}depth_mount_joint" type="fixed">
+        <origin xyz="${0.0425+0.025} 0 ${-0.035/2-0.025/2-0.001} " rpy="0 0 0" />
+        <parent link="${ur5e_arm_prefix}ee_link" /> #tool0
+        <child link="${ur5e_arm_prefix}depth_link" />
+      </joint>
+      <gazebo reference="${ur5e_arm_prefix}depth_link">
+        <material>Gazebo/Grey</material>
+      </gazebo>
+      <link name="${ur5e_arm_prefix}depth_optical_link"/>
+      <joint name="${ur5e_arm_prefix}depth_mount_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
+        <parent link="${ur5e_arm_prefix}depth_link" />
+        <child link="${ur5e_arm_prefix}depth_optical_link" />
+      </joint>
+      <gazebo reference="${ur5e_arm_prefix}depth_link">
+        <sensor type="depth" name="d435i">
+          <always_on>true</always_on>
+          <visualize>true</visualize>
+          <camera>
+            <horizontal_fov>1.047</horizontal_fov>
+            <image>
+              <width>640</width>
+              <height>480</height>
+              <format>R8G8B8</format>
+            </image>
+            <depth_camera>
+            </depth_camera>
+            <clip>
+              <near>0.1</near>
+              <far>100</far>
+            </clip>
+          </camera>
+          <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+            <robotNamespace>$(arg robot_namespace)</robotNamespace>
+            <alwaysOn>true</alwaysOn>
+              <updateRate>10.0</updateRate>
+              <cameraName>camera</cameraName>
+              <frameName>${ur5e_arm_prefix}depth_optical_link</frameName>
+            <imageTopicName>rgb/image_raw</imageTopicName>
+            <depthImageTopicName>depth/image_raw</depthImageTopicName>
+            <pointCloudTopicName>depth/points</pointCloudTopicName>
+            <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+            <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+            <pointCloudCutoff>0.4</pointCloudCutoff>
+              <hackBaseline>0.07</hackBaseline>
+              <distortionK1>0.0</distortionK1>
+              <distortionK2>0.0</distortionK2>
+              <distortionK3>0.0</distortionK3>
+              <distortionT1>0.0</distortionT1>
+              <distortionT2>0.0</distortionT2>
+            <CxPrime>0.0</CxPrime>
+            <Cx>0.0</Cx>
+            <Cy>0.0</Cy>
+            <focalLength>0.0</focalLength>
+          </plugin>
+        </sensor>
+      </gazebo> -->
+
+    </xacro:if> <!-- value="VIO_enabled" -->
+
+  </xacro:macro> <!-- name="bvr_ur5_e_joint_limited_robot" -->
+</robot>

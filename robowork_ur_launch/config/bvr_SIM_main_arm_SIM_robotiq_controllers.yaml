@@ -1,0 +1,59 @@
+main_arm_SIM/robotiq_joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+main_arm_SIM/robotiq_controller:
+  type: position_controllers/JointTrajectoryController #position_controllers/JointTrajectoryController velocity_controllers/JointTrajectoryController effort_controllers/JointTrajectoryController
+  topic: "test_robotiq_SIM"
+  joints:
+     - bvr_SIM/main_arm_SIM/gripper/finger_joint
+  constraints:
+      goal_time: 0.6
+      stopped_velocity_tolerance: 0.5
+      bvr_SIM/main_arm_SIM/gripper/finger_joint: {trajectory: 0.2, goal: 0.1}
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  50
+  action_monitor_rate: 20
+  gains:
+      bvr_SIM/main_arm_SIM/gripper/finger_joint:  {p: 1.2,  i: 0.01, d: 0.1, i_clamp: 1} #{p: 1.2,  i: 0.01, d: 0.1, i_clamp: 1}
+  velocity_ff:
+      bvr_SIM/main_arm_SIM/gripper/finger_joint: 1.0
+
+# the following gains have to be used by gazebo_ros_control due to using the gazebo_mimic_joint plugin, see: https://answers.ros.org/question/283537/how-to-do-mimic-joints-that-work-in-gazebo/
+gazebo_ros_control:
+  pid_gains:
+    bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle_joint:
+      p: 1.0 #20.0
+      i: 0.0 #0.1
+      d: 0.01
+      i_clamp: 0.2
+      antiwindup: false
+      publish_state: true
+    bvr_SIM/main_arm_SIM/gripper/left_inner_finger_joint:
+      p: 0.1 #20.0
+      i: 0.0 #0.1
+      d: 0.001
+      i_clamp: 0.2
+      antiwindup: false
+      publish_state: true
+    bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle_joint:
+      p: 1.0 #20.0
+      i: 0.0 #0.1
+      d: 0.01
+      i_clamp: 0.2
+      antiwindup: false
+      publish_state: true
+    bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle_joint:
+      p: 1.0 #20.0
+      i: 0.0 #0.1
+      d: 0.01
+      i_clamp: 0.2
+      antiwindup: false
+      publish_state: true
+    bvr_SIM/main_arm_SIM/gripper/right_inner_finger_joint:
+      p: 0.1 #20.0
+      i: 0.0 #0.1
+      d: 0.001
+      i_clamp: 0.2
+      antiwindup: false
+      publish_state: true

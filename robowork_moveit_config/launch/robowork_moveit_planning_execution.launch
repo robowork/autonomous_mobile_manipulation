@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="robot_namespace" default=""/>
+  <arg name="arm_namespace" default=""/>
+  <arg name="sim_suffix" default=""/>
+  <arg name="VIO_enabled" default="true"/>
+
+  <arg name="debug" default="false" />
+
+  <!-- Launch moveit -->
+  <include file="$(find robowork_moveit_config)/launch/move_group.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="robot_namespace" value="$(arg robot_namespace)" />
+    <arg name="arm_namespace" value="$(arg arm_namespace)" />
+    <arg name="sim_suffix" value="$(arg sim_suffix)" />
+    <arg name="VIO_enabled" value="$(arg VIO_enabled)" />
+  </include>
+</launch>
