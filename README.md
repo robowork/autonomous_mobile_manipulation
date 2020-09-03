@@ -84,7 +84,7 @@ cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/autonomous_mobile_
 make -j 12 && make install
 
 # RTABMAP
-cd $HOME/autonomous_mobile_manipulation_ws && git clone https://github.com/introlab/rtabmap && cd rtabmap && git checkout 0.20.3-melodic && cd build
+cd $HOME/autonomous_mobile_manipulation_ws && git clone https://github.com/introlab/rtabmap && cd rtabmap && git checkout 0.20.3 && cd build
 CMAKE_PREFIX_PATH=$HOME/autonomous_mobile_manipulation_ws/devel:$CMAKE_PREFIX_PATH cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/autonomous_mobile_manipulation_ws/devel ..
 make -j 12 && make install 
 
