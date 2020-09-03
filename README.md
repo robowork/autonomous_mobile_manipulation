@@ -1,5 +1,53 @@
 # autonomous_mobile_manipulation
 
+### Some dependencies
+```
+sudo apt install \
+collada-urdf-tools \
+libnlopt-dev \
+libfcl-dev \
+liboctomap-dev \
+ros-tf2-msgs \
+ros-melodic-eigenpy \
+ros-melodic-rosparam-shortcuts \
+ros-melodic-eigen-stl-containers \
+ros-melodic-geometric-shapes \
+ros-melodic-object-recognition-msgs \
+ros-melodic-octomap \
+ros-melodic-octomap-msgs \
+ros-melodic-random-numbers \
+ros-melodic-srdfdom \
+ros-melodic-ros-control \
+ros-melodic-ros-controllers \
+ros-melodic-position-controllers \
+ros-melodic-velocity-controllers \
+ros-melodic-effort-controllers \
+ros-melodic-joint-state-controller \
+ros-melodic-joint-trajectory-controller \
+ros-melodic-rqt-joint-trajectory-controller \
+ros-melodic-rqt-joint-trajectory-plot \
+ros-melodic-rqt-controller-manager \
+ros-melodic-force-torque-sensor-controller \
+ros-melodic-industrial-robot-status-controller \
+ros-melodic-industrial-robot-status-interface \
+ros-melodic-trac-ik-kinematics-plugin \
+ros-melodic-gazebo-ros \
+ros-melodic-gazebo-ros-control \
+ros-melodic-hector-gazebo \
+ros-melodic-hector-imu-tools \
+ros-melodic-geographic-msgs \
+ros-melodic-graph-msgs \
+ros-melodic-warehouse-ros \
+ros-melodic-ddynamic-reconfigure \
+ros-melodic-pointgrey-camera-description \
+ros-melodic-interactive-marker-twist-server \
+ros-melodic-twist-mux \
+ros-melodic-joystick-drivers \
+ros-melodic-teleop-twist-joy \
+ros-melodic-teleop-tools \
+ros-melodic-move-base
+```
+
 ### Pull resources
 ```
 # Setup and pull
@@ -63,7 +111,7 @@ catkin build
 ```
 
 ### Note:
-In case you run ```catkin clean```, this will clear out the devel space where the above libraries are installed. You have to reinstall them with ``make install``` (no need to rebuild): 
+In case you run ```catkin clean```, this will clear out the devel space where the above libraries are installed. You have to reinstall them with ```make install``` (no need to rebuild): 
 ```
 cd $HOME/autonomous_mobile_manipulation_ws/gtsam/build && make install && \
 cd $HOME/autonomous_mobile_manipulation_ws/g2o/build && make install && \
