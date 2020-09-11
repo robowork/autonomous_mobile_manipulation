@@ -4,10 +4,13 @@
 ```
 sudo apt install \
 collada-urdf-tools \
+swig \
+libglew-dev \
 libnlopt-dev \
 libfcl-dev \
 liboctomap-dev \
 ros-tf2-msgs \
+ros-melodic-collada-urdf \
 ros-melodic-eigenpy \
 ros-melodic-rosparam-shortcuts \
 ros-melodic-eigen-stl-containers \
