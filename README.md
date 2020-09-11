@@ -101,7 +101,7 @@ make -j 12 && make install
 ```
 cd $HOME/autonomous_mobile_manipulation_ws/src
 
-catkin config -DCMAKE_BUILD_TYPE=Release -DOMPL_REGISTRATION=OFF 
+catkin config -DCMAKE_BUILD_TYPE=Release -DOMPL_REGISTRATION=OFF -DG2O_INCLUDE_DIR=$HOME/autonomous_mobile_manipulation_ws/devel/include
 
 # Builds have to be informed that above built libraries are installed in devel space and should look in there first:
 
