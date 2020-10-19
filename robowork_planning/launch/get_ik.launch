@@ -1,0 +1,23 @@
+<launch>
+
+  <arg name="robot_namespace" default="/bvr_SIM"/>
+  <arg name="arm_namespace" default="main_arm_SIM"/>
+  <arg name="sim_suffix" default="_SIM"/>
+  <arg name="VIO_enabled" default="false"/>
+  <arg name="tf_prefix" default=""/>
+  <arg name="limited" default="true"/>
+  <arg name="kinematics_config" default="$(find robowork_ur_launch)/etc/bvr_main_arm_ex-ur5e-0_calibration.yaml"/>
+  <arg name="hosting_robot_prefix" default="bvr_SIM/"/>
+  <arg name="ur5_e_robot_prefix" default="main_arm_SIM/"/>
+
+  <node name="get_ik_manipulator" pkg="robowork_planning" type="get_ik_manipulator" respawn="false" output="screen">
+    <rosparam command="load" file="$(find robowork_moveit_config)/config/kinematics$(arg sim_suffix).yaml"/>
+    <param name="/planning_plugin" value="ompl_interface/OMPLPlanner"/>
+    <rosparam command="load" file="$(find robowork_moveit_config)/config/ompl_planning$(arg sim_suffix).yaml"/>
+    <param name="robot_namespace" value="$(arg robot_namespace)" />
+    <param name="arm_namespace" value="$(arg arm_namespace)" />
+    <param name="sim_suffix" value="$(arg sim_suffix)" />
+    <rosparam ns="move_group" command="load" file="$(find robowork_moveit_config)/config/octomap$(arg sim_suffix).yaml"/>
+  </node>
+
+</launch>

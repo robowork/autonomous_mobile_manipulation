@@ -129,6 +129,10 @@ target_link_libraries(${PROJECT_NAME}_node # ${PROJECT_NAME}
                                           MGI_AprilTag_lib)
 roslaunch_add_file_check(launch)
 
+add_executable(get_ik_manipulator src/get_ik_manipulator.cpp)
+target_link_libraries(get_ik_manipulator  ${catkin_LIBRARIES}
+                                          ${Boost_LIBRARIES})
+
 # install(TARGETS robowork_base_node
 #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
@@ -145,3 +149,8 @@ install(DIRECTORY include/${PROJECT_NAME}/
 
 install(DIRECTORY launch config
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
+
+
+catkin_install_python(PROGRAMS scripts/get_ik.py 
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
