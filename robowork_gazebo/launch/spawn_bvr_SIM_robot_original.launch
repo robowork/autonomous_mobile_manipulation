@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- <remap from="/tf" to="/tf_SIM"/> -->
+
+  <arg name="limited" default="true"/>
+  <arg name="kinematics_config" default="$(find robowork_ur_launch)/etc/bvr_main_arm_ex-ur5e-0_calibration.yaml"/>
+
+  <arg name="robot_initial_joint_states" default=""/> #""
+
+  <arg name="robot_namespace" default="bvr_SIM"/> #""
+  <arg name="arm_namespace" default="main_arm_SIM"/> #""
+  <arg name="tf_prefix" default=""/>
+  <arg name="hosting_robot_prefix" default="bvr_SIM/"/> #""
+  <arg name="ur5_e_robot_prefix" default="main_arm_SIM/"/> #""
+  <arg name="sim_suffix" default="_SIM"/> #
+  <arg name="VIO_enabled" default="false"/>
+
+  <arg name="base_controllers" default="$(arg robot_namespace)_joint_state_controller $(arg robot_namespace)_velocity_controller"/>
+  <arg name="main_arm_controllers" default="$(arg arm_namespace)/velocity_controller"/> #handle this here for simulation
+  <arg name="gripper_controllers" default="$(arg arm_namespace)/robotiq_joint_state_controller $(arg arm_namespace)/robotiq_controller"/> #handle this here for simulation
+
+  <arg name="robot_initial_x" default="0.0"/>
+  <arg name="robot_initial_y" default="0.0"/>
+  <arg name="robot_initial_z" default="0.0"/>
+  <arg name="robot_initial_yaw" default="0.0"/>
+
+  <group ns="$(arg robot_namespace)">
+
+    <!-- The name of the parameter under which the URDF is loaded -->
+    <arg name="robot_description" default="robot_description"/>
+
+    <!-- Load universal robot description format (URDF) -->
+    <param if="$(arg limited)" name="$(arg robot_description)"
+           command="$(find xacro)/xacro --inorder '$(find robowork_description)/urdf/$(arg robot_namespace)_ur5_e_joint_limited_description.xacro'
+                    kinematics_config:=$(arg kinematics_config)
+                    robot_namespace:=$(arg robot_namespace)
+                    hosting_robot_prefix:=$(arg hosting_robot_prefix)
+                    ur5_e_robot_prefix:=$(arg ur5_e_robot_prefix)
+                    sim_suffix:=$(arg sim_suffix)
+                    VIO_enabled:=$(arg VIO_enabled)" />
+
+    <!-- (Kill and re -if necessary-)Start robot_state_publisher with the new parameter server configuration -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+      <param name="tf_prefix" value="$(arg tf_prefix)"/>
+    </node>
+
+    <!-- Control -->
+    <rosparam command="load" file="$(find robowork_ur_launch)/config/$(arg robot_namespace)_$(arg arm_namespace)_ur5e_controllers.yaml" />
+    <rosparam command="load" file="$(find robowork_ur_launch)/config/$(arg robot_namespace)_$(arg arm_namespace)_robotiq_controllers.yaml" />
+    <include file="$(find robowork_control)/launch/control.launch">
+      <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+      <arg name="arm_namespace" value="$(arg arm_namespace)"/>
+      <arg name="controllers" value="$(arg base_controllers) $(arg main_arm_controllers) $(arg gripper_controllers)"/>
+    </include>
+
+    <!-- Localization -->
+    <node name="t265_connector_SIM" pkg="tf" type="static_transform_publisher" args="0.0 0.0 0.0 0.0 0.0 0.0 /$(arg robot_namespace)/$(arg arm_namespace)/t265_link /$(arg robot_namespace)/t265_link 100"/>
+    <node name="l515_connector_SIM" pkg="tf" type="static_transform_publisher" args="0.0 0.0 0.0 0.0 0.0 0.0 /$(arg robot_namespace)/$(arg arm_namespace)/l515_link /$(arg robot_namespace)/l515_link 100"/>
+    <node name="t265_A_SIM" pkg="tf" type="static_transform_publisher"  args="0.00017487892182543874 0.03207773342728615 -0.00025732567883096635 0.004327769856900199 -0.9999854564666748 -0.003097756067290902 -0.0008103745058178902 /$(arg robot_namespace)/t265_link /$(arg robot_namespace)/t265_fisheye1_frame 100"/>
+    <node name="t265_B_SIM" pkg="tf" type="static_transform_publisher"  args="0.0 0.0 0.0 0.5 -0.5 -0.5 0.5 /$(arg robot_namespace)/t265_fisheye1_frame /$(arg robot_namespace)/t265_fisheye1_optical_frame 100"/>
+    <node name="t265_C_SIM" pkg="tf" type="static_transform_publisher"  args="-0.00017487892182543874 -0.03207773715257645 0.00025732567883096635 0.0017859635408969954 -0.9999938607215881 -0.0030067681800574064 -0.00010648076568031684 /$(arg robot_namespace)/t265_link /$(arg robot_namespace)/t265_fisheye2_frame 100"/>
+    <node name="t265_D_SIM" pkg="tf" type="static_transform_publisher"  args="0.0 0.0 0.0 0.5 -0.5 -0.5 0.5 /$(arg robot_namespace)/t265_fisheye2_frame /$(arg robot_namespace)/t265_fisheye2_optical_frame 100"/>
+    <node name="t265_E_SIM" pkg="tf" type="static_transform_publisher"  args="8.221226744353771e-05 0.021378343924880028 -0.00019110972061753273 2.220446049250313e-16 0.0 1.0 0.0 /$(arg robot_namespace)/t265_link /$(arg robot_namespace)/t265_gyro_frame 100"/>
+    <node name="t265_F_SIM" pkg="tf" type="static_transform_publisher"  args="0.0 0.0 0.0 0.5 -0.5 -0.5 0.5 /$(arg robot_namespace)/t265_gyro_frame /$(arg robot_namespace)/t265_imu_optical_frame 100"/>
+    <node name="t265_G_SIM" pkg="tf" type="static_transform_publisher"  args="8.221226744353771e-05 0.021378343924880028 -0.00019110972061753273 2.220446049250313e-16 0.0 1.0 0.0 /$(arg robot_namespace)/t265_link /$(arg robot_namespace)/t265_accel_frame 100"/>
+    <node name="t265_H_SIM" pkg="tf" type="static_transform_publisher"  args="0.0 0.0 0.0 0.5 -0.5 -0.5 0.5 /$(arg robot_namespace)/t265_accel_frame /$(arg robot_namespace)/t265_accel_optical_frame 100"/>
+    <node name="l515_1_SIM" pkg="tf" type="static_transform_publisher"  args="0.0 0.0 0.0 0.0 0.0 0.0 1.0 /$(arg robot_namespace)/l515_link /$(arg robot_namespace)/l515_gyro_frame 100"/>
+    <node name="l515_2_SIM" pkg="tf" type="static_transform_publisher"  args="0.0 0.0 0.0 0.0 0.0 0.0 1.0 /$(arg robot_namespace)/l515_link /$(arg robot_namespace)/l515_accel_frame 100"/>
+    <node name="l515_3_SIM" pkg="tf" type="static_transform_publisher"  args="0.0 0.0 0.0 0.0 0.0 0.0 1.0 /$(arg robot_namespace)/l515_link /$(arg robot_namespace)/l515_depth_frame 100"/>
+    <node name="l515_4_SIM" pkg="tf" type="static_transform_publisher"  args="0.004090541508048773 0.00020356304594315588 0.014079777523875237 0.00994107499718666 -0.012796338647603989 -0.00483392970636487 0.9998570084571838 /$(arg robot_namespace)/l515_link /$(arg robot_namespace)/l515_color_frame 100"/>
+    <node name="l515_5_SIM" pkg="tf" type="static_transform_publisher"  args="0.004090541508048773 0.00020356304594315588 0.014079777523875237 0.00994107499718666 -0.012796338647603989 -0.00483392970636487 0.9998570084571838 /$(arg robot_namespace)/l515_link /$(arg robot_namespace)/l515_aligned_depth_to_color_frame 100"/>
+    <node name="$(arg robot_namespace)_odom_message_to_tf" pkg="message_to_tf" type="message_to_tf" output="log">
+      <param name="odometry_topic" value="odom" />
+      <param name="footprint_frame_id" value="" />
+      <param name="stabilized_frame_id" value="" />
+    </node>
+    <!-- <node name="$(arg robot_namespace)_tf_connect_SIM" pkg="robowork_perception" type="tf_connect_SIM.py" output="log"/> -->
+    <!-- RTABMAP -->
+    <include file="$(find robowork_base)/launch/realsense_rtabmap.launch">
+      <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+      <arg name="arm_namespace" value="$(arg arm_namespace)"/>
+    </include>
+
+    <!-- Perception -->
+    <include file="$(find robowork_perception)/launch/apriltag_detection.launch">
+      <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+      <arg name="arm_namespace" value="$(arg arm_namespace)"/>
+      <arg name="sim_suffix" value="$(arg sim_suffix)"/>
+      <arg name="camera_frame" value="$(arg robot_namespace)/$(arg arm_namespace)/l515_color_frame_link_GAZEBO_CAMALIGN"/>
+      <arg name="image_topic" value="l515/color/image_raw" /> #gazebo image comes undistorted
+      <arg name="info_topic" value="l515/color/camera_info" />
+    </include>
+
+    <!-- Navigation -->
+    <include file="$(find robowork_base)/launch/navigation.launch">
+      <arg name="robot_namespace" value="$(arg robot_namespace)"/>
+      <arg name="arm_namespace" value="$(arg arm_namespace)"/>
+      <arg name="sim_suffix" value="$(arg sim_suffix)"/>
+      <arg name="static_map" value="true"/>
+    </include>
+
+    <!-- Spawn gazebo model -->
+    <node name="spawn_$(arg robot_namespace)_model" pkg="gazebo_ros" type="spawn_model"
+          args="-x $(arg robot_initial_x)
+                -y $(arg robot_initial_y)
+                -z $(arg robot_initial_z)
+                -Y $(arg robot_initial_yaw)
+                -urdf
+                -param robot_description
+                -model $(arg robot_namespace) $(arg robot_initial_joint_states)
+                -unpause" /> #-unpause
+
+    <!-- Issue arm homing -->
+    <arg name="main_arm_controller_start_delay" default="5.0" />
+    <node name="$(arg arm_namespace)_home" pkg="robowork_control" type="home_ur5e$(arg sim_suffix)"
+          launch-prefix="bash -c 'sleep $(arg main_arm_controller_start_delay); $0 $@' "/>
+
+  </group>
+
+</launch>
