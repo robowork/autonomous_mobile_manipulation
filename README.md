@@ -99,7 +99,7 @@ make -j 12 && make install
 
 ### Build
 ```
-cd $HOME/autonomous_mobile_manipulation_ws/src
+cd $HOME/autonomous_mobile_manipulation_ws
 
 catkin config -DCMAKE_BUILD_TYPE=Release -DOMPL_REGISTRATION=OFF -DG2O_INCLUDE_DIR=$HOME/autonomous_mobile_manipulation_ws/devel/include
 
