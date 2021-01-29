@@ -1,5 +1,7 @@
 # autonomous_mobile_manipulation
 
+Basic setup assumes *Ubuntu 18.04* with [ROS melodic](http://wiki.ros.org/melodic/Installation/Ubuntu) and [catkin_tools](https://catkin-tools.readthedocs.io/en/latest/installing.html) installed.
+
 ### Some dependencies
 ```
 sudo apt install \
