@@ -90,7 +90,7 @@ make -j 12 && make install
 
 # RTABMAP
 cd $HOME/autonomous_mobile_manipulation_ws && git clone https://github.com/introlab/rtabmap && cd rtabmap && git checkout 0.20.3 && cd build
-cmake -DCMAKE_BUILD_TYPE=Release -DCSPARSE_INCLUDE_DIR=$HOME/autonomous_mobile_manipulation_ws/g2o/EXTERNAL/csparse -DCMAKE_INSTALL_PREFIX=$HOME/autonomous_mobile_manipulation_ws/devel ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCSPARSE_INCLUDE_DIR=$HOME/autonomous_mobile_manipulation_ws/g2o -DCMAKE_INSTALL_PREFIX=$HOME/autonomous_mobile_manipulation_ws/devel ..
 make -j 12 && make install 
 
 # FCL
