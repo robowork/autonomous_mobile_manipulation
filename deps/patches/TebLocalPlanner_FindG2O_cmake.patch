@@ -1,0 +1,21 @@
+diff --git src/autonomous_mobile_manipulation/deps/teb_local_planner/cmake_modules/FindG2O.cmake src/autonomous_mobile_manipulation/deps/teb_local_planner/cmake_modules/FindG2O.cmake
+index b2670d3..8f78e7a 100644
+--- src/autonomous_mobile_manipulation/deps/teb_local_planner/cmake_modules/FindG2O.cmake
++++ src/autonomous_mobile_manipulation/deps/teb_local_planner/cmake_modules/FindG2O.cmake
+@@ -17,10 +17,12 @@ IF(UNIX)
+     #ENDIF(G2O_INCLUDE_DIR AND G2O_LIBRARIES)
+ 
+   MESSAGE(STATUS "Searching for g2o ...")
+-  FIND_PATH(G2O_INCLUDE_DIR
+-    NAMES core math_groups types
+-    PATHS /usr/local /usr
+-    PATH_SUFFIXES include/g2o include)
++# Wrong way to look for g2o, replace using the rtabmap FindG2O approach
++#  FIND_PATH(G2O_INCLUDE_DIR
++#    NAMES core math_groups types
++#    PATHS /usr/local /usr
++#    PATH_SUFFIXES include/g2o include)
++  FIND_PATH(G2O_INCLUDE_DIR g2o/core/base_vertex.h)
+ 
+   IF (G2O_INCLUDE_DIR)
+     MESSAGE(STATUS "Found g2o headers in: ${G2O_INCLUDE_DIR}")

@@ -103,6 +103,9 @@ make -j 12 && make install
 ```
 cd $HOME/autonomous_mobile_manipulation_ws
 
+# Apply small required patches to external dependencies
+patch -p0 < src/autonomous_mobile_manipulation/deps/patches/TebLocalPlanner_FindG2O_cmake.patch
+
 catkin config -DCMAKE_BUILD_TYPE=Release -DOMPL_REGISTRATION=OFF -DG2O_INCLUDE_DIR=$HOME/autonomous_mobile_manipulation_ws/devel/include
 
 # Builds have to be informed that above built libraries are installed in devel space and should look in there first:
