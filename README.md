@@ -8,6 +8,7 @@ sudo apt install \
 collada-urdf-tools \
 swig \
 libglew-dev \
+libmetis-dev \
 libnlopt-dev \
 libfcl-dev \
 liboctomap-dev \
