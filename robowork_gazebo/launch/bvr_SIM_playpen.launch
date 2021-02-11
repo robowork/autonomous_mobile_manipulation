@@ -27,7 +27,7 @@
              -J bvr_SIM/main_arm_SIM/wrist_2_joint $(arg wrist_2_joint_init)
              -J bvr_SIM/main_arm_SIM/wrist_3_joint $(arg wrist_3_joint_init)"/>
 
-  <arg name="world_name" default="$(find robowork_gazebo)/worlds/bvr_playpen.world"/>
+  <arg name="world_name" default="$(find robowork_gazebo)/worlds/bvr_project.world"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(arg world_name)"/>

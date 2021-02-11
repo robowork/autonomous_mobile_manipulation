@@ -1,0 +1,2285 @@
+<sdf version='1.6'>
+  <world name='default'>
+    <plugin name='ros_interface_plugin' filename='librotors_gazebo_ros_interface_plugin.so'/>
+    <light name='sun' type='directional'>
+      <cast_shadows>1</cast_shadows>
+      <pose frame=''>0 0 10 0 -0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+    <model name='ground_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+          <material>
+            <script>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+              <name>Gazebo/Grey</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <enable_wind>0</enable_wind>
+      </link>
+    </model>
+    <physics name='default_physics' default='0' type='ode'>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>1000</iters>
+          <sor>1.3</sor>
+          <use_dynamic_moi_rescaling>0</use_dynamic_moi_rescaling>
+        </solver>
+        <constraints>
+          <cfm>0</cfm>
+          <erp>0.2</erp>
+          <contact_max_correcting_vel>100</contact_max_correcting_vel>
+          <contact_surface_layer>0.001</contact_surface_layer>
+        </constraints>
+      </ode>
+      <max_step_size>0.005</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>200</real_time_update_rate>
+    </physics>
+    <scene>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+    <model name='asphalt_plane'>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <box>
+              <size>20 20 0.1</size>
+            </box>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <bounce/>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <cast_shadows>0</cast_shadows>
+          <geometry>
+            <box>
+              <size>20 20 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>model://asphalt_plane/materials/scripts</uri>
+              <uri>model://asphalt_plane/materials/textures</uri>
+              <name>vrc/asphalt</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay>
+          <linear>0</linear>
+          <angular>0</angular>
+        </velocity_decay>
+        <self_collide>0</self_collide>
+        <kinematic>0</kinematic>
+        <gravity>1</gravity>
+        <enable_wind>0</enable_wind>
+      </link>
+      <pose frame=''>-0.464139 0 0 0 -0 0</pose>
+    </model>
+    <state world_name='default'>
+      <sim_time>2039 795000000</sim_time>
+      <real_time>41 599726883</real_time>
+      <wall_time>1613010339 256038190</wall_time>
+      <iterations>5715</iterations>
+      <model name='asphalt_plane'>
+        <pose frame=''>3.20277 -7.0229 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>3.20277 -7.0229 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='barge'>
+        <pose frame=''>1.99938 -0.44923 0.835527 3.14066 8e-06 0.008506</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>1.99938 -0.44923 0.835527 3.14066 8e-06 0.008506</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='bvr_SIM'>
+        <pose frame=''>-1.8e-05 -0 0.218416 2e-06 9e-06 0</pose>
+        <scale>1 1 1</scale>
+        <link name='bvr_SIM/bvr_base_link'>
+          <pose frame=''>-1.8e-05 -0 0.218416 2e-06 9e-06 0</pose>
+          <velocity>-3e-06 1e-06 1.7e-05 -3e-06 -1.5e-05 0</velocity>
+          <acceleration>-1.5e-05 3.8e-05 -1e-06 0.000201 0.000334 -2.9e-05</acceleration>
+          <wrench>-0.000677 0.001693 -6.3e-05 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/front_left_wheel'>
+          <pose frame=''>0.215882 0.3132 0.18749 1.5708 -0.00013 0</pose>
+          <velocity>-2e-06 1e-06 1.9e-05 -4e-06 -1.6e-05 -0</velocity>
+          <acceleration>3e-06 1.7e-05 5.1e-05 -0.000118 6e-06 -4.3e-05</acceleration>
+          <wrench>9e-06 4.5e-05 0.000134 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/front_right_wheel'>
+          <pose frame=''>0.215882 -0.3132 0.187489 1.5708 -0.00013 0</pose>
+          <velocity>-2e-06 1e-06 2.1e-05 -4e-06 -1.6e-05 -0</velocity>
+          <acceleration>-7e-06 3.2e-05 -0.000226 -0.000222 -3.8e-05 -4.6e-05</acceleration>
+          <wrench>-1.8e-05 8.3e-05 -0.000595 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/forearm_link'>
+          <pose frame=''>-0.087853 0.00013 0.786377 -1.57038 -1e-05 -3.13989</pose>
+          <velocity>-1.3e-05 5e-06 1.4e-05 -6e-06 -2e-05 -4e-06</velocity>
+          <acceleration>-0.000594 0.000447 -0.000242 -0.000894 -0.001835 -0.001642</acceleration>
+          <wrench>-0.001351 0.001017 -0.00055 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/gripper/left_inner_finger'>
+          <pose frame=''>0.562487 -0.037126 0.826988 -1.57648 -1.33517 0.010842</pose>
+          <velocity>-1.4e-05 2e-06 2.8e-05 8.6e-05 -2.4e-05 0.000385</velocity>
+          <acceleration>-0.000207 0.000417 0.000893 -1.52336 1.01088 -2.80004</acceleration>
+          <wrench>-2e-06 4e-06 9e-06 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle'>
+          <pose frame=''>0.494802 -0.119773 0.843452 -0.856882 -1.33517 0.010842</pose>
+          <velocity>-1.5e-05 2e-06 2.7e-05 -6.1e-05 -2.6e-05 -0.000225</velocity>
+          <acceleration>-0.000585 -0.000556 0.000798 0.873135 -1.16512 0.201914</acceleration>
+          <wrench>-1.6e-05 -1.5e-05 2.2e-05 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/gripper/left_outer_knuckle'>
+          <pose frame=''>0.488429 -0.101883 0.844935 -0.854768 -1.33517 0.010842</pose>
+          <velocity>-1.5e-05 3e-06 2.7e-05 -9e-06 -2.4e-05 -5e-06</velocity>
+          <acceleration>-0.000883 -0.000167 0.000828 0.214476 -1.29643 -1.2796</acceleration>
+          <wrench>-2.8e-05 -5e-06 2.6e-05 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/gripper/right_inner_finger'>
+          <pose frame=''>0.563142 -0.227293 0.827326 -1.56262 1.33517 -3.13075</pose>
+          <velocity>-3e-06 1.8e-05 2.7e-05 -0.000156 -2.7e-05 -0.000626</velocity>
+          <acceleration>0.000902 0.000207 0.000798 2.74663 -0.903554 -0.910816</acceleration>
+          <wrench>9e-06 2e-06 8e-06 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle'>
+          <pose frame=''>0.494856 -0.145173 0.843506 -0.838978 1.33517 -3.13075</pose>
+          <velocity>-1.5e-05 2e-06 2.7e-05 4e-05 -2.5e-05 0.000187</velocity>
+          <acceleration>-0.000381 0.000545 0.000843 -1.10941 -0.066968 -1.63331</acceleration>
+          <wrench>-1e-05 1.5e-05 2.3e-05 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle'>
+          <pose frame=''>0.488559 -0.163085 0.845063 -0.840855 1.33517 -3.13075</pose>
+          <velocity>-1.5e-05 3e-06 2.8e-05 4.2e-05 -2.3e-05 0.000192</velocity>
+          <acceleration>-0.000394 0.000332 0.000842 -2.40478 0.051054 -2.73253</acceleration>
+          <wrench>-1.2e-05 1e-05 2.6e-05 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/shoulder_link'>
+          <pose frame=''>0.212774 -1e-06 0.485682 2e-06 9e-06 0</pose>
+          <velocity>-7e-06 2e-06 2e-05 -2e-06 -1.3e-05 2e-06</velocity>
+          <acceleration>7.2e-05 -1.7e-05 -6.2e-05 0.000427 0.001206 0.000786</acceleration>
+          <wrench>0.000265 -6.1e-05 -0.000228 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/upper_arm_link'>
+          <pose frame=''>0.212836 -1e-06 0.485682 1.57018 0.785408 -0.000436</pose>
+          <velocity>-7e-06 2e-06 2e-05 -5e-06 -2e-05 -5e-06</velocity>
+          <acceleration>-0.000529 0.000419 -0.000283 0.003936 -0.00177 -0.005877</acceleration>
+          <wrench>-0.004439 0.00352 -0.002378 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/wrist_1_link'>
+          <pose frame=''>0.304621 -0.132888 0.786616 -1.56893 -0.235628 -3.13998</pose>
+          <velocity>-1.4e-05 3e-06 2.3e-05 -6e-06 -2e-05 -4e-06</velocity>
+          <acceleration>-0.000834 0.000131 0.000242 -0.001184 -0.001426 -0.002246</acceleration>
+          <wrench>-0.001016 0.000159 0.000295 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/wrist_2_link'>
+          <pose frame=''>0.327833 -0.132637 0.883569 -0.235628 -0.002091 -1.56868</pose>
+          <velocity>-1.6e-05 3e-06 2.3e-05 -7e-06 -2.2e-05 -4e-06</velocity>
+          <acceleration>-0.001084 0.000216 0.000309 -0.001186 -0.002664 -0.001751</acceleration>
+          <wrench>-0.001322 0.000263 0.000377 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/main_arm_SIM/wrist_3_link'>
+          <pose frame=''>0.424604 -0.132588 0.860337 -1.8064 -0.002093 -1.56868</pose>
+          <velocity>-1.5e-05 3e-06 2.6e-05 -7e-06 -2.3e-05 -5e-06</velocity>
+          <acceleration>-0.00103 -1.1e-05 0.000616 1.27098 -0.188669 3.12593</acceleration>
+          <wrench>-0.000427 -5e-06 0.000255 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/rear_left_wheel'>
+          <pose frame=''>-0.215918 0.3132 0.187494 1.5708 -0.00013 0</pose>
+          <velocity>-2e-06 1e-06 1.3e-05 -4e-06 -1.6e-05 -0</velocity>
+          <acceleration>4e-06 3.9e-05 1.7e-05 -0.000277 9e-06 -5.1e-05</acceleration>
+          <wrench>1e-05 0.000104 4.6e-05 0 -0 0</wrench>
+        </link>
+        <link name='bvr_SIM/rear_right_wheel'>
+          <pose frame=''>-0.215918 -0.3132 0.187493 1.5708 -0.00013 0</pose>
+          <velocity>-2e-06 1e-06 1.5e-05 -4e-06 -1.6e-05 -0</velocity>
+          <acceleration>-8e-06 2.8e-05 0.000188 -0.000197 -4.2e-05 -5.3e-05</acceleration>
+          <wrench>-2.1e-05 7.4e-05 0.000495 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='ground_plane'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='iscas_museum'>
+        <pose frame=''>2.73769 -7.82008 0 0 -0 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose frame=''>2.73769 -7.82008 0 0 -0 0</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0 0 0 0 -0 0</acceleration>
+          <wrench>0 0 0 0 -0 0</wrench>
+        </link>
+      </model>
+      <light name='sun'>
+        <pose frame=''>0 0 10 0 -0 0</pose>
+      </light>
+    </state>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>9.54176 2.20574 3.28088 0 0.381796 -2.63017</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+    <gravity>0 0 -9.81</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic'/>
+    <wind/>
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <latitude_deg>0</latitude_deg>
+      <longitude_deg>0</longitude_deg>
+      <elevation>0</elevation>
+      <heading_deg>0</heading_deg>
+    </spherical_coordinates>
+    <model name='bvr_SIM'>
+      <link name='bvr_SIM/bvr_base_link'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose frame=''>0.019345 0 0.009525 0 -0 0</pose>
+          <mass>44</mass>
+          <inertia>
+            <ixx>0.724056</ixx>
+            <ixy>0</ixy>
+            <ixz>-0.081073</ixz>
+            <iyy>1.57688</iyy>
+            <iyz>0</iyz>
+            <izz>1.53973</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/bvr_base_link_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.6096 0.4064 0.19685</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='bvr_SIM/bvr_base_link_fixed_joint_lump__bvr_SIM/bvr_top_plate_link_collision_1'>
+          <pose frame=''>0 0 0.104775 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/robowork_description/meshes/collision/RWL_Top_Plate.STL</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='bvr_SIM/bvr_base_link_fixed_joint_lump__bvr_SIM/main_arm_SIM/base_link_collision_2'>
+          <pose frame=''>0.21279 0 0.104775 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/collision/base.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='bvr_SIM/bvr_base_link_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.6096 0.4064 0.19685</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/Grey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <visual name='bvr_SIM/bvr_base_link_fixed_joint_lump__bvr_SIM/bvr_top_plate_link_visual_1'>
+          <pose frame=''>0 0 0.104775 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/robowork_description/meshes/visual/rwl_top_plate.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='bvr_SIM/bvr_base_link_fixed_joint_lump__bvr_SIM/main_arm_SIM/base_link_visual_2'>
+          <pose frame=''>0.21279 0 0.104775 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/visual/base.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <velocity_decay/>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <link name='bvr_SIM/front_left_wheel'>
+        <pose frame=''>0.2159 0.3132 -0.030925 1.5708 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>2.637</mass>
+          <inertia>
+            <ixx>0.0151471</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0151471</iyy>
+            <iyz>0</iyz>
+            <izz>0.0267738</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/front_left_wheel_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.0895</length>
+              <radius>0.1425</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+07</kp>
+                <kd>1</kd>
+                <max_vel>100</max_vel>
+                <min_depth>0.005</min_depth>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>10</mu>
+                <mu2>0.1</mu2>
+                <fdir1>1 0 0</fdir1>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/front_left_wheel_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/robowork_description/meshes/visual/wheel.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/DarkGrey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/front_left_wheel' type='revolute'>
+        <child>bvr_SIM/front_left_wheel</child>
+        <parent>bvr_SIM/bvr_base_link</parent>
+        <axis>
+          <xyz>0 1 -0</xyz>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <damping>1</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='bvr_SIM/front_right_wheel'>
+        <pose frame=''>0.2159 -0.3132 -0.030925 1.5708 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>2.637</mass>
+          <inertia>
+            <ixx>0.0151471</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0151471</iyy>
+            <iyz>0</iyz>
+            <izz>0.0267738</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/front_right_wheel_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.0895</length>
+              <radius>0.1425</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+07</kp>
+                <kd>1</kd>
+                <max_vel>100</max_vel>
+                <min_depth>0.005</min_depth>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>10</mu>
+                <mu2>0.1</mu2>
+                <fdir1>1 0 0</fdir1>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/front_right_wheel_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/robowork_description/meshes/visual/wheel.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/DarkGrey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/front_right_wheel' type='revolute'>
+        <child>bvr_SIM/front_right_wheel</child>
+        <parent>bvr_SIM/bvr_base_link</parent>
+        <axis>
+          <xyz>0 1 -0</xyz>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <damping>1</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='bvr_SIM/rear_left_wheel'>
+        <pose frame=''>-0.2159 0.3132 -0.030925 1.5708 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>2.637</mass>
+          <inertia>
+            <ixx>0.0151471</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0151471</iyy>
+            <iyz>0</iyz>
+            <izz>0.0267738</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/rear_left_wheel_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.0895</length>
+              <radius>0.1425</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+07</kp>
+                <kd>1</kd>
+                <max_vel>100</max_vel>
+                <min_depth>0.005</min_depth>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>10</mu>
+                <mu2>0.1</mu2>
+                <fdir1>1 0 0</fdir1>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/rear_left_wheel_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/robowork_description/meshes/visual/wheel.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/DarkGrey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/rear_left_wheel' type='revolute'>
+        <child>bvr_SIM/rear_left_wheel</child>
+        <parent>bvr_SIM/bvr_base_link</parent>
+        <axis>
+          <xyz>0 1 -0</xyz>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <damping>1</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='bvr_SIM/rear_right_wheel'>
+        <pose frame=''>-0.2159 -0.3132 -0.030925 1.5708 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>2.637</mass>
+          <inertia>
+            <ixx>0.0151471</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0151471</iyy>
+            <iyz>0</iyz>
+            <izz>0.0267738</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/rear_right_wheel_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <cylinder>
+              <length>0.0895</length>
+              <radius>0.1425</radius>
+            </cylinder>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+07</kp>
+                <kd>1</kd>
+                <max_vel>100</max_vel>
+                <min_depth>0.005</min_depth>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>10</mu>
+                <mu2>0.1</mu2>
+                <fdir1>1 0 0</fdir1>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/rear_right_wheel_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/robowork_description/meshes/visual/wheel.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <name>Gazebo/DarkGrey</name>
+              <uri>file://media/materials/scripts/gazebo.material</uri>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/rear_right_wheel' type='revolute'>
+        <child>bvr_SIM/rear_right_wheel</child>
+        <parent>bvr_SIM/bvr_base_link</parent>
+        <axis>
+          <xyz>0 1 -0</xyz>
+          <limit>
+            <lower>-1e+16</lower>
+            <upper>1e+16</upper>
+          </limit>
+          <dynamics>
+            <damping>1</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+        <physics>
+          <ode>
+            <limit>
+              <cfm>0</cfm>
+              <erp>0.2</erp>
+            </limit>
+          </ode>
+        </physics>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/shoulder_link'>
+        <pose frame=''>0.21279 0 0.267268 0 -0 0</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>3.7</mass>
+          <inertia>
+            <ixx>0.0102675</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0102675</iyy>
+            <iyz>0</iyz>
+            <izz>0.00666</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/shoulder_link_collision'>
+          <pose frame=''>0 0 0 0 -0 -3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/collision/shoulder.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/shoulder_link_visual'>
+          <pose frame=''>0 0 0 0 -0 -3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/visual/shoulder.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/shoulder_pan_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/shoulder_link</child>
+        <parent>bvr_SIM/bvr_base_link</parent>
+        <axis>
+          <xyz>-0 0 1</xyz>
+          <limit>
+            <lower>-3.14159</lower>
+            <upper>3.14159</upper>
+            <effort>150</effort>
+            <velocity>3.14</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/upper_arm_link'>
+        <pose frame=''>0.212852 0 0.267268 1.57036 0 1e-06</pose>
+        <inertial>
+          <pose frame=''>-0.212621 0 0.138 3.14159 1.57079 3.14159</pose>
+          <mass>8.393</mass>
+          <inertia>
+            <ixx>0.138279</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.138279</iyy>
+            <iyz>0</iyz>
+            <izz>0.0236053</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/upper_arm_link_collision'>
+          <pose frame=''>0 0 0.138 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/collision/upperarm.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/upper_arm_link_visual'>
+          <pose frame=''>0 0 0.138 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/visual/upperarm.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/shoulder_lift_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/upper_arm_link</child>
+        <parent>bvr_SIM/main_arm_SIM/shoulder_link</parent>
+        <axis>
+          <xyz>1e-06 -1 0.000439</xyz>
+          <limit>
+            <lower>-3.14159</lower>
+            <upper>3.14159</upper>
+            <effort>150</effort>
+            <velocity>3.14</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/forearm_link'>
+        <pose frame=''>-0.212391 -1e-06 0.267268 1.56918 1e-06 0.001222</pose>
+        <inertial>
+          <pose frame=''>-0.212621 0 0.007 3.14159 1.57079 3.14159</pose>
+          <mass>2.275</mass>
+          <inertia>
+            <ixx>0.0323681</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.0323681</iyy>
+            <iyz>0</iyz>
+            <izz>0.00639844</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/forearm_link_collision'>
+          <pose frame=''>0 0 0.007 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/collision/forearm.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/forearm_link_visual'>
+          <pose frame=''>0 0 0.007 1.5708 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/visual/forearm.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/elbow_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/forearm_link</child>
+        <parent>bvr_SIM/main_arm_SIM/upper_arm_link</parent>
+        <axis>
+          <xyz>0.001222 -0.999998 0.001619</xyz>
+          <limit>
+            <lower>-3.14159</lower>
+            <upper>3.14159</upper>
+            <effort>150</effort>
+            <velocity>3.14</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/wrist_1_link'>
+        <pose frame=''>-0.604475 -0.134165 0.267297 1.57058 -1e-06 0.000868</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>1.219</mass>
+          <inertia>
+            <ixx>0.00272382</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00272382</iyy>
+            <iyz>0</iyz>
+            <izz>0.00342844</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/wrist_1_link_collision'>
+          <pose frame=''>0 0 -0.127 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/collision/wrist1.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/wrist_1_link_visual'>
+          <pose frame=''>0 0 -0.127 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/visual/wrist1.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/wrist_1_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/wrist_1_link</child>
+        <parent>bvr_SIM/main_arm_SIM/forearm_link</parent>
+        <axis>
+          <xyz>0.000868 -1 0.000212</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>3.14159</upper>
+            <effort>28</effort>
+            <velocity>6.28</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/wrist_2_link'>
+        <pose frame=''>-0.604412 -0.134158 0.167604 -3.14152 -1e-06 0.000868</pose>
+        <inertial>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <mass>1.219</mass>
+          <inertia>
+            <ixx>0.00272034</ixx>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyy>0.00272034</iyy>
+            <iyz>0</iyz>
+            <izz>0.00342844</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/wrist_2_link_collision'>
+          <pose frame=''>0 0 -0.0997 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/collision/wrist2.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/wrist_2_link_visual'>
+          <pose frame=''>0 0 -0.0997 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/visual/wrist2.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/wrist_2_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/wrist_2_link</child>
+        <parent>bvr_SIM/main_arm_SIM/wrist_1_link</parent>
+        <axis>
+          <xyz>1e-06 7.2e-05 -1</xyz>
+          <limit>
+            <lower>-0</lower>
+            <upper>3.14159</upper>
+            <effort>28</effort>
+            <velocity>6.28</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/wrist_3_link'>
+        <pose frame=''>-0.604218 -0.233678 0.167595 1.57089 -1e-06 0.000868</pose>
+        <inertial>
+          <pose frame=''>-3e-06 -0 0.011759 0 -0 0</pose>
+          <mass>0.41442</mass>
+          <inertia>
+            <ixx>0.000777081</ixx>
+            <ixy>4.24379e-10</ixy>
+            <ixz>-2.22746e-09</ixz>
+            <iyy>0.000798811</iyy>
+            <iyz>8.86413e-10</iyz>
+            <izz>0.000325029</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/wrist_3_link_collision'>
+          <pose frame=''>0 0 -0.0989 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/collision/wrist3.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='bvr_SIM/main_arm_SIM/wrist_3_link_fixed_joint_lump__bvr_SIM/main_arm_SIM/ee_link_collision_1'>
+          <pose frame=''>0 -0 -0.01 -3.14159 -1.57079 -1.57079</pose>
+          <geometry>
+            <box>
+              <size>0.01 0.01 0.01</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <friction>
+              <ode/>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='bvr_SIM/main_arm_SIM/wrist_3_link_fixed_joint_lump__bvr_SIM/main_arm_SIM/gripper_coupling_link_collision_2'>
+          <pose frame=''>0 0 0.004 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/robowork_description/meshes/collision/IO_20Coupling_20UR_20CB_20190807.STL</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='bvr_SIM/main_arm_SIM/wrist_3_link_fixed_joint_lump__bvr_SIM/main_arm_SIM/gripper/robotiq_arg2f_base_link_collision_3'>
+          <pose frame=''>0 0 0.0108 0 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/collision/robotiq_arg2f_base_link.stl</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <collision name='bvr_SIM/main_arm_SIM/wrist_3_link_fixed_joint_lump__bvr_SIM/main_arm_SIM/gripper_sensormount_link_collision_4'>
+          <pose frame=''>0 -0.02645 -0.015075 1.5708 -0 3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/robowork_description/meshes/collision/UR5e_Sensor_Mount.STL</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/wrist_3_link_visual'>
+          <pose frame=''>0 0 -0.0989 1.5708 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/fmauch_universal_robot/ur_e_description/meshes/ur5e/visual/wrist3.dae</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='bvr_SIM/main_arm_SIM/wrist_3_link_fixed_joint_lump__bvr_SIM/main_arm_SIM/gripper_coupling_link_visual_1'>
+          <pose frame=''>0 0 0.004 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/robowork_description/meshes/visual/io_20coupling_20ur_20cb_20190807.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='bvr_SIM/main_arm_SIM/wrist_3_link_fixed_joint_lump__bvr_SIM/main_arm_SIM/gripper/robotiq_arg2f_base_link_visual_2'>
+          <pose frame=''>0 0 0.0108 0 0 -1.5708</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/visual/robotiq_arg2f_base_link.stl</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <visual name='bvr_SIM/main_arm_SIM/wrist_3_link_fixed_joint_lump__bvr_SIM/main_arm_SIM/gripper_sensormount_link_visual_3'>
+          <pose frame=''>0 -0.02645 -0.015075 1.5708 -0 3.14159</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/robowork_description/meshes/visual/ur5e_sensor_mount.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <velocity_decay/>
+        <velocity_decay/>
+        <self_collide>1</self_collide>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <sensor name='l515' type='depth'>
+          <always_on>1</always_on>
+          <visualize>1</visualize>
+          <camera name='__default__'>
+            <horizontal_fov>1.22173</horizontal_fov>
+            <image>
+              <width>1024</width>
+              <height>768</height>
+              <format>R8G8B8</format>
+            </image>
+            <depth_camera>
+              <output>depths</output>
+            </depth_camera>
+            <clip>
+              <near>0.1</near>
+              <far>100</far>
+            </clip>
+          </camera>
+          <plugin name='camera_controller' filename='libgazebo_ros_openni_kinect.so'>
+            <robotNamespace>bvr_SIM</robotNamespace>
+            <alwaysOn>1</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>l515</cameraName>
+            <frameName>/bvr_SIM/main_arm_SIM/l515_color_frame_link_GAZEBO_CAMALIGN</frameName>
+            <imageTopicName>color/image_raw</imageTopicName>
+            <depthImageTopicName>aligned_depth_to_color/image_raw</depthImageTopicName>
+            <depthImageCameraInfoTopicName>aligned_depth_to_color/camera_info</depthImageCameraInfoTopicName>
+            <pointCloudTopicName>depth/color/points</pointCloudTopicName>
+            <cameraInfoTopicName>color/camera_info</cameraInfoTopicName>
+            <pointCloudCutoff>0.25</pointCloudCutoff>
+            <pointCloudCutoffMax>9.0</pointCloudCutoffMax>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+            <CxPrime>0.0</CxPrime>
+            <Cx>0.0</Cx>
+            <Cy>0.0</Cy>
+            <focalLength>0.0</focalLength>
+          </plugin>
+          <pose frame=''>-0.000204 -0.101125 -0.002079 2.8103 -1.54344 -1.21987</pose>
+        </sensor>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/wrist_3_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/wrist_3_link</child>
+        <parent>bvr_SIM/main_arm_SIM/wrist_2_link</parent>
+        <axis>
+          <xyz>0.000868 -1 -9.1e-05</xyz>
+          <limit>
+            <lower>-1.5708</lower>
+            <upper>4.71239</upper>
+            <effort>28</effort>
+            <velocity>6.28</velocity>
+          </limit>
+          <dynamics>
+            <damping>0</damping>
+            <friction>0</friction>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/gripper/left_outer_knuckle'>
+        <pose frame=''>-0.634762 -0.29941 0.167589 -0.852533 1.57071 1.56493</pose>
+        <inertial>
+          <pose frame=''>0.000164 0.04584 0.01178 0 -0 0</pose>
+          <mass>0.0311462</mass>
+          <inertia>
+            <ixx>2.96016e-05</ixx>
+            <ixy>-1.09755e-07</ixy>
+            <ixz>7.40449e-08</ixz>
+            <iyy>1.16215e-05</iyy>
+            <iyz>1.08762e-05</iyz>
+            <izz>2.07508e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/gripper/left_outer_knuckle_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/collision/robotiq_arg2f_140_outer_knuckle.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+08</kp>
+                <kd>1</kd>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='bvr_SIM/main_arm_SIM/gripper/left_outer_knuckle_fixed_joint_lump__bvr_SIM/main_arm_SIM/gripper/left_outer_finger_collision_1'>
+          <pose frame=''>0 0.01822 0.026002 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/collision/robotiq_arg2f_140_outer_finger.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+08</kp>
+                <kd>1</kd>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/gripper/left_outer_knuckle_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/visual/robotiq_arg2f_140_outer_knuckle.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='bvr_SIM/main_arm_SIM/gripper/left_outer_knuckle_fixed_joint_lump__bvr_SIM/main_arm_SIM/gripper/left_outer_finger_visual_1'>
+          <pose frame=''>0 0.01822 0.026002 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/visual/robotiq_arg2f_140_outer_finger.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay/>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/gripper/finger_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/gripper/left_outer_knuckle</child>
+        <parent>bvr_SIM/main_arm_SIM/wrist_3_link</parent>
+        <axis>
+          <xyz>-1e-06 -9.1e-05 1</xyz>
+          <limit>
+            <lower>0</lower>
+            <upper>0.7</upper>
+            <effort>1000</effort>
+            <velocity>2</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/gripper/left_inner_finger'>
+        <pose frame=''>-0.699333 -0.375769 0.167582 -1.57753 1.57071 1.56493</pose>
+        <inertial>
+          <pose frame=''>0.0003 0.016008 -0.013695 0 -0 0</pose>
+          <mass>0.0104003</mass>
+          <inertia>
+            <ixx>2.71909e-06</ixx>
+            <ixy>1.35402e-21</ixy>
+            <ixz>-7.18173e-22</ixz>
+            <iyy>7.691e-07</iyy>
+            <iyz>6.74715e-07</iyz>
+            <izz>2.30315e-06</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/gripper/left_inner_finger_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/collision/robotiq_arg2f_140_inner_finger.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+08</kp>
+                <kd>1</kd>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='bvr_SIM/main_arm_SIM/gripper/left_inner_finger_pad_collision_1'>
+          <pose frame=''>0 0.045755 -0.02722 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.03 0.07 0.0075</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+08</kp>
+                <kd>1</kd>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/gripper/left_inner_finger_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/visual/robotiq_arg2f_140_inner_finger.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='bvr_SIM/main_arm_SIM/gripper/left_inner_finger_pad_visual_1'>
+          <pose frame=''>0 0.045755 -0.02722 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.027 0.065 0.0075</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay/>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/gripper/left_inner_finger_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/gripper/left_inner_finger</child>
+        <parent>bvr_SIM/main_arm_SIM/gripper/left_outer_knuckle</parent>
+        <axis>
+          <xyz>1e-06 9.1e-05 -1</xyz>
+          <limit>
+            <lower>-0.8757</lower>
+            <upper>0.8757</upper>
+            <effort>1000</effort>
+            <velocity>2</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle'>
+        <pose frame=''>-0.616856 -0.305909 0.167588 -0.852533 1.57071 1.56493</pose>
+        <inertial>
+          <pose frame=''>0.000123 0.050785 0.00104 0 -0 0</pose>
+          <mass>0.0271177</mass>
+          <inertia>
+            <ixx>2.6191e-05</ixx>
+            <ixy>-2.43617e-07</ixy>
+            <ixz>-6.3779e-09</ixz>
+            <iyy>2.82702e-06</iyy>
+            <iyz>-5.37201e-07</iyz>
+            <izz>2.83696e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/collision/robotiq_arg2f_140_inner_knuckle.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+08</kp>
+                <kd>1</kd>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/visual/robotiq_arg2f_140_inner_knuckle.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle</child>
+        <parent>bvr_SIM/main_arm_SIM/wrist_3_link</parent>
+        <axis>
+          <xyz>1e-06 9.1e-05 -1</xyz>
+          <limit>
+            <lower>-0.8757</lower>
+            <upper>0.8757</upper>
+            <effort>1000</effort>
+            <velocity>2</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle'>
+        <pose frame=''>-0.591456 -0.305887 0.167588 -0.83906 -1.57071 -1.57666</pose>
+        <inertial>
+          <pose frame=''>0.000123 0.050785 0.00104 0 -0 0</pose>
+          <mass>0.0271177</mass>
+          <inertia>
+            <ixx>2.6191e-05</ixx>
+            <ixy>-2.43617e-07</ixy>
+            <ixz>-6.3779e-09</ixz>
+            <iyy>2.82702e-06</iyy>
+            <iyz>-5.37201e-07</iyz>
+            <izz>2.83696e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/collision/robotiq_arg2f_140_inner_knuckle.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+08</kp>
+                <kd>1</kd>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/visual/robotiq_arg2f_140_inner_knuckle.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle</child>
+        <parent>bvr_SIM/main_arm_SIM/wrist_3_link</parent>
+        <axis>
+          <xyz>-1e-06 -9.1e-05 1</xyz>
+          <limit>
+            <lower>-0.8757</lower>
+            <upper>0.8757</upper>
+            <effort>1000</effort>
+            <velocity>2</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle'>
+        <pose frame=''>-0.57356 -0.299357 0.167589 -0.83906 -1.57071 -1.57666</pose>
+        <inertial>
+          <pose frame=''>0.000164 0.04584 0.01178 0 -0 0</pose>
+          <mass>0.0311462</mass>
+          <inertia>
+            <ixx>2.96016e-05</ixx>
+            <ixy>-1.09755e-07</ixy>
+            <ixz>7.40449e-08</ixz>
+            <iyy>1.16215e-05</iyy>
+            <iyz>1.08762e-05</iyz>
+            <izz>2.07508e-05</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/collision/robotiq_arg2f_140_outer_knuckle.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+08</kp>
+                <kd>1</kd>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle_fixed_joint_lump__bvr_SIM/main_arm_SIM/gripper/right_outer_finger_collision_1'>
+          <pose frame=''>0 0.01822 0.026002 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/collision/robotiq_arg2f_140_outer_finger.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+08</kp>
+                <kd>1</kd>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/visual/robotiq_arg2f_140_outer_knuckle.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle_fixed_joint_lump__bvr_SIM/main_arm_SIM/gripper/right_outer_finger_visual_1'>
+          <pose frame=''>0 0.01822 0.026002 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/visual/robotiq_arg2f_140_outer_finger.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay/>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle</child>
+        <parent>bvr_SIM/main_arm_SIM/wrist_3_link</parent>
+        <axis>
+          <xyz>-1e-06 -9.1e-05 1</xyz>
+          <limit>
+            <lower>-0.725</lower>
+            <upper>0.725</upper>
+            <effort>1000</effort>
+            <velocity>2</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <link name='bvr_SIM/main_arm_SIM/gripper/right_inner_finger'>
+        <pose frame=''>-0.508857 -0.375603 0.167582 -1.56406 -1.57071 -1.57666</pose>
+        <inertial>
+          <pose frame=''>0.0003 0.016008 -0.013695 0 -0 0</pose>
+          <mass>0.0104003</mass>
+          <inertia>
+            <ixx>2.71909e-06</ixx>
+            <ixy>1.35402e-21</ixy>
+            <ixz>-7.18173e-22</ixz>
+            <iyy>7.691e-07</iyy>
+            <iyz>6.74715e-07</iyz>
+            <izz>2.30315e-06</izz>
+          </inertia>
+        </inertial>
+        <collision name='bvr_SIM/main_arm_SIM/gripper/right_inner_finger_collision'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/collision/robotiq_arg2f_140_inner_finger.stl</uri>
+            </mesh>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+08</kp>
+                <kd>1</kd>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <collision name='bvr_SIM/main_arm_SIM/gripper/right_inner_finger_pad_collision_1'>
+          <pose frame=''>0 0.045755 -0.02722 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.03 0.07 0.0075</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode>
+                <kp>1e+08</kp>
+                <kd>1</kd>
+              </ode>
+            </contact>
+            <friction>
+              <ode>
+                <mu>100000</mu>
+                <mu2>100000</mu2>
+              </ode>
+              <torsional>
+                <ode/>
+              </torsional>
+            </friction>
+            <bounce/>
+          </surface>
+          <max_contacts>10</max_contacts>
+        </collision>
+        <visual name='bvr_SIM/main_arm_SIM/gripper/right_inner_finger_visual'>
+          <pose frame=''>0 0 0 0 -0 0</pose>
+          <geometry>
+            <mesh>
+              <scale>1 1 1</scale>
+              <uri>/home/christos/autonomous_mobile_manipulation_ws/src/autonomous_mobile_manipulation/deps/robotiq_2f_140_gripper_visualization/meshes/visual/robotiq_arg2f_140_inner_finger.stl</uri>
+            </mesh>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <visual name='bvr_SIM/main_arm_SIM/gripper/right_inner_finger_pad_visual_1'>
+          <pose frame=''>0 0.045755 -0.02722 0 -0 0</pose>
+          <geometry>
+            <box>
+              <size>0.027 0.065 0.0075</size>
+            </box>
+          </geometry>
+          <material>
+            <script>
+              <uri>__default__</uri>
+              <name>__default__</name>
+            </script>
+          </material>
+        </visual>
+        <velocity_decay/>
+        <gravity>1</gravity>
+        <velocity_decay/>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <joint name='bvr_SIM/main_arm_SIM/gripper/right_inner_finger_joint' type='revolute'>
+        <child>bvr_SIM/main_arm_SIM/gripper/right_inner_finger</child>
+        <parent>bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle</parent>
+        <axis>
+          <xyz>-1e-06 -9.1e-05 1</xyz>
+          <limit>
+            <lower>-0.8757</lower>
+            <upper>0.8757</upper>
+            <effort>1000</effort>
+            <velocity>2</velocity>
+          </limit>
+          <dynamics>
+            <spring_reference>0</spring_reference>
+            <spring_stiffness>0</spring_stiffness>
+          </dynamics>
+          <use_parent_model_frame>1</use_parent_model_frame>
+        </axis>
+      </joint>
+      <plugin name='gazebo_ros_control' filename='libgazebo_ros_control.so'>
+        <robotNamespace>bvr_SIM</robotNamespace>
+      </plugin>
+      <plugin name='bvr_SIM/bvr_imu_controller' filename='libhector_gazebo_ros_imu.so'>
+        <robotNamespace>bvr_SIM</robotNamespace>
+        <updateRate>50.0</updateRate>
+        <bodyName>bvr_SIM/bvr_base_link</bodyName>
+        <topicName>bvr_imu/data</topicName>
+        <accelDrift>0.005 0.005 0.005</accelDrift>
+        <accelGaussianNoise>0.005 0.005 0.005</accelGaussianNoise>
+        <rateDrift>0.005 0.005 0.005</rateDrift>
+        <rateGaussianNoise>0.005 0.005 0.005</rateGaussianNoise>
+        <headingDrift>0.005</headingDrift>
+        <headingGaussianNoise>0.005</headingGaussianNoise>
+      </plugin>
+      <plugin name='bvr_SIM/bvr_gps_controller' filename='libhector_gazebo_ros_gps.so'>
+        <robotNamespace>bvr_SIM</robotNamespace>
+        <updateRate>40</updateRate>
+        <bodyName>bvr_SIM/bvr_base_link</bodyName>
+        <frameId>bvr_base_link</frameId>
+        <topicName>navsat/fix</topicName>
+        <velocityTopicName>navsat/vel</velocityTopicName>
+        <referenceLatitude>49.9</referenceLatitude>
+        <referenceLongitude>8.9</referenceLongitude>
+        <referenceHeading>0</referenceHeading>
+        <referenceAltitude>0</referenceAltitude>
+        <drift>0.0001 0.0001 0.0001</drift>
+      </plugin>
+      <plugin name='bvr_SIM/bvr_base_link_p3d_controller' filename='libgazebo_ros_p3d.so'>
+        <alwaysOn>1</alwaysOn>
+        <robotNamespace>bvr_SIM</robotNamespace>
+        <bodyName>bvr_SIM/bvr_base_link</bodyName>
+        <topicName>odom</topicName>
+        <updateRate>20.0</updateRate>
+        <gaussianNoise>0.0</gaussianNoise>
+        <frameName>map</frameName>
+        <xyzOffsets>0 0 0</xyzOffsets>
+        <rpyOffsets>0 0 0</rpyOffsets>
+      </plugin>
+      <plugin name='bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle_joint' filename='libroboticsgroup_gazebo_mimic_joint_plugin.so'>
+        <mimicJoint>bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle_joint</mimicJoint>
+        <joint>bvr_SIM/main_arm_SIM/gripper/finger_joint</joint>
+        <multiplier>-1</multiplier>
+        <offset>0</offset>
+        <hasPID>/bvr_SIM/gazebo_ros_control/pid_gains/bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle_joint</hasPID>
+        <robotNamespace>/bvr_SIM/</robotNamespace>
+      </plugin>
+      <plugin name='bvr_SIM/main_arm_SIM/gripper/left_inner_finger_joint' filename='libroboticsgroup_gazebo_mimic_joint_plugin.so'>
+        <mimicJoint>bvr_SIM/main_arm_SIM/gripper/left_inner_finger_joint</mimicJoint>
+        <joint>bvr_SIM/main_arm_SIM/gripper/finger_joint</joint>
+        <multiplier>1</multiplier>
+        <offset>0</offset>
+        <hasPID>/bvr_SIM/gazebo_ros_control/pid_gains/bvr_SIM/main_arm_SIM/gripper/left_inner_finger_joint</hasPID>
+        <robotNamespace>/bvr_SIM/</robotNamespace>
+      </plugin>
+      <plugin name='bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle_joint' filename='libroboticsgroup_gazebo_mimic_joint_plugin.so'>
+        <mimicJoint>bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle_joint</mimicJoint>
+        <joint>bvr_SIM/main_arm_SIM/gripper/finger_joint</joint>
+        <multiplier>-1</multiplier>
+        <offset>0</offset>
+        <hasPID>/bvr_SIM/gazebo_ros_control/pid_gains/bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle_joint</hasPID>
+        <robotNamespace>/bvr_SIM/</robotNamespace>
+      </plugin>
+      <plugin name='bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle_joint' filename='libroboticsgroup_gazebo_mimic_joint_plugin.so'>
+        <mimicJoint>bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle_joint</mimicJoint>
+        <joint>bvr_SIM/main_arm_SIM/gripper/finger_joint</joint>
+        <multiplier>-1</multiplier>
+        <offset>0</offset>
+        <hasPID>/bvr_SIM/gazebo_ros_control/pid_gains/bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle_joint</hasPID>
+        <robotNamespace>/bvr_SIM/</robotNamespace>
+      </plugin>
+      <plugin name='bvr_SIM/main_arm_SIM/gripper/right_inner_finger_joint' filename='libroboticsgroup_gazebo_mimic_joint_plugin.so'>
+        <mimicJoint>bvr_SIM/main_arm_SIM/gripper/right_inner_finger_joint</mimicJoint>
+        <joint>bvr_SIM/main_arm_SIM/gripper/finger_joint</joint>
+        <multiplier>1</multiplier>
+        <offset>0</offset>
+        <hasPID>/bvr_SIM/gazebo_ros_control/pid_gains/bvr_SIM/main_arm_SIM/gripper/right_inner_finger_joint</hasPID>
+        <robotNamespace>/bvr_SIM/</robotNamespace>
+      </plugin>
+      <plugin name='gazebo_grasp_fix' filename='libgazebo_grasp_fix.so'>
+        <arm>
+          <arm_name>bvr_SIM/main_arm_SIM/gripper/</arm_name>
+          <palm_link>bvr_SIM/main_arm_SIM/wrist_3_link</palm_link>
+          <gripper_link>bvr_SIM/main_arm_SIM/gripper/left_inner_finger</gripper_link>
+          <gripper_link>bvr_SIM/main_arm_SIM/gripper/right_inner_finger</gripper_link>
+          <gripper_parallel_joint>bvr_SIM/main_arm_SIM/gripper/finger_joint</gripper_parallel_joint>
+        </arm>
+        <forces_angle_tolerance>100</forces_angle_tolerance>
+        <update_rate>4</update_rate>
+        <grip_count_threshold>1</grip_count_threshold>
+        <max_grip_count>8</max_grip_count>
+        <release_tolerance>0.005</release_tolerance>
+        <disable_collisions_on_attach>0</disable_collisions_on_attach>
+        <contact_topic>__default_topic__</contact_topic>
+        <robotNamespace>/bvr_SIM/</robotNamespace>
+      </plugin>
+      <plugin name='bvr_SIM/main_arm_SIM/t265_link_p3d_controller' filename='libgazebo_ros_p3d.so'>
+        <alwaysOn>1</alwaysOn>
+        <robotNamespace>bvr_SIM</robotNamespace>
+        <topicName>t265_odom</topicName>
+        <updateRate>200.0</updateRate>
+        <gaussianNoise>0.0</gaussianNoise>
+        <frameName>map</frameName>
+        <xyzOffsets>0 0 0</xyzOffsets>
+        <rpyOffsets>0 0 0</rpyOffsets>
+        <bodyName>bvr_SIM/main_arm_SIM/wrist_3_link</bodyName>
+        <xyzOffset>0.001 0.0505054 -0.0164507</xyzOffset>
+        <rpyOffset>0.027427 1.66189e-05 -0.0548311</rpyOffset>
+      </plugin>
+      <static>0</static>
+      <plugin name='bvr_SIM/main_arm_SIM/l515_link_p3d_controller' filename='libgazebo_ros_p3d.so'>
+        <alwaysOn>1</alwaysOn>
+        <robotNamespace>bvr_SIM</robotNamespace>
+        <topicName>l515_odom</topicName>
+        <updateRate>200.0</updateRate>
+        <gaussianNoise>0.0</gaussianNoise>
+        <frameName>map</frameName>
+        <xyzOffsets>0 0 0</xyzOffsets>
+        <rpyOffsets>0 0 0</rpyOffsets>
+        <bodyName>bvr_SIM/main_arm_SIM/wrist_3_link</bodyName>
+        <xyzOffset>1.25326e-14 0.0870456 0.0061695</xyzOffset>
+        <rpyOffset>0.0274238 -1.67025e-05 -0.0548309</rpyOffset>
+      </plugin>
+      <pose frame=''>0 0 0.2185 0 -0 0</pose>
+    </model>
+    <model name='iscas_museum'>
+      <link name='link'>
+        <inertial>
+          <mass>15</mass>
+        </inertial>
+        <collision name='collision'>
+          <pose frame=''>0 0 0 0 0 -1.57</pose>
+          <geometry>
+            <mesh>
+              <uri>model://iscas_museum/meshes/ISCAS_museum.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <pose frame=''>0 0 0 0 0 -1.57</pose>
+          <geometry>
+            <mesh>
+              <uri>model://iscas_museum/meshes/ISCAS_museum.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+      <static>1</static>
+      <pose frame=''>2.73769 -7.82008 0 0 -0 0</pose>
+    </model>
+    <model name='barge'>
+      <pose frame=''>3.663 -0.699201 0 0 -0 0</pose>
+      <static>1</static>
+      <link name='link'>
+        <collision name='collision'>
+          <geometry>
+            <mesh>
+              <uri>model://barge/meshes/barge.dae</uri>
+            </mesh>
+          </geometry>
+          <max_contacts>10</max_contacts>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+            <bounce/>
+            <friction>
+              <torsional>
+                <ode/>
+              </torsional>
+              <ode/>
+            </friction>
+          </surface>
+        </collision>
+        <visual name='visual'>
+          <geometry>
+            <mesh>
+              <uri>model://barge/meshes/barge.dae</uri>
+            </mesh>
+          </geometry>
+        </visual>
+        <self_collide>0</self_collide>
+        <enable_wind>0</enable_wind>
+        <kinematic>0</kinematic>
+      </link>
+    </model>
+  </world>
+</sdf>
