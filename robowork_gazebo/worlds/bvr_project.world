@@ -140,10 +140,10 @@
       <pose frame=''>-0.464139 0 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>2039 795000000</sim_time>
-      <real_time>41 599726883</real_time>
-      <wall_time>1613010339 256038190</wall_time>
-      <iterations>5715</iterations>
+      <sim_time>2095 335000000</sim_time>
+      <real_time>76 851968901</real_time>
+      <wall_time>1613103001 893717881</wall_time>
+      <iterations>11108</iterations>
       <model name='asphalt_plane'>
         <pose frame=''>3.20277 -7.0229 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -154,120 +154,120 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
-      <model name='barge'>
-        <pose frame=''>1.99938 -0.44923 0.835527 3.14066 8e-06 0.008506</pose>
+      <model name='boat'>
+        <pose frame=''>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose frame=''>1.99938 -0.44923 0.835527 3.14066 8e-06 0.008506</pose>
+          <pose frame=''>0 0 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='bvr_SIM'>
-        <pose frame=''>-1.8e-05 -0 0.218416 2e-06 9e-06 0</pose>
+        <pose frame=''>-2.1e-05 -0 0.218416 2e-06 9e-06 0</pose>
         <scale>1 1 1</scale>
         <link name='bvr_SIM/bvr_base_link'>
-          <pose frame=''>-1.8e-05 -0 0.218416 2e-06 9e-06 0</pose>
-          <velocity>-3e-06 1e-06 1.7e-05 -3e-06 -1.5e-05 0</velocity>
-          <acceleration>-1.5e-05 3.8e-05 -1e-06 0.000201 0.000334 -2.9e-05</acceleration>
-          <wrench>-0.000677 0.001693 -6.3e-05 0 -0 0</wrench>
+          <pose frame=''>-2.1e-05 -0 0.218416 2e-06 9e-06 0</pose>
+          <velocity>-3e-06 1e-06 1.7e-05 -4e-06 -1.7e-05 0</velocity>
+          <acceleration>1.4e-05 -3.8e-05 2e-06 -0.000201 -0.000339 2.9e-05</acceleration>
+          <wrench>0.000637 -0.001691 6.6e-05 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/front_left_wheel'>
-          <pose frame=''>0.215882 0.3132 0.18749 1.5708 -0.00013 0</pose>
-          <velocity>-2e-06 1e-06 1.9e-05 -4e-06 -1.6e-05 -0</velocity>
-          <acceleration>3e-06 1.7e-05 5.1e-05 -0.000118 6e-06 -4.3e-05</acceleration>
-          <wrench>9e-06 4.5e-05 0.000134 0 -0 0</wrench>
+          <pose frame=''>0.215879 0.3132 0.18749 1.5708 -0.00015 0</pose>
+          <velocity>-2e-06 0 1.9e-05 -3e-06 -1.6e-05 0</velocity>
+          <acceleration>-4e-06 -1.7e-05 -5e-05 0.000118 4e-06 4.3e-05</acceleration>
+          <wrench>-1e-05 -4.4e-05 -0.000132 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/front_right_wheel'>
-          <pose frame=''>0.215882 -0.3132 0.187489 1.5708 -0.00013 0</pose>
-          <velocity>-2e-06 1e-06 2.1e-05 -4e-06 -1.6e-05 -0</velocity>
-          <acceleration>-7e-06 3.2e-05 -0.000226 -0.000222 -3.8e-05 -4.6e-05</acceleration>
-          <wrench>-1.8e-05 8.3e-05 -0.000595 0 -0 0</wrench>
+          <pose frame=''>0.215879 -0.3132 0.187489 1.5708 -0.00015 0</pose>
+          <velocity>-2e-06 0 2.2e-05 -3e-06 -1.6e-05 0</velocity>
+          <acceleration>6e-06 -3.2e-05 0.000227 0.000221 4.7e-05 4.6e-05</acceleration>
+          <wrench>1.7e-05 -8.3e-05 0.000598 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/forearm_link'>
-          <pose frame=''>-0.087853 0.00013 0.786377 -1.57038 -1e-05 -3.13989</pose>
-          <velocity>-1.3e-05 5e-06 1.4e-05 -6e-06 -2e-05 -4e-06</velocity>
-          <acceleration>-0.000594 0.000447 -0.000242 -0.000894 -0.001835 -0.001642</acceleration>
-          <wrench>-0.001351 0.001017 -0.00055 0 -0 0</wrench>
+          <pose frame=''>-0.087856 0.000129 0.786376 -1.57038 -7e-06 -3.13989</pose>
+          <velocity>-1e-05 1e-06 1.7e-05 -1e-06 -1.1e-05 4e-06</velocity>
+          <acceleration>0.00059 -0.000447 0.000243 0.000894 0.00183 0.001641</acceleration>
+          <wrench>0.001343 -0.001017 0.000552 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/gripper/left_inner_finger'>
-          <pose frame=''>0.562487 -0.037126 0.826988 -1.57648 -1.33517 0.010842</pose>
-          <velocity>-1.4e-05 2e-06 2.8e-05 8.6e-05 -2.4e-05 0.000385</velocity>
-          <acceleration>-0.000207 0.000417 0.000893 -1.52336 1.01088 -2.80004</acceleration>
-          <wrench>-2e-06 4e-06 9e-06 0 -0 0</wrench>
+          <pose frame=''>0.562483 -0.037126 0.826989 -1.57649 -1.33518 0.01085</pose>
+          <velocity>-1e-05 3e-06 2.4e-05 4e-05 -6e-06 0.000174</velocity>
+          <acceleration>0.000205 -0.000415 -0.00089 -1.54119 1.00731 -2.88377</acceleration>
+          <wrench>2e-06 -4e-06 -9e-06 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle'>
-          <pose frame=''>0.494802 -0.119773 0.843452 -0.856882 -1.33517 0.010842</pose>
-          <velocity>-1.5e-05 2e-06 2.7e-05 -6.1e-05 -2.6e-05 -0.000225</velocity>
-          <acceleration>-0.000585 -0.000556 0.000798 0.873135 -1.16512 0.201914</acceleration>
-          <wrench>-1.6e-05 -1.5e-05 2.2e-05 0 -0 0</wrench>
+          <pose frame=''>0.494798 -0.119773 0.843453 -0.856887 -1.33518 0.010849</pose>
+          <velocity>-1e-05 3e-06 2.3e-05 -4.1e-05 -7e-06 -0.000172</velocity>
+          <acceleration>0.000583 0.000553 -0.000795 0.891786 -1.17671 0.221342</acceleration>
+          <wrench>1.6e-05 1.5e-05 -2.2e-05 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/gripper/left_outer_knuckle'>
-          <pose frame=''>0.488429 -0.101883 0.844935 -0.854768 -1.33517 0.010842</pose>
-          <velocity>-1.5e-05 3e-06 2.7e-05 -9e-06 -2.4e-05 -5e-06</velocity>
-          <acceleration>-0.000883 -0.000167 0.000828 0.214476 -1.29643 -1.2796</acceleration>
-          <wrench>-2.8e-05 -5e-06 2.6e-05 0 -0 0</wrench>
+          <pose frame=''>0.488426 -0.101883 0.844936 -0.854774 -1.33518 0.01085</pose>
+          <velocity>-1e-05 3e-06 2.3e-05 1e-06 -7e-06 4e-06</velocity>
+          <acceleration>0.000879 0.000167 -0.000826 -2.98339 0.849585 -0.940719</acceleration>
+          <wrench>2.7e-05 5e-06 -2.6e-05 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/gripper/right_inner_finger'>
-          <pose frame=''>0.563142 -0.227293 0.827326 -1.56262 1.33517 -3.13075</pose>
-          <velocity>-3e-06 1.8e-05 2.7e-05 -0.000156 -2.7e-05 -0.000626</velocity>
-          <acceleration>0.000902 0.000207 0.000798 2.74663 -0.903554 -0.910816</acceleration>
-          <wrench>9e-06 2e-06 8e-06 0 -0 0</wrench>
+          <pose frame=''>0.563139 -0.227292 0.827327 -1.56262 1.33518 -3.13074</pose>
+          <velocity>-3e-06 1.2e-05 2.2e-05 -8e-05 -7e-06 -0.000327</velocity>
+          <acceleration>-0.000899 -0.000206 -0.000797 2.76539 -0.917038 -0.779761</acceleration>
+          <wrench>-9e-06 -2e-06 -8e-06 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle'>
-          <pose frame=''>0.494856 -0.145173 0.843506 -0.838978 1.33517 -3.13075</pose>
-          <velocity>-1.5e-05 2e-06 2.7e-05 4e-05 -2.5e-05 0.000187</velocity>
-          <acceleration>-0.000381 0.000545 0.000843 -1.10941 -0.066968 -1.63331</acceleration>
-          <wrench>-1e-05 1.5e-05 2.3e-05 0 -0 0</wrench>
+          <pose frame=''>0.494852 -0.145173 0.843507 -0.838972 1.33518 -3.13074</pose>
+          <velocity>-1e-05 3e-06 2.3e-05 2.2e-05 -6e-06 9.8e-05</velocity>
+          <acceleration>0.000379 -0.000543 -0.00084 -1.12655 -0.074698 -1.66669</acceleration>
+          <wrench>1e-05 -1.5e-05 -2.3e-05 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle'>
-          <pose frame=''>0.488559 -0.163085 0.845063 -0.840855 1.33517 -3.13075</pose>
-          <velocity>-1.5e-05 3e-06 2.8e-05 4.2e-05 -2.3e-05 0.000192</velocity>
-          <acceleration>-0.000394 0.000332 0.000842 -2.40478 0.051054 -2.73253</acceleration>
-          <wrench>-1.2e-05 1e-05 2.6e-05 0 -0 0</wrench>
+          <pose frame=''>0.488556 -0.163085 0.845064 -0.840848 1.33518 -3.13074</pose>
+          <velocity>-1e-05 3e-06 2.3e-05 2.3e-05 -8e-06 0.00011</velocity>
+          <acceleration>0.000392 -0.000331 -0.00084 -2.42351 0.059341 -2.76401</acceleration>
+          <wrench>1.2e-05 -1e-05 -2.6e-05 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/shoulder_link'>
-          <pose frame=''>0.212774 -1e-06 0.485682 2e-06 9e-06 0</pose>
-          <velocity>-7e-06 2e-06 2e-05 -2e-06 -1.3e-05 2e-06</velocity>
-          <acceleration>7.2e-05 -1.7e-05 -6.2e-05 0.000427 0.001206 0.000786</acceleration>
-          <wrench>0.000265 -6.1e-05 -0.000228 0 -0 0</wrench>
+          <pose frame=''>0.212772 -1e-06 0.485682 2e-06 9e-06 1e-06</pose>
+          <velocity>-7e-06 2e-06 2e-05 -5e-06 -1.9e-05 -2e-06</velocity>
+          <acceleration>-7.4e-05 1.7e-05 6.3e-05 -0.000427 -0.001211 -0.000787</acceleration>
+          <wrench>-0.000273 6.2e-05 0.000232 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/upper_arm_link'>
-          <pose frame=''>0.212836 -1e-06 0.485682 1.57018 0.785408 -0.000436</pose>
-          <velocity>-7e-06 2e-06 2e-05 -5e-06 -2e-05 -5e-06</velocity>
-          <acceleration>-0.000529 0.000419 -0.000283 0.003936 -0.00177 -0.005877</acceleration>
-          <wrench>-0.004439 0.00352 -0.002378 0 -0 0</wrench>
+          <pose frame=''>0.212834 -1e-06 0.485682 1.57018 0.785405 -0.000435</pose>
+          <velocity>-7e-06 1e-06 2.1e-05 -2e-06 -1.1e-05 4e-06</velocity>
+          <acceleration>0.000526 -0.000419 0.000284 -0.003935 0.001765 0.005875</acceleration>
+          <wrench>0.004413 -0.003518 0.002381 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/wrist_1_link'>
-          <pose frame=''>0.304621 -0.132888 0.786616 -1.56893 -0.235628 -3.13998</pose>
-          <velocity>-1.4e-05 3e-06 2.3e-05 -6e-06 -2e-05 -4e-06</velocity>
-          <acceleration>-0.000834 0.000131 0.000242 -0.001184 -0.001426 -0.002246</acceleration>
-          <wrench>-0.001016 0.000159 0.000295 0 -0 0</wrench>
+          <pose frame=''>0.304618 -0.132888 0.786616 -1.56893 -0.235625 -3.13998</pose>
+          <velocity>-1e-05 2e-06 2.2e-05 -1e-06 -1.1e-05 4e-06</velocity>
+          <acceleration>0.00083 -0.000131 -0.000241 0.001183 0.001422 0.002245</acceleration>
+          <wrench>0.001012 -0.000159 -0.000294 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/wrist_2_link'>
-          <pose frame=''>0.327833 -0.132637 0.883569 -0.235628 -0.002091 -1.56868</pose>
-          <velocity>-1.6e-05 3e-06 2.3e-05 -7e-06 -2.2e-05 -4e-06</velocity>
-          <acceleration>-0.001084 0.000216 0.000309 -0.001186 -0.002664 -0.001751</acceleration>
-          <wrench>-0.001322 0.000263 0.000377 0 -0 0</wrench>
+          <pose frame=''>0.32783 -0.132636 0.883569 -0.235624 -0.002091 -1.56868</pose>
+          <velocity>-1.1e-05 2e-06 2.2e-05 0 -9e-06 4e-06</velocity>
+          <acceleration>0.00108 -0.000216 -0.000308 0.001186 0.002659 0.00175</acceleration>
+          <wrench>0.001317 -0.000263 -0.000375 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/main_arm_SIM/wrist_3_link'>
-          <pose frame=''>0.424604 -0.132588 0.860337 -1.8064 -0.002093 -1.56868</pose>
-          <velocity>-1.5e-05 3e-06 2.6e-05 -7e-06 -2.3e-05 -5e-06</velocity>
-          <acceleration>-0.00103 -1.1e-05 0.000616 1.27098 -0.188669 3.12593</acceleration>
-          <wrench>-0.000427 -5e-06 0.000255 0 -0 0</wrench>
+          <pose frame=''>0.4246 -0.132587 0.860338 -1.8064 -0.002095 -1.56867</pose>
+          <velocity>-1e-05 3e-06 2.3e-05 0 -9e-06 5e-06</velocity>
+          <acceleration>0.001026 1.1e-05 -0.000614 -0.893423 0.001203 -3.11841</acceleration>
+          <wrench>0.000425 5e-06 -0.000255 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/rear_left_wheel'>
-          <pose frame=''>-0.215918 0.3132 0.187494 1.5708 -0.00013 0</pose>
-          <velocity>-2e-06 1e-06 1.3e-05 -4e-06 -1.6e-05 -0</velocity>
-          <acceleration>4e-06 3.9e-05 1.7e-05 -0.000277 9e-06 -5.1e-05</acceleration>
-          <wrench>1e-05 0.000104 4.6e-05 0 -0 0</wrench>
+          <pose frame=''>-0.215921 0.3132 0.187494 1.5708 -0.00015 0</pose>
+          <velocity>-2e-06 0 1.2e-05 -3e-06 -1.6e-05 0</velocity>
+          <acceleration>-5e-06 -3.9e-05 -1.9e-05 0.000277 1e-06 5.1e-05</acceleration>
+          <wrench>-1.2e-05 -0.000104 -4.9e-05 0 -0 0</wrench>
         </link>
         <link name='bvr_SIM/rear_right_wheel'>
-          <pose frame=''>-0.215918 -0.3132 0.187493 1.5708 -0.00013 0</pose>
-          <velocity>-2e-06 1e-06 1.5e-05 -4e-06 -1.6e-05 -0</velocity>
-          <acceleration>-8e-06 2.8e-05 0.000188 -0.000197 -4.2e-05 -5.3e-05</acceleration>
-          <wrench>-2.1e-05 7.4e-05 0.000495 0 -0 0</wrench>
+          <pose frame=''>-0.215921 -0.3132 0.187493 1.5708 -0.00015 0</pose>
+          <velocity>-2e-06 0 1.4e-05 -3e-06 -1.6e-05 0</velocity>
+          <acceleration>7e-06 -2.8e-05 -0.000189 0.000196 5.2e-05 5.3e-05</acceleration>
+          <wrench>1.9e-05 -7.4e-05 -0.000498 0 -0 0</wrench>
         </link>
       </model>
       <model name='ground_plane'>
@@ -296,7 +296,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose frame=''>9.54176 2.20574 3.28088 0 0.381796 -2.63017</pose>
+        <pose frame=''>-3.5504 2.59893 2.01799 0 0.241796 -0.606981</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -2245,14 +2245,14 @@
       <static>1</static>
       <pose frame=''>2.73769 -7.82008 0 0 -0 0</pose>
     </model>
-    <model name='barge'>
-      <pose frame=''>3.663 -0.699201 0 0 -0 0</pose>
+    <model name='boat'>
+      <pose frame=''>0.815146 -0.074445 0 0 -0 0</pose>
       <static>1</static>
       <link name='link'>
         <collision name='collision'>
           <geometry>
             <mesh>
-              <uri>model://barge/meshes/barge.dae</uri>
+              <uri>model://boat/meshes/boat.dae</uri>
             </mesh>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -2272,7 +2272,7 @@
         <visual name='visual'>
           <geometry>
             <mesh>
-              <uri>model://barge/meshes/barge.dae</uri>
+              <uri>model://boat/meshes/boat.dae</uri>
             </mesh>
           </geometry>
         </visual>
