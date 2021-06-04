@@ -17,7 +17,7 @@
   <arg name="VIO_enabled" default="false"/>
 
   <arg name="base_controllers" default="$(arg robot_namespace)_joint_state_controller $(arg robot_namespace)_velocity_controller"/>
-  <arg name="main_arm_controllers" default="$(arg arm_namespace)/velocity_controller"/> #handle this here for simulation
+  <arg name="main_arm_controllers" default="$(arg arm_namespace)/compliance_controller"/> #handle this here for simulation
   <arg name="gripper_controllers" default="$(arg arm_namespace)/robotiq_joint_state_controller $(arg arm_namespace)/robotiq_controller"/> #handle this here for simulation
 
   <arg name="robot_initial_x" default="0.0"/>

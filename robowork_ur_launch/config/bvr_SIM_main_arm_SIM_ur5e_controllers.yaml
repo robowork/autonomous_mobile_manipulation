@@ -1,6 +1,7 @@
-main_arm_SIM/velocity_controller:
-  type: velocity_controllers/JointTrajectoryController #position_controllers/JointTrajectoryController velocity_controllers/JointTrajectoryController effort_controllers/JointTrajectoryController
+main_arm_SIM/compliance_controller:
+  type: velocity_controllers/ComplianceController #position_controllers/JointTrajectoryController velocity_controllers/JointTrajectoryController effort_controllers/JointTrajectoryController velocity_controllers/ComplianceController
   topic: "test_ur5e_SIM"
+  compliance_command_timeout: 1.5
   joints:
      - bvr_SIM/main_arm_SIM/shoulder_pan_joint
      - bvr_SIM/main_arm_SIM/shoulder_lift_joint

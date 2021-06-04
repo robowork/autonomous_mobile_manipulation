@@ -9,7 +9,8 @@ from trajectory_msgs.msg import *
 hosting_robot_prefix = "bvr_SIM/"
 ur5_e_robot_prefix = "main_arm_SIM/"
 ur5e_arm_prefix = hosting_robot_prefix + ur5_e_robot_prefix
-ur5e_arm_controller_topic = ur5_e_robot_prefix + "velocity_controller/follow_joint_trajectory"
+#ur5e_arm_controller_topic = ur5_e_robot_prefix + "scaled_pos_traj_controller/follow_joint_trajectory"
+ur5e_arm_controller_topic = ur5_e_robot_prefix + "compliance_controller/follow_joint_trajectory"
 
 JOINT_NAMES = [ur5e_arm_prefix+'shoulder_pan_joint',
                ur5e_arm_prefix+'shoulder_lift_joint',

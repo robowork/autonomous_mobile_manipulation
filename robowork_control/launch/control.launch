@@ -20,4 +20,30 @@
     <rosparam command="load" file="$(find robowork_control)/config/$(arg robot_namespace)_twist_mux.yaml" />
     <remap from="cmd_vel_out" to="$(arg robot_namespace)_velocity_controller/cmd_vel"/>
   </node>
+
+  <group ns="interactive_markers_$(arg arm_namespace)" >
+    
+    <node name="twist_marker_server_arm" pkg="interactive_marker_3d_twist_server" type="marker_3d_server" output="screen">
+      <!-- ROS Control params for Arm -->
+      <rosparam command="load" file="$(find robowork_control)/config/$(arg arm_namespace)_control.yaml" />
+      <param name="link_name" value="$(arg robot_namespace)/$(arg arm_namespace)/tool0"/>
+      <param name="robot_name" value="$(arg robot_namespace)/$(arg robot_namespace)_ur5_e_joint_limited_robot"/>
+      <param name="marker_size_scale" value="0.5"/>
+    </node>
+
+    <node name="twist_mux_arm" pkg="twist_mux" type="twist_mux" >
+      <rosparam command="load" file="$(find robowork_control)/config/$(arg arm_namespace)_twist_mux.yaml" />
+      <remap from="cmd_vel_out" to="$(arg arm_namespace)_compliance/cmd_vel"/>
+    </node>
+
+    <node name="twist_to_wrenchstamped" pkg="robowork_control" type="twist_to_wrenchstamped.py" >
+      <param name="twist_frame_id" value="$(arg robot_namespace)/$(arg arm_namespace)/tool0"/>
+      <param name="wrench_force_scaler" value="20.0"/>
+      <param name="wrench_moment_scaler" value="1.0"/>
+      <remap from="twist_in" to="$(arg arm_namespace)_compliance/cmd_vel"/>
+      <remap from="wrenchstamped_out" to="/$(arg robot_namespace)/$(arg arm_namespace)/wrench_reference"/>
+    </node>
+  
+  </group>
+
 </launch>
