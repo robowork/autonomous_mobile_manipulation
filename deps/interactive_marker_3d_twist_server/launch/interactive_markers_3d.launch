@@ -1,0 +1,6 @@
+<launch>
+  <arg name="config" default="3d" />
+  <node pkg="interactive_marker_3d_twist_server" type="marker_3d_server" name="twist_marker_3d_server">
+    <rosparam command="load" file="$(find interactive_marker_3d_twist_server)/config/$(arg config).yaml" />
+  </node>
+</launch>
