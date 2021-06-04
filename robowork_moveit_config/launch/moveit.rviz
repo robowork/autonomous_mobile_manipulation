@@ -7,8 +7,8 @@ Panels:
         - /Plan_SIM1/odom_SIM1/Shape1
         - /Plan_SIM1/odom_SIM1/Covariance1
         - /MotionPlanning_SIM1/Scene Geometry1
-      Splitter Ratio: 0.5223367810249329
-    Tree Height: 507
+      Splitter Ratio: 0.7966101765632629
+    Tree Height: 640
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -241,197 +241,6 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
-          bvr_SIM/bvr_base_footprint:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/bvr_base_inertia:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/bvr_base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/bvr_imu_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/bvr_top_plate_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/front_left_wheel:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/front_right_wheel:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/base:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/ee_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/forearm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/left_inner_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/left_inner_finger_pad:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/left_outer_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/left_outer_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/right_inner_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/right_inner_finger_pad:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/right_outer_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/robotiq_arg2f_base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper_coupling_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper_manipulation_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/gripper_sensormount_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/l515_color_frame_link_GAZEBO:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/l515_color_frame_link_GAZEBO_CAMALIGN:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/l515_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/l515_link_rot:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/l515_link_trans:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/shoulder_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/t265_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/t265_link_rot:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/t265_link_trans:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/tool0:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/upper_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/wrist_1_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/wrist_2_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/wrist_3_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/rear_left_wheel:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/rear_right_wheel:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
         Loop Animation: false
         Robot Alpha: 0.5
         Robot Color: 150; 50; 150
@@ -477,197 +286,6 @@ Visualization Manager:
           Expand Link Details: false
           Expand Tree: false
           Link Tree Style: Links in Alphabetic Order
-          bvr_SIM/bvr_base_footprint:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/bvr_base_inertia:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/bvr_base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/bvr_imu_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/bvr_top_plate_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/front_left_wheel:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/front_right_wheel:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/base:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/ee_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/forearm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/left_inner_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/left_inner_finger_pad:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/left_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/left_outer_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/left_outer_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/right_inner_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/right_inner_finger_pad:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/right_inner_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/right_outer_finger:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/right_outer_knuckle:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper/robotiq_arg2f_base_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper_coupling_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/gripper_manipulation_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/gripper_sensormount_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/l515_color_frame_link_GAZEBO:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/l515_color_frame_link_GAZEBO_CAMALIGN:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/l515_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/l515_link_rot:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/l515_link_trans:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/shoulder_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/t265_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/t265_link_rot:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/t265_link_trans:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/tool0:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-          bvr_SIM/main_arm_SIM/upper_arm_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/wrist_1_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/wrist_2_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/main_arm_SIM/wrist_3_link:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/rear_left_wheel:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
-          bvr_SIM/rear_right_wheel:
-            Alpha: 1
-            Show Axes: false
-            Show Trail: false
-            Value: true
         Robot Alpha: 0.5
         Show Robot Collision: false
         Show Robot Visual: true
@@ -700,6 +318,15 @@ Visualization Manager:
       Show Descriptions: true
       Show Visual Aids: false
       Update Topic: /bvr_SIM/twist_marker_server/update
+      Value: true
+    - Class: rviz/InteractiveMarkers
+      Enable Transparency: true
+      Enabled: true
+      Name: InteractiveMarkers_ARM_SIM
+      Show Axes: false
+      Show Descriptions: true
+      Show Visual Aids: false
+      Update Topic: /bvr_SIM/interactive_markers_main_arm_SIM/twist_marker_3d_server/update
       Value: true
     - Class: rviz/Image
       Enabled: false
@@ -746,8 +373,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 1.5806137323379517
-        Min Value: 0.051658038049936295
+        Max Value: 1.573434829711914
+        Min Value: 0.05172371864318848
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -801,30 +428,30 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 2.485626459121704
+      Distance: 3.0884792804718018
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.010632991790771484
-        Y: 0.1805630326271057
-        Z: 8.825141776469536e-6
+        X: 0.46466708183288574
+        Y: 0.06874591112136841
+        Z: 8.348304618266411e-6
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6697977185249329
+      Pitch: 0.38979798555374146
       Target Frame: base_footprint
       Value: XYOrbit (rviz)
-      Yaw: 2.1085364818573
+      Yaw: 2.3035387992858887
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 849
+  Height: 1025
   Help:
     collapsed: false
   Hide Left Dock: false
@@ -833,13 +460,13 @@ Window Geometry:
     collapsed: false
   MotionPlanning_SIM - Trajectory Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd000000010000000000000275000002f7fc0200000011fb000000100044006900730070006c006100790073010000003d00000238000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000000000000000fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670000000146000001950000000000000000fb00000026006d00610069006e005f00610072006d005f00630061006d006500720061005f00530049004d00000002b9000000160000001600fffffffb0000003c005400720061006a006500630074006f007200790020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000000000000000fb0000000a0049006d00610067006500000002150000003e0000000000000000fb000000280020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000000000000000fb0000000a0049006d0061006700650000000244000000440000000000000000fb00000024004d006f00740069006f006e0050006c0061006e006e0069006e0067005f00530049004d0000000123000001c20000019400fffffffb00000024005200760069007a00560069007300750061006c0054006f006f006c0073004700750069010000027b000000b90000004100fffffffb0000004c004d006f00740069006f006e0050006c0061006e006e0069006e0067005f00530049004d0020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000001600000016fb000000160054003200360035005f00630061006d006500720061000000032c000000160000000000000000fb0000000a0049006d0061006700650100000282000000b20000000000000000000002f2000002f700000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd000000010000000000000164000003a7fc0200000011fb000000100044006900730070006c006100790073010000003d000002bd000000c900fffffffb0000000800480065006c00700000000342000000bb0000006e00fffffffb0000000a0056006900650077007300000003b0000000b0000000a400fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670100000374000001890000000000000000fb00000044004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000000000000000fb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670000000146000001950000000000000000fb00000026006d00610069006e005f00610072006d005f00630061006d006500720061005f00530049004d00000002b9000000160000001600fffffffb0000003c005400720061006a006500630074006f007200790020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000000000000000fb0000000a0049006d00610067006500000002150000003e0000000000000000fb000000280020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000000000000000fb0000000a0049006d0061006700650000000244000000440000000000000000fb00000024004d006f00740069006f006e0050006c0061006e006e0069006e0067005f00530049004d0000000123000001c20000018900fffffffb00000024005200760069007a00560069007300750061006c0054006f006f006c00730047007500690100000300000000e40000004100fffffffb0000004c004d006f00740069006f006e0050006c0061006e006e0069006e0067005f00530049004d0020002d0020005400720061006a006500630074006f0072007900200053006c00690064006500720000000000ffffffff0000004100fffffffb000000160054003200360035005f00630061006d006500720061000000032c000000160000000000000000fb0000000a0049006d0061006700650100000282000000b20000000000000000000005d3000003a700000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   RvizVisualToolsGui:
     collapsed: false
   Views:
     collapsed: false
-  Width: 1389
-  X: 51
-  Y: 23
+  Width: 1853
+  X: 67
+  Y: 27
   main_arm_camera_SIM:
     collapsed: false

@@ -141,9 +141,23 @@ ROS_NAMESPACE="bvr_SIM" roslaunch robowork_moveit_config robowork_moveit_plannin
 
 # Terminal 3 - Visualization (If not already running for the real robot)
 roslaunch robowork_moveit_config moveit_rviz.launch
+```
 
-# Terminal 4 - Launch robowork_planning
+Example Case A) Launch a sample MoveIt! planning pipeline 
+```
+# Terminal A - Launch robowork_planning
 ROS_NAMESPACE="bvr_SIM" roslaunch robowork_planning move_group_interface_vAprilTag.launch robot_namespace:=bvr_SIM arm_namespace:=main_arm_SIM sim_suffix:=_SIM
 
 # Press 'Next' on Rviz to trigger planning to reach AprilTag
+```
+
+Example Case B) Launch Compliance and Jog the end-effector
+```
+# Terminal B1 - Launch ur5e_compliance
+ROS_NAMESPACE="bvr_SIM" roslaunch robowork_ur_launch ur5e_compliance.launch robot_namespace:=bvr_SIM arm_namespace:=main_arm_SIM
+
+# Terminal B2 - Enable compliance
+rosservice call /compliance_controller/toggle_compliance "{}"
+
+# Move the interactive_marker_3d_twist on Rviz to command jogging references
 ```

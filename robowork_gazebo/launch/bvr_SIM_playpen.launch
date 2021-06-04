@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <launch>
 
+  <arg name="robot_namespace" default="bvr_SIM"/>
+  <arg name="arm_namespace" default="main_arm_SIM"/>
   <arg name="VIO_enabled" default="true"/>
 
   <arg name="robot_initial_x" default="0.0"/>
@@ -33,6 +35,9 @@
     <arg name="gui" value="true"/>
     <arg name="headless" value="false"/>
     <arg name="debug" value="false"/>
+    #### Handle gazebo node topic remappings
+    #### [robowork_ur_launch/config/bvr_SIM_main_arm_SIM_compliance_settings.yaml] publishes on /bvr_SIM/main_arm_SIMcompliance_controller/compliance_velocity_adjustment
+    <arg name="extra_gazebo_args" value="/compliance_controller/compliance_velocity_adjustment:=/$(arg robot_namespace)/$(arg arm_namespace)compliance_controller/compliance_velocity_adjustment"/>
   </include>
 
   <include file="$(find robowork_gazebo)/launch/spawn_bvr_SIM_robot.launch">

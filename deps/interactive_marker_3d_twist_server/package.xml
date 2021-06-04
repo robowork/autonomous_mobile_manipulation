@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>interactive_marker_3d_twist_server</name>
+  <version>0.0.0</version>
+  <description>interactive marker 3D</description>
+  <author email="papachric@gmail.com"> Christos Papachristos</author>
+  <maintainer email="papachric@gmail.com">Christos Papachristos</maintainer>
+
+  <license>None</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>interactive_markers</depend>
+  <depend>roscpp</depend>
+  <depend>visualization_msgs</depend>
+
+  <test_depend>roslaunch</test_depend>
+  <test_depend>roslint</test_depend>
+</package>

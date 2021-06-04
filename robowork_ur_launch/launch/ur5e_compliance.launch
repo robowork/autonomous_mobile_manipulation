@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="robot_namespace" default="bvr"/>
+    <arg name="arm_namespace" default="main_arm"/>
+
+    <node name="wrench_to_joint_vel_pub" pkg="wrench_to_joint_vel_pub" type="wrench_to_joint_vel_pub" output="screen" >
+        <rosparam command="load" file="$(find robowork_ur_launch)/config/$(arg robot_namespace)_$(arg arm_namespace)_compliance_settings.yaml" />
+    </node> 
+</launch>
