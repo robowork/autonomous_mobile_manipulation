@@ -59,6 +59,9 @@ namespace wrench_to_joint_vel_pub
 // Initialize static member of class PublishCompliantJointVelocities
 ROSParameters PublishCompliantJointVelocities::compliance_params_;
 
+void singularity_ao_connected(const ros::SingleSubscriberPublisher&) {}
+void singularity_ao_disconnected(const ros::SingleSubscriberPublisher&) {}
+
 PublishCompliantJointVelocities::PublishCompliantJointVelocities() : tf_listener_(tf_buffer_)
 {
   readROSParameters();
@@ -103,6 +106,10 @@ PublishCompliantJointVelocities::PublishCompliantJointVelocities() : tf_listener
 
   compliant_velocity_pub_ =
       n_.advertise<compliance_control_msgs::CompliantVelocities>(compliance_params_.outgoing_joint_vel_topic, 1);
+
+  ros::AdvertiseOptions singularity_ao = ros::AdvertiseOptions::create<sensor_msgs::JointState>(compliance_params_.outgoing_singularity_topic, 1, &singularity_ao_connected, &singularity_ao_disconnected, ros::VoidPtr(), NULL);
+  singularity_ao.has_header = false;
+  singularity_pub_ = n_.advertise(singularity_ao);
 
   joints_sub_ = n_.subscribe("joint_states", 1, &PublishCompliantJointVelocities::jointsCallback, this);
 
@@ -311,18 +318,43 @@ void PublishCompliantJointVelocities::spin()
 
       svd_ = Eigen::JacobiSVD<Eigen::MatrixXd>(jacobian, Eigen::ComputeThinU | Eigen::ComputeThinV);
 
-      if(fabs(svd_.singularValues()[0] / svd_.singularValues().tail(1)[0] > compliance_params_.condition_number_limit))
+      if(fabs(svd_.singularValues()[0] / svd_.singularValues().tail(1)[0] > compliance_params_.condition_number_limit) ||
+         (singularity_entry_ && fabs(svd_.singularValues()[0] / svd_.singularValues().tail(1)[0] > compliance_params_.condition_number_hysteresis)))
       {
+        if (!singularity_entry_) {
+          singularity_entry_ = true;
+          ++singularity_seq_;
+        }
+
         // If condition number is too high set the compliance-adjusted velocities to 0
         for (int i = 0; i < delta_theta_.size(); ++i)
         {
           delta_theta_[i] = 0.0;
         }
+
+        if (singularity_pub_.getNumSubscribers() > 0) {
+          auto singular_joint_state_msg = boost::make_shared<sensor_msgs::JointState>();
+          singular_joint_state_msg->header.stamp = ros::Time::now();
+          singular_joint_state_msg->header.seq = singularity_seq_;
+          singular_joint_state_msg->header.frame_id = compliance_params_.jacobian_frame_name;
+          std::size_t variable_cnt = kinematic_state_->getVariableCount();
+          singular_joint_state_msg->name = kinematic_state_->getVariableNames();
+          singular_joint_state_msg->position.reserve(variable_cnt);
+          std::copy(kinematic_state_->getVariablePositions(), kinematic_state_->getVariablePositions()+variable_cnt, std::back_inserter(singular_joint_state_msg->position));
+          singular_joint_state_msg->velocity.reserve(variable_cnt);
+          std::copy(kinematic_state_->getVariableVelocities(), kinematic_state_->getVariableVelocities()+variable_cnt, std::back_inserter(singular_joint_state_msg->velocity));
+          singular_joint_state_msg->effort.reserve(variable_cnt);
+          std::copy(kinematic_state_->getVariableEffort(), kinematic_state_->getVariableEffort()+variable_cnt, std::back_inserter(singular_joint_state_msg->effort));
+          singularity_pub_.publish(singular_joint_state_msg);
+        }
+        
         ROS_WARN_STREAM_THROTTLE_NAMED(1, NODE_NAME, "Jacobian is near singular (condition number: " 
               << svd_.singularValues()[0] / svd_.singularValues().tail(1)[0] << ")! Pausing compliant commands.");
       }
       else
       {
+        singularity_entry_ = false;
+
         matrix_s_ = svd_.singularValues().asDiagonal();
         pseudo_inverse_ = svd_.matrixV() * matrix_s_.inverse() * svd_.matrixU().transpose();
         delta_theta_ = pseudo_inverse_ * cartesian_velocity;
@@ -380,8 +412,12 @@ void PublishCompliantJointVelocities::readROSParameters()
                                     compliance_params_.joint_limit_margin);
   error += !rosparam_shortcuts::get("", n_, ros::this_node::getName() + "/condition_number_limit",
                                     compliance_params_.condition_number_limit);
+  error += !rosparam_shortcuts::get("", n_, ros::this_node::getName() + "/condition_number_hysteresis",
+                                    compliance_params_.condition_number_hysteresis);
   error += !rosparam_shortcuts::get("", n_, ros::this_node::getName() + "/outgoing_joint_vel_topic",
                                     compliance_params_.outgoing_joint_vel_topic);
+  error += !rosparam_shortcuts::get("", n_, ros::this_node::getName() + "/outgoing_singularity_topic",
+                                    compliance_params_.outgoing_singularity_topic);
   error += !rosparam_shortcuts::get("", n_, ros::this_node::getName() + "/compliance_library/low_pass_filter_param",
                                     compliance_params_.low_pass_filter_param);
   error += !rosparam_shortcuts::get("", n_, ros::this_node::getName() + "/compliance_library/highest_allowable_force",
