@@ -117,6 +117,8 @@ PublishCompliantJointVelocities::PublishCompliantJointVelocities() : tf_listener
   // Customization
   toggle_ft_feedback_service_ = n_.advertiseService(n_.getNamespace() + "/" + ros::this_node::getName() + "/toggle_ft_feedback", &PublishCompliantJointVelocities::toggleFTFeedback, this);
 
+  toggle_joint_limit_margin_service_ = n_.advertiseService(n_.getNamespace() + "/" + ros::this_node::getName() + "/toggle_joint_limit_margin", &PublishCompliantJointVelocities::toggleJointLimitMargin, this);
+
   last_wrench_reference_.header.stamp = ros::Time(0);
   wrench_reference_subscriber_ = n_.subscribe(compliance_params_.force_torque_reference_topic, 1, &PublishCompliantJointVelocities::wrenchReferenceCallback, this);
   // Customization
@@ -213,7 +215,7 @@ bool PublishCompliantJointVelocities::checkJointLimits()
 {
   for (auto joint : joint_model_group_->getJointModels())
   {
-    if (!kinematic_state_->satisfiesPositionBounds(joint, -compliance_params_.joint_limit_margin))
+    if (!kinematic_state_->satisfiesPositionBounds(joint, joint_limit_margin_enabled_ ? -compliance_params_.joint_limit_margin : 0.0))
     {
       ROS_WARN_STREAM_THROTTLE_NAMED(2, NODE_NAME, ros::this_node::getName() << " " << joint->getName()
                                                                              << " close to a "
