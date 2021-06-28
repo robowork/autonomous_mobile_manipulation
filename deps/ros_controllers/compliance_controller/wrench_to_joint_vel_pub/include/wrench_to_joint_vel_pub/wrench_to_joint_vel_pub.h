@@ -119,6 +119,14 @@ private:
     res.message = (ft_feedback_enabled_) ? "enabled" : "disabled";
     return true;
   }
+
+  bool toggleJointLimitMargin(std_srvs::Trigger::Request& req, std_srvs::Trigger::Response& res)
+  {
+    joint_limit_margin_enabled_ = !joint_limit_margin_enabled_;
+    res.success = true;
+    res.message = (joint_limit_margin_enabled_) ? "enabled" : "disabled";
+    return true;
+  }
   // Customization
 
 
@@ -195,6 +203,8 @@ private:
 
   // Customization
   bool ft_feedback_enabled_ = false;
+
+  bool joint_limit_margin_enabled_ = true;
   // Customization
 
 
@@ -224,6 +234,8 @@ private:
 
   // Customization
   ros::ServiceServer toggle_ft_feedback_service_;
+
+  ros::ServiceServer toggle_joint_limit_margin_service_;
 
   ros::Subscriber wrench_reference_subscriber_;
   geometry_msgs::WrenchStamped last_wrench_reference_;
