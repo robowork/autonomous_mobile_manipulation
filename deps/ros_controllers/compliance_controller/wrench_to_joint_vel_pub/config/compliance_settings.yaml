@@ -5,7 +5,8 @@ force_torque_topic: wrench # The topic of incoming force/torque data
 move_group_name: manipulator # The MoveGroup name of your robot
 max_allowable_cmd_magnitude: 0.5 # The largest joint speed correction that can be published [rad/s]
 outgoing_joint_vel_topic: /compliance_controller/compliance_velocity_adjustment # Joint delta-velocities
-outgoing_singularity_topic: /compliance_controller/singularity # Joint state when in singularity (published only when signular)
+outgoing_singularity_topic: /compliance_controller/singularity # Joint state when in singularity (published only when singular)
+outgoing_jointlimit_topic: /compliance_controller/jointlimit # Joint state when in joint limit state (published only when in joint limit)
 joint_limit_margin: 0.1 # added as a buffer to joint limits [radians]. If moving quickly, make this larger.
 condition_number_limit: 50 # The Jacobian condition number above which to pause compliance
 condition_number_hysteresis: 45 # The Jacobian condition number below which to restore compliance (has to be lower than condition_number_limit)

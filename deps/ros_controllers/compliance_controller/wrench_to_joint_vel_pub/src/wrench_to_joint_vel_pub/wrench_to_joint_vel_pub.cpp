@@ -62,6 +62,9 @@ ROSParameters PublishCompliantJointVelocities::compliance_params_;
 void singularity_ao_connected(const ros::SingleSubscriberPublisher&) {}
 void singularity_ao_disconnected(const ros::SingleSubscriberPublisher&) {}
 
+void jointlimit_ao_connected(const ros::SingleSubscriberPublisher&) {}
+void jointlimit_ao_disconnected(const ros::SingleSubscriberPublisher&) {}
+
 PublishCompliantJointVelocities::PublishCompliantJointVelocities() : tf_listener_(tf_buffer_)
 {
   readROSParameters();
@@ -110,6 +113,10 @@ PublishCompliantJointVelocities::PublishCompliantJointVelocities() : tf_listener
   ros::AdvertiseOptions singularity_ao = ros::AdvertiseOptions::create<sensor_msgs::JointState>(compliance_params_.outgoing_singularity_topic, 1, &singularity_ao_connected, &singularity_ao_disconnected, ros::VoidPtr(), NULL);
   singularity_ao.has_header = false;
   singularity_pub_ = n_.advertise(singularity_ao);
+
+  ros::AdvertiseOptions jointlimit_ao = ros::AdvertiseOptions::create<sensor_msgs::JointState>(compliance_params_.outgoing_jointlimit_topic, 1, &jointlimit_ao_connected, &jointlimit_ao_disconnected, ros::VoidPtr(), NULL);
+  jointlimit_ao.has_header = false;
+  jointlimit_pub_ = n_.advertise(jointlimit_ao);
 
   joints_sub_ = n_.subscribe("joint_states", 1, &PublishCompliantJointVelocities::jointsCallback, this);
 
@@ -217,12 +224,35 @@ bool PublishCompliantJointVelocities::checkJointLimits()
   {
     if (!kinematic_state_->satisfiesPositionBounds(joint, joint_limit_margin_enabled_ ? -compliance_params_.joint_limit_margin : 0.0))
     {
+      if (!jointlimit_entry_) {
+        jointlimit_entry_ = true;
+        ++jointlimit_seq_;
+      }
+
+      if (jointlimit_pub_.getNumSubscribers() > 0) {
+        auto jointlimit_joint_state_msg = boost::make_shared<sensor_msgs::JointState>();
+        jointlimit_joint_state_msg->header.stamp = ros::Time::now();
+        jointlimit_joint_state_msg->header.seq = jointlimit_seq_;
+        jointlimit_joint_state_msg->header.frame_id = compliance_params_.jacobian_frame_name;
+        std::size_t variable_cnt = kinematic_state_->getVariableCount();
+        jointlimit_joint_state_msg->name = kinematic_state_->getVariableNames();
+        jointlimit_joint_state_msg->position.reserve(variable_cnt);
+        std::copy(kinematic_state_->getVariablePositions(), kinematic_state_->getVariablePositions()+variable_cnt, std::back_inserter(jointlimit_joint_state_msg->position));
+        jointlimit_joint_state_msg->velocity.reserve(variable_cnt);
+        std::copy(kinematic_state_->getVariableVelocities(), kinematic_state_->getVariableVelocities()+variable_cnt, std::back_inserter(jointlimit_joint_state_msg->velocity));
+        jointlimit_joint_state_msg->effort.reserve(variable_cnt);
+        std::copy(kinematic_state_->getVariableEffort(), kinematic_state_->getVariableEffort()+variable_cnt, std::back_inserter(jointlimit_joint_state_msg->effort));
+        jointlimit_pub_.publish(jointlimit_joint_state_msg);
+      }
+      
       ROS_WARN_STREAM_THROTTLE_NAMED(2, NODE_NAME, ros::this_node::getName() << " " << joint->getName()
                                                                              << " close to a "
                                                                                 " position limit. Halting.");
       return true;
     }
   }
+
+  jointlimit_entry_ = false;
 
   return false;
 }
@@ -420,6 +450,8 @@ void PublishCompliantJointVelocities::readROSParameters()
                                     compliance_params_.outgoing_joint_vel_topic);
   error += !rosparam_shortcuts::get("", n_, ros::this_node::getName() + "/outgoing_singularity_topic",
                                     compliance_params_.outgoing_singularity_topic);
+  error += !rosparam_shortcuts::get("", n_, ros::this_node::getName() + "/outgoing_jointlimit_topic",
+                                    compliance_params_.outgoing_jointlimit_topic);
   error += !rosparam_shortcuts::get("", n_, ros::this_node::getName() + "/compliance_library/low_pass_filter_param",
                                     compliance_params_.low_pass_filter_param);
   error += !rosparam_shortcuts::get("", n_, ros::this_node::getName() + "/compliance_library/highest_allowable_force",

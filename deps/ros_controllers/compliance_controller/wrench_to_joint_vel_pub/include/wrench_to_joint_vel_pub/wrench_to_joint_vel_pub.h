@@ -74,7 +74,7 @@ struct ROSParameters
   double spin_rate, max_allowable_cmd_magnitude, low_pass_filter_param, highest_allowable_force,
       highest_allowable_torque, joint_limit_margin, condition_number_limit, condition_number_hysteresis;
   std::string jacobian_frame_name, force_torque_frame_name, force_torque_topic, move_group_name,
-      outgoing_joint_vel_topic,outgoing_singularity_topic;
+      outgoing_joint_vel_topic,outgoing_singularity_topic,outgoing_jointlimit_topic;
 
   
   // Customization
@@ -228,6 +228,7 @@ private:
 
   ros::Publisher compliant_velocity_pub_;
   ros::Publisher singularity_pub_;
+  ros::Publisher jointlimit_pub_;
 
   ros::Subscriber joints_sub_;
 
@@ -245,6 +246,10 @@ private:
   // Track entering into singular state
   size_t singularity_seq_ = 0; 
   bool singularity_entry_ = false;
+
+  // Track entering into joint limit state
+  size_t jointlimit_seq_ = 0; 
+  bool jointlimit_entry_ = false;
 
   // For Jacobian pseudoinverse calculations
   Eigen::JacobiSVD<Eigen::MatrixXd> svd_;
