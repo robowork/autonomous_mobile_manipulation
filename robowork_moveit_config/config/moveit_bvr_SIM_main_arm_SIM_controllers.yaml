@@ -1,5 +1,5 @@
 controller_list:
-  - name: main_arm_SIM/velocity_controller
+  - name: main_arm_SIM/compliance_controller
     action_ns: follow_joint_trajectory
     default: true
     type: FollowJointTrajectory
