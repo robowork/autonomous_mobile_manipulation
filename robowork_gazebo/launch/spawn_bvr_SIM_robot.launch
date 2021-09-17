@@ -15,6 +15,7 @@
   <arg name="ur5_e_robot_prefix" default="main_arm_SIM/"/> #""
   <arg name="sim_suffix" default="_SIM"/> #
   <arg name="VIO_enabled" default="false"/>
+  <arg name="use_gazebo_odom" default="true"/>
 
   <arg name="base_controllers" default="$(arg robot_namespace)_joint_state_controller $(arg robot_namespace)_velocity_controller"/>
   <arg name="main_arm_controllers" default="$(arg arm_namespace)/compliance_controller"/> #handle this here for simulation
@@ -77,10 +78,18 @@
     </node>
     <!-- <node name="$(arg robot_namespace)_tf_connect_SIM" pkg="robowork_perception" type="tf_connect_SIM.py" output="log"/> -->
     <!-- RTABMAP -->
-    <include file="$(find robowork_base)/launch/realsense_rtabmap.launch">
+    <include unless="$(arg use_gazebo_odom)" file="$(find robowork_base)/launch/realsense_rtabmap.launch">
       <arg name="robot_namespace" value="$(arg robot_namespace)"/>
       <arg name="arm_namespace" value="$(arg arm_namespace)"/>
     </include>
+    <!-- OCTOMAP for static_map_layer of move_base costmap when RTABMAP is disabled -->
+    <node if="$(arg use_gazebo_odom)" name="octomap_server" pkg="octomap_server" type="octomap_server_node">
+      <remap from="cloud_in" to="/$(arg robot_namespace)/l515/depth/color/points"/>
+      <param name="resolution" value="0.1"/>
+      <param name="frame_id" value="map"/>
+      <param name="sensor_model/max_range" value="5.0"/>
+      <param name="pointcloud_min_z" value="0.1"/>
+    </node>
 
     <!-- Perception -->
     <include file="$(find robowork_perception)/launch/apriltag_detection.launch">
@@ -97,7 +106,7 @@
       <arg name="robot_namespace" value="$(arg robot_namespace)"/>
       <arg name="arm_namespace" value="$(arg arm_namespace)"/>
       <arg name="sim_suffix" value="$(arg sim_suffix)"/>
-      <arg name="static_map" value="true"/>
+      <arg name="static_map" value="false"/>
     </include>
 
     <!-- Spawn gazebo model -->

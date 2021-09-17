@@ -4,6 +4,7 @@
   <arg name="robot_namespace" default="bvr_SIM"/>
   <arg name="arm_namespace" default="main_arm_SIM"/>
   <arg name="VIO_enabled" default="true"/>
+  <arg name="use_gazebo_odom" default="true"/>
 
   <arg name="robot_initial_x" default="0.0"/>
   <arg name="robot_initial_y" default="0.0"/>
@@ -42,6 +43,7 @@
 
   <include file="$(find robowork_gazebo)/launch/spawn_bvr_SIM_robot.launch">
     <arg name="VIO_enabled" value="$(arg VIO_enabled)"/>
+    <arg name="use_gazebo_odom" value="$(arg use_gazebo_odom)"/>
     <arg name="robot_initial_x" value="$(arg robot_initial_x)"/>
     <arg name="robot_initial_y" value="$(arg robot_initial_y)"/>
     <arg name="robot_initial_z" value="$(arg robot_initial_z)"/>

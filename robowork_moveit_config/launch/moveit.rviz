@@ -131,14 +131,14 @@ Visualization Manager:
           Value: true
         - Alpha: 0.699999988079071
           Class: rviz/Map
-          Color Scheme: map
+          Color Scheme: raw
           Draw Behind: false
-          Enabled: false
+          Enabled: true
           Name: GlobalCostmap_SIM
           Topic: /bvr_SIM/move_base/global_costmap/costmap
           Unreliable: false
           Use Timestamp: false
-          Value: false
+          Value: true
         - Alpha: 0.699999988079071
           Class: rviz/Map
           Color Scheme: costmap
@@ -191,7 +191,7 @@ Visualization Manager:
           Topic: /bvr_SIM/odom
           Unreliable: false
           Value: true
-      Enabled: false
+      Enabled: true
       Name: Plan_SIM
     - Class: rviz/TF
       Enabled: false
@@ -373,8 +373,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 1.573434829711914
-        Min Value: 0.05172371864318848
+        Max Value: 2.3788955211639404
+        Min Value: 0.008504688739776611
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -396,6 +396,44 @@ Visualization Manager:
       Size (m): 0.05000000074505806
       Style: Points
       Topic: /bvr_SIM/rtabmap/cloud_map
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: true
+    - Class: rviz/MarkerArray
+      Enabled: false
+      Marker Topic: /bvr_SIM/occupied_cells_vis_array
+      Name: Octomap_Occupied_SIM
+      Namespaces:
+        {}
+      Queue Size: 100
+      Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 0.75
+        Min Value: 0.15000000596046448
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: AxisColor
+      Decay Time: 0
+      Enabled: true
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: Octomap_PointCloud2_SIM
+      Position Transformer: XYZ
+      Queue Size: 1
+      Selectable: true
+      Size (Pixels): 2
+      Size (m): 0.05000000074505806
+      Style: Points
+      Topic: /bvr_SIM/octomap_point_cloud_centers
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -428,25 +466,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.0884792804718018
+      Distance: 2.848625898361206
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.46466708183288574
-        Y: 0.06874591112136841
-        Z: 8.348304618266411e-6
+        X: 0.47711336612701416
+        Y: 0.5028002858161926
+        Z: 8.944351066020317e-6
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.38979798555374146
+      Pitch: 0.5047978758811951
       Target Frame: base_footprint
       Value: XYOrbit (rviz)
-      Yaw: 2.3035387992858887
+      Yaw: 2.503535270690918
     Saved: ~
 Window Geometry:
   Displays:

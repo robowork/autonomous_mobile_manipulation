@@ -21,6 +21,8 @@ ros-melodic-geometric-shapes \
 ros-melodic-object-recognition-msgs \
 ros-melodic-octomap \
 ros-melodic-octomap-msgs \
+ros-melodic-octomap-ros \
+ros-melodic-octomap-server \
 ros-melodic-random-numbers \
 ros-melodic-srdfdom \
 ros-melodic-ros-control \

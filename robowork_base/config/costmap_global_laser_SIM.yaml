@@ -1,8 +1,8 @@
 global_frame: map #bvr_SIM/odom
 rolling_window: true
-track_unknown_space: true
+track_unknown_space: false
 
 plugins:
   - {name: static_map_layer,  type: "costmap_2d::StaticLayer"}
   - {name: inflation_layer,  type: "costmap_2d::InflationLayer"}
-  - {name: obstacles_layer,  type: "costmap_2d::ObstacleLayer"}
+#  - {name: obstacles_layer,  type: "costmap_2d::ObstacleLayer"}
