@@ -177,7 +177,7 @@ def main():
     
     response = ik_ob.get_ik(point3d)
     print("ik response code", response.error_code)
-    if(response.error_code == 1):
+    if(response.error_code.val == 1):
         print("ik found\n")
     else:
         print("No solution found ")
