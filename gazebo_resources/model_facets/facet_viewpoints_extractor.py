@@ -217,6 +217,7 @@ def plot_centers_and_normals(centers, quat):
 def main():
     parser = argparse.ArgumentParser(description='Generate normals and centers for a mesh file')
     parser.add_argument('-m', '--mesh', help='Input path to mesh file', default='boat.dae')
+    parser.add_argument('-c', '--csv_file', help='Input path to output csv file', default='boat.csv')
     args = parser.parse_args()
     model = args.mesh
      # Load the model and get triangles
@@ -225,7 +226,7 @@ def main():
     print("Done loading mesh.")
     quat = get_quat_from_norm(normals)
     print("Writing to csv file...")
-    with open('boat.csv', 'w') as csvfile:
+    with open(args.csv_file, 'w') as csvfile:
         writer = csv.writer(csvfile, delimiter=',')
         writer.writerow(['x', 'y', 'z', 'qx', 'qy', 'qz', 'qw'])
         for i in range(len(centers)):
