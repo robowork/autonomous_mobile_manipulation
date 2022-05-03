@@ -27,7 +27,7 @@
     <arg name="pipeline" value="ompl" />
   </include>
 
-  <node name="robowork_planning" pkg="robowork_planning" type="robowork_planning_node_vAprilTag" respawn="false" output="screen">
+  <node name="robowork_planning" pkg="robowork_planning" type="robowork_planning_node_vTest" respawn="false" output="screen">
     <param name="robot_namespace" value="$(arg robot_namespace)" />
     <param name="arm_namespace" value="$(arg arm_namespace)" />
     <param name="sim_suffix" value="$(arg sim_suffix)" />

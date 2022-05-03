@@ -121,12 +121,21 @@ include_directories(SYSTEM
 # Library
 add_library(MGI_AprilTag_lib src/robowork_planning/MGI_AprilTag.cpp)
 target_link_libraries(MGI_AprilTag_lib ${catkin_LIBRARIES}
-                                               ${OpenCV_LIBS})
+                                       ${OpenCV_LIBS})
+
+add_library(MGI_Test_lib src/robowork_planning/MGI_Test.cpp)
+target_link_libraries(MGI_Test_lib ${catkin_LIBRARIES}
+                                   ${OpenCV_LIBS})
 
 # Standalone node
-add_executable(${PROJECT_NAME}_node src/${PROJECT_NAME}_node.cpp)
-target_link_libraries(${PROJECT_NAME}_node # ${PROJECT_NAME}
-                                          MGI_AprilTag_lib)
+add_executable(${PROJECT_NAME}_node_vAprilTag src/${PROJECT_NAME}_node_vAprilTag.cpp)
+target_link_libraries(${PROJECT_NAME}_node_vAprilTag # ${PROJECT_NAME}
+                                                     MGI_AprilTag_lib)
+
+add_executable(${PROJECT_NAME}_node_vTest src/${PROJECT_NAME}_node_vTest.cpp)
+target_link_libraries(${PROJECT_NAME}_node_vTest # ${PROJECT_NAME}
+                                                 MGI_Test_lib)
+
 roslaunch_add_file_check(launch)
 
 # install(TARGETS robowork_base_node
@@ -134,10 +143,12 @@ roslaunch_add_file_check(launch)
 #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
 #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 
-install(TARGETS ${PROJECT_NAME}_node
+install(TARGETS ${PROJECT_NAME}_node_vAprilTag
+                ${PROJECT_NAME}_node_vTest
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 install(TARGETS MGI_AprilTag_lib
+                MGI_Test_lib
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION})
 
 install(DIRECTORY include/${PROJECT_NAME}/
