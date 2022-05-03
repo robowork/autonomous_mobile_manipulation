@@ -82,12 +82,12 @@ cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_WITH_MARCH_NATIVE=OFF -DCMAKE_INSTALL_P
 make -j 12 && make install
 
 # Libnabo
-cd $HOME/autonomous_mobile_manipulation_ws && git clone git://github.com/ethz-asl/libnabo.git && cd libnabo && git checkout 1.0.7 && mkdir build && cd build
+cd $HOME/autonomous_mobile_manipulation_ws && git clone git@github.com:ethz-asl/libnabo.git && cd libnabo && git checkout 1.0.7 && mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/autonomous_mobile_manipulation_ws/devel ..
 make -j 12 && make install
 
 # Libpointmatcher
-cd $HOME/autonomous_mobile_manipulation_ws && git clone git://github.com/ethz-asl/libpointmatcher.git && cd libpointmatcher && git checkout 1.3.1 && mkdir build && cd build
+cd $HOME/autonomous_mobile_manipulation_ws && git clone git@github.com:ethz-asl/libpointmatcher.git && cd libpointmatcher && git checkout 1.3.1 && mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$HOME/autonomous_mobile_manipulation_ws/devel ..
 make -j 12 && make install
 
