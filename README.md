@@ -160,7 +160,8 @@ rostopic pub --once -s /endeffector_goal geometry_msgs/PointStamped "{header: {s
 
 # On Terminal A1 you should see a message from the move_group_interface_vTest node:
 # "move_group_interface: New PointStamped goal in frame [map] received!"
-# The move_group_interface_vTest node will initiate planning execution once you press 'Next' on Rviz to trigger it
+
+# The move_group_interface_vTest node will initiate planning execution once you press 'Next' on Rviz to trigger it.
 # Alternatively you can achieve the same thing by publishing a ROS topic on Terminal A3:
 rostopic pub --once -s /rviz_visual_tools_gui sensor_msgs/Joy "{header: {seq: 0, stamp: now, frame_id: 'map'}, buttons: [0,1,0,0,0,0]}"
 ```
