@@ -67,3 +67,6 @@
 [submodule "deps/gazebo-pkgs"]
 	path = deps/gazebo-pkgs
 	url = https://github.com/JenniferBuehler/gazebo-pkgs
+[submodule "deps/xacro"]
+	path = deps/xacro
+	url = https://github.com/ros/xacro
