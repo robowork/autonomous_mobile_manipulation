@@ -9,6 +9,7 @@ collada-urdf-tools \
 swig \
 libglew-dev \
 libmetis-dev \
+libsuitesparse-dev \
 libnlopt-dev \
 libfcl-dev \
 liboctomap-dev \
